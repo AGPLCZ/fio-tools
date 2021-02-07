@@ -1,4 +1,4 @@
-export interface IPayment {
+export default interface IPayment {
     account: String,
     amount: Number,
     ks: Number,

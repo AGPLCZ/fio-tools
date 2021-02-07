@@ -1,6 +1,6 @@
 'use strict'
 
-import { app, protocol, BrowserWindow } from 'electron'
+import { app, protocol, BrowserWindow, ipcMain, dialog } from 'electron'
 import { createProtocol } from 'vue-cli-plugin-electron-builder/lib'
 import installExtension, { VUEJS_DEVTOOLS } from 'electron-devtools-installer'
 const isDevelopment = process.env.NODE_ENV !== 'production'
@@ -18,15 +18,14 @@ async function createWindow() {
     minWidth: 1200,
     minHeight: 650,
     webPreferences: {
-      
+
       // Use pluginOptions.nodeIntegration, leave this alone
       // See nklayman.github.io/vue-cli-plugin-electron-builder/guide/security.html#node-integration for more info
       nodeIntegration: (process.env
-          .ELECTRON_NODE_INTEGRATION as unknown) as boolean
+        .ELECTRON_NODE_INTEGRATION as unknown) as boolean
     }
   })
   win.removeMenu()
-  
 
   if (process.env.WEBPACK_DEV_SERVER_URL) {
     // Load the url of the dev server if in development mode
@@ -38,6 +37,21 @@ async function createWindow() {
     win.loadURL('app://./index.html')
   }
 }
+
+// Handle file dialog
+ipcMain.on('open-dialog', (event) => {
+  dialog.showOpenDialog({
+    defaultPath: app.getPath("desktop"),
+    filters: [
+      { name: 'Images', extensions: ['jpg', 'png', 'gif'] },
+    ]
+  }).then(result => {
+    if(!result.canceled)
+      event.reply("chosen-file", result.filePaths[0]);
+  }).catch(err => {
+    dialog.showErrorBox("Failed to load file", err)
+  })
+})
 
 // Quit when all windows are closed.
 app.on('window-all-closed', () => {
@@ -66,7 +80,7 @@ app.on('ready', async () => {
       console.error('Vue Devtools failed to install:', e.toString())
     }
   }
-  createWindow()
+  createWindow();
 })
 
 // Exit cleanly on request from parent process in development mode.

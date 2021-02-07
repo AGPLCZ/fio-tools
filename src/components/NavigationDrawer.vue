@@ -3,7 +3,10 @@
     <template v-slot:prepend>
       <v-list-item class="px-2">
         <!-- catching error(routing to same page as user currently is) -->
-        <v-list-item-avatar @click="$router.push('/', () => {})" class="clickable">
+        <v-list-item-avatar
+          @click="$router.push('/', () => {})"
+          class="clickable"
+        >
           <img src="../assets/account.png" class="mx-auto" />
         </v-list-item-avatar>
 
@@ -15,7 +18,9 @@
 
     <div class="pa-2">
       <v-btn block class="mt-1" color="orange"> Remove all data </v-btn>
-      <v-btn block class="mt-1" color="orange"> Load data </v-btn>
+      <v-btn block class="mt-1" color="orange" @click="clickButton">
+        Load data
+      </v-btn>
     </div>
 
     <template v-slot:append>
@@ -36,16 +41,27 @@
 
 <script lang="ts">
 import Vue from "vue";
+import { ipcRenderer } from "electron";
 
 export default Vue.extend({
   name: "NavigationDrawer",
 
   data: () => ({}),
+  methods: {
+    clickButton(): void {
+      //Comunicate with electron api
+      ipcRenderer.send("open-dialog");
+
+      ipcRenderer.on("chosen-file", (event, arg) => {
+        console.log(arg); // prints "file"
+      });
+    },
+  },
 });
 </script>
 
 <style>
-.clickable:hover{
+.clickable:hover {
   cursor: pointer;
 }
 </style>
