@@ -18,7 +18,7 @@
 
     <div class="pa-2">
       <v-btn block class="mt-1" color="orange"> Remove all data </v-btn>
-      <v-btn block class="mt-1" color="orange" @click="clickButton">
+      <v-btn block class="mt-1" color="orange" @click="openDialog">
         Load data
       </v-btn>
     </div>
@@ -48,12 +48,12 @@ export default Vue.extend({
 
   data: () => ({}),
   methods: {
-    clickButton(): void {
+    openDialog(): void {
       //Comunicate with electron api
       ipcRenderer.send("open-dialog");
 
       ipcRenderer.on("chosen-file", (event, arg) => {
-        console.log(arg); // prints "file"
+        console.log(arg);
       });
     },
   },
