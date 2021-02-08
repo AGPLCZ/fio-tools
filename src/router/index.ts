@@ -15,13 +15,18 @@ const routes: Array<RouteConfig> = [
     path: '/settings',
     name: 'Settings',
     component: Settings
+  },
+  { 
+    path: '*',
+    redirect: '/' 
   }
 ]
 
 const router = new VueRouter({
   mode: 'history',
-  base: process.env.BASE_URL,
+  base: 'process.env.BASE_URL',
   routes
 })
+
 
 export default router

@@ -21,7 +21,6 @@ export default Vue.extend({
 
   components: { NavigationDrawer },
 
-  data: () => ({
-  }),
+  data: () => ({}),
 });
 </script>

@@ -44,7 +44,7 @@ ipcMain.on(OPEN_DIALOG, (event) => {
   dialog.showOpenDialog({
     defaultPath: app.getPath("desktop"),
     filters: [
-      { name: 'Images', extensions: ['jpg', 'png', 'gif'] },
+      { name: 'Data', extensions: ['csv', 'xls', 'xlsx'] },
     ]
   }).then(result => {
     if(!result.canceled)

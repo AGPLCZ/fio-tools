@@ -43,19 +43,25 @@
 import Vue from "vue";
 import { ipcRenderer } from "electron";
 import { GET_FILE, OPEN_DIALOG } from "../utils/constants";
+import XLSX from "xlsx";
 
 export default Vue.extend({
   name: "NavigationDrawer",
 
   data: () => ({}),
+  mounted() {
+    ipcRenderer.on(GET_FILE, (event, arg) => {
+      const w = XLSX.readFile(arg);
+      const j = XLSX.utils.sheet_to_json(w.Sheets[w.SheetNames[0]], {
+        header: 1,
+      });
+      console.log(j);
+    });
+  },
   methods: {
     openDialog(): void {
       //Comunicate with electron api
       ipcRenderer.send(OPEN_DIALOG);
-
-      ipcRenderer.on(GET_FILE, (event, arg) => {
-        console.log(arg);
-      });
     },
   },
 });
