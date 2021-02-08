@@ -19,13 +19,15 @@ export default new Vuex.Store({
   mutations: {
     addPayments(state, path) {
       const data = loadFile(path);
+      var currentPayments = []
       data.forEach((row) => {
         var item = {};
         for (var i = 0; i < state.columnOrder.length; i++) {
           item[state.columnOrder[i]] = row[i];
         }
-        state.payments.push(item);
+        currentPayments.push(item);
       })
+      state.payments = currentPayments.concat(state.payments)
     },
     
     setPayments(state, newPayments) {

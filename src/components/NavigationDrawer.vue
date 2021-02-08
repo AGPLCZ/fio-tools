@@ -49,7 +49,7 @@ export default Vue.extend({
 
   data: () => ({}),
 
-  mounted() {
+  created() {
     ipcRenderer.on(GET_FILE, (event, arg) => {
       this.$store.commit("addPayments", arg);
     });
