@@ -40,21 +40,20 @@
   </div>
 </template>
 
-<script lang="ts">
+<script>
 import Vue from "vue";
-import IPayment from "../entities/IPayment";
 
 export default Vue.extend({
   name: "NavigationDrawer",
 
   methods: {
-    setValid(): void {
+    setValid() {
       this.valid = !this.valid;
     },
-    viewDetail(row: IPayment): void {
+    viewDetail(row) {
       console.log(row);
     },
-    formatCurrency(amount: number): string {
+    formatCurrency(amount) {
       return amount.toLocaleString("en-US", {
         style: "currency",
         currency: "CZK",

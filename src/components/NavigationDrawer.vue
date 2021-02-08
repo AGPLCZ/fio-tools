@@ -39,7 +39,7 @@
   </v-navigation-drawer>
 </template>
 
-<script lang="ts">
+<script>
 import Vue from "vue";
 import { ipcRenderer } from "electron";
 import { GET_FILE, OPEN_DIALOG } from "../utils/constants";
@@ -55,7 +55,7 @@ export default Vue.extend({
     });
   },
   methods: {
-    openDialog(): void {
+    openDialog() {
       ipcRenderer.send(OPEN_DIALOG);
     },
   },
