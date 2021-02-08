@@ -43,7 +43,6 @@
 <script lang="ts">
 import Vue from "vue";
 import IPayment from "../entities/IPayment";
-import { HEADERS } from "../utils/constants";
 
 export default Vue.extend({
   name: "NavigationDrawer",
@@ -64,7 +63,17 @@ export default Vue.extend({
   },
   data: () => ({
     valid: true,
-    headers: HEADERS,
+    headers: [
+      { text: "Account", value: "account" },
+      {
+        text: "Amount",
+        value: "amount",
+        dataType: "Currency",
+      },
+      { text: "Constant symbol", value: "ks" },
+      { text: "Variable symbol", value: "vs" },
+      { text: "Specific symbol", value: "ss" },
+    ],
     payments: [
       {
         amount: 10,
