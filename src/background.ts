@@ -3,6 +3,7 @@
 import { app, protocol, BrowserWindow, ipcMain, dialog } from 'electron'
 import { createProtocol } from 'vue-cli-plugin-electron-builder/lib'
 import installExtension, { VUEJS_DEVTOOLS } from 'electron-devtools-installer'
+import { GET_FILE, OPEN_DIALOG } from "./utils/constants";
 const isDevelopment = process.env.NODE_ENV !== 'production'
 
 // Scheme must be registered before the app is ready
@@ -39,7 +40,7 @@ async function createWindow() {
 }
 
 // Handle file dialog
-ipcMain.on('open-dialog', (event) => {
+ipcMain.on(OPEN_DIALOG, (event) => {
   dialog.showOpenDialog({
     defaultPath: app.getPath("desktop"),
     filters: [
@@ -47,7 +48,7 @@ ipcMain.on('open-dialog', (event) => {
     ]
   }).then(result => {
     if(!result.canceled)
-      event.reply("chosen-file", result.filePaths[0]);
+      event.reply(GET_FILE, result.filePaths[0]);
   }).catch(err => {
     dialog.showErrorBox("Failed to load file", err)
   })

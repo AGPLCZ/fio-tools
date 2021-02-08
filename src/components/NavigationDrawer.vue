@@ -42,6 +42,7 @@
 <script lang="ts">
 import Vue from "vue";
 import { ipcRenderer } from "electron";
+import { GET_FILE, OPEN_DIALOG } from "../utils/constants";
 
 export default Vue.extend({
   name: "NavigationDrawer",
@@ -50,9 +51,9 @@ export default Vue.extend({
   methods: {
     openDialog(): void {
       //Comunicate with electron api
-      ipcRenderer.send("open-dialog");
+      ipcRenderer.send(OPEN_DIALOG);
 
-      ipcRenderer.on("chosen-file", (event, arg) => {
+      ipcRenderer.on(GET_FILE, (event, arg) => {
         console.log(arg);
       });
     },
