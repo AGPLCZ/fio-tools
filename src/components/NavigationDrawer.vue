@@ -48,12 +48,14 @@ export default Vue.extend({
   name: "NavigationDrawer",
 
   data: () => ({}),
+  
   mounted() {
+    console.log("test");
     ipcRenderer.on(GET_FILE, (event, arg) => {
       this.$store.commit("addPayments", arg);
-
     });
   },
+
   methods: {
     openDialog() {
       ipcRenderer.send(OPEN_DIALOG);

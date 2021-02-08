@@ -46,7 +46,36 @@ import Vue from "vue";
 export default Vue.extend({
   name: "NavigationDrawer",
 
+  data: () => ({
+    valid: true,
+    payments: [],
+    headers: [
+      { text: "Account", value: "account" },
+      {
+        text: "Amount",
+        value: "amount",
+        dataType: "Currency",
+      },
+      { text: "Constant symbol", value: "ks" },
+      { text: "Variable symbol", value: "vs" },
+      { text: "Specific symbol", value: "ss" },
+    ],
+  }),
+
+  watch: {
+    "$store.state.payments": function () {
+      this.initialize();
+    },
+  },
+
+  mounted() {
+    this.initialize();
+  },
+
   methods: {
+    initialize() {
+      this.payments = this.$store.getters.getPayments;
+    },
     setValid() {
       this.valid = !this.valid;
     },
@@ -60,26 +89,5 @@ export default Vue.extend({
       });
     },
   },
-  watch: {
-    "$store.state.payments": function () {
-      console.log("changed");
-      this.payments = this.$store.getters.getPayments;
-    },
-  },
-  data: () => ({
-    valid: true,
-    headers: [
-      { text: "Account", value: "account" },
-      {
-        text: "Amount",
-        value: "amount",
-        dataType: "Currency",
-      },
-      { text: "Constant symbol", value: "ks" },
-      { text: "Variable symbol", value: "vs" },
-      { text: "Specific symbol", value: "ss" },
-    ],
-    payments: [],
-  }),
 });
 </script>
