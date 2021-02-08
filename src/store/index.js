@@ -26,7 +26,10 @@ export default new Vuex.Store({
         }
         state.payments.push(item);
       })
-      console.log(state.payments);
+    },
+    
+    setPayments(state, newPayments) {
+      state.payments = newPayments;
     },
   },
   actions: {

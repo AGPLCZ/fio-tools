@@ -17,7 +17,7 @@
     <v-divider></v-divider>
 
     <div class="pa-2">
-      <v-btn block class="mt-1" color="orange"> Remove all data </v-btn>
+      <v-btn block class="mt-1" color="orange" @click="resetData"> Reset data </v-btn>
       <v-btn block class="mt-1" color="orange" @click="openDialog">
         Load data
       </v-btn>
@@ -57,6 +57,9 @@ export default Vue.extend({
   methods: {
     openDialog() {
       ipcRenderer.send(OPEN_DIALOG);
+    },
+    resetData() {
+      this.$store.commit("setPayments", []);
     },
   },
 });

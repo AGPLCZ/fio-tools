@@ -60,6 +60,12 @@ export default Vue.extend({
       });
     },
   },
+  watch: {
+    "$store.state.payments": function () {
+      console.log("changed");
+      this.payments = this.$store.getters.getPayments;
+    },
+  },
   data: () => ({
     valid: true,
     headers: [
@@ -73,22 +79,7 @@ export default Vue.extend({
       { text: "Variable symbol", value: "vs" },
       { text: "Specific symbol", value: "ss" },
     ],
-    payments: [
-      {
-        amount: 10,
-        account: "2701933259/2010",
-        ks: "",
-        vs: "",
-        ss: "",
-      },
-      {
-        amount: 120,
-        account: "2701933259/2010",
-        ks: "",
-        vs: "",
-        ss: "",
-      },
-    ],
+    payments: [],
   }),
 });
 </script>
