@@ -30,7 +30,7 @@
       :items="payments"
       hide-default-footer
       disable-pagination
-      class="elevation-1"
+      class="elevation-1 row-pointer"
       @click:row="viewDetail"
     >
       <template v-slot:[`item.amount`]="{ item }">
@@ -91,3 +91,9 @@ export default Vue.extend({
   },
 });
 </script>
+
+<style lang="css" scoped>
+.row-pointer >>> tbody tr :hover {
+  cursor: pointer;
+}
+</style>
