@@ -10,7 +10,7 @@
           <img src="../assets/account.png" class="mx-auto" />
         </v-list-item-avatar>
 
-        <v-list-item-title v-if="user.accountId">{{user.accountId}}/{{user.bankId}}</v-list-item-title>
+        <v-list-item-title v-if="user">{{user.accountId}}/{{user.bankId}}</v-list-item-title>
       </v-list-item>
     </template>
 
@@ -48,17 +48,16 @@ export default Vue.extend({
   name: "NavigationDrawer",
 
   data: () => ({
-    user: {}
+    user: null
   }),
 
   mounted() {
-    this.user = this.$store.getters.getUser;
-    console.log(this.user);
+    this.initialize();
   },
 
   watch: {
     "$store.state.user": function () {
-      this.user = this.$store.getters.getUser;
+      this.initialize();
     },
   },
 
@@ -69,6 +68,9 @@ export default Vue.extend({
   },
 
   methods: {
+    initialize() {
+      this.user = this.$store.getters.getUser;
+    },
     openDialog() {
       ipcRenderer.send(OPEN_DIALOG);
     },

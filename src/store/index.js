@@ -13,7 +13,7 @@ function loadFile(path) {
 
 export default new Vuex.Store({
   state: {
-    user: {},
+    user: JSON.parse(localStorage.getItem("user")),
     payments: [],
     columnOrder: ["account", "amount", "ks", "vs", "ss", "messageTo", "messageFrom"]
   },
@@ -36,7 +36,7 @@ export default new Vuex.Store({
     },
 
     setUser(state, user) {
-      console.log(user);
+      localStorage.setItem("user", JSON.stringify(user));
       state.user = user;
     }
   },
