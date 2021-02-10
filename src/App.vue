@@ -1,8 +1,10 @@
 <template>
   <v-app>
-    <NavigationDrawer />
+    <LoginDialog v-model="dialog" />
 
-    <v-main>
+    <v-main :class="{ 'blur-content': dialog }">
+      <NavigationDrawer />
+
       <v-container fluid fill-height>
         <v-layout child-flex>
           <router-view></router-view>
@@ -15,12 +17,26 @@
 <script lang="ts">
 import Vue from "vue";
 import NavigationDrawer from "./components/NavigationDrawer.vue";
+import LoginDialog from "./components/LoginDialog.vue";
 
 export default Vue.extend({
   name: "App",
 
-  components: { NavigationDrawer },
+  components: { NavigationDrawer, LoginDialog },
 
-  data: () => ({}),
+  data: () => ({
+    dialog: true,
+  }),
+
+  mounted() {
+    // localStorage.clear();
+    this.dialog = localStorage.getItem("token") == null;
+  },
 });
 </script>
+
+<style>
+.blur-content {
+  filter: blur(5px);
+}
+</style>

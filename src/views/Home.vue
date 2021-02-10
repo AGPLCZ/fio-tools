@@ -30,7 +30,8 @@
       :items="payments"
       hide-default-footer
       disable-pagination
-      class="elevation-1 row-pointer"
+      class="elevation-1"
+      :class="{ 'row-pointer': payments.length }"
       @click:row="viewDetail"
     >
       <template v-slot:[`item.amount`]="{ item }">

@@ -13,8 +13,9 @@ function loadFile(path) {
 
 export default new Vuex.Store({
   state: {
+    user: {},
     payments: [],
-    columnOrder: ["account", "amount", "ks", "vs", "ss", "comment", "message"]
+    columnOrder: ["account", "amount", "ks", "vs", "ss", "messageTo", "messageFrom"]
   },
   mutations: {
     addPayments(state, path) {
@@ -29,16 +30,25 @@ export default new Vuex.Store({
       })
       state.payments = currentPayments.concat(state.payments)
     },
-    
+
     setPayments(state, newPayments) {
       state.payments = newPayments;
     },
+
+    setUser(state, user) {
+      console.log(user);
+      state.user = user;
+    }
   },
   actions: {
+
   },
   getters: {
     getPayments(state) {
       return state.payments;
+    },
+    getUser(state) {
+      return state.user;
     },
   }
 })

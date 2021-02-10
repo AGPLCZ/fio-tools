@@ -10,7 +10,7 @@
           <img src="../assets/account.png" class="mx-auto" />
         </v-list-item-avatar>
 
-        <v-list-item-title>2701933259/2010</v-list-item-title>
+        <v-list-item-title v-if="user.accountId">{{user.accountId}}/{{user.bankId}}</v-list-item-title>
       </v-list-item>
     </template>
 
@@ -47,7 +47,20 @@ import { GET_FILE, OPEN_DIALOG } from "../utils/constants";
 export default Vue.extend({
   name: "NavigationDrawer",
 
-  data: () => ({}),
+  data: () => ({
+    user: {}
+  }),
+
+  mounted() {
+    this.user = this.$store.getters.getUser;
+    console.log(this.user);
+  },
+
+  watch: {
+    "$store.state.user": function () {
+      this.user = this.$store.getters.getUser;
+    },
+  },
 
   created() {
     ipcRenderer.on(GET_FILE, (event, arg) => {

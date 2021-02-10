@@ -1,0 +1,145 @@
+<template>
+  <div>
+    <v-dialog
+      :value="value"
+      @input="$emit('input')"
+      persistent
+      max-width="650px"
+    >
+      <v-card v-if="!loading">
+        <v-card-title>
+          <span class="headline">Set your API token</span>
+        </v-card-title>
+        <v-card-text>
+          <v-text-field
+            v-if="errorMsg"
+            v-model="token"
+            label="Token"
+            color="orange"
+            error
+            error-messages="Your token is invalid or your internet conection failed"
+          ></v-text-field>
+
+          <v-text-field
+            v-else
+            v-model="token"
+            label="Token"
+            color="orange"
+          ></v-text-field>
+
+          <p style="padding-right: 5px">
+            For more information click
+            <span class="link" @click="moreInfo">here</span>
+          </p>
+        </v-card-text>
+        <v-card-actions>
+          <v-spacer></v-spacer>
+          <v-btn color="orange" text @click.native="closeDialog"> Close </v-btn>
+          <v-btn color="orange" text @click.native="saveToken"> Save </v-btn>
+        </v-card-actions>
+      </v-card>
+
+      <v-card v-else color="orange" dark>
+        <v-card-text>
+          Validating token
+          <v-progress-linear
+            indeterminate
+            color="white"
+            class="mb-0"
+          ></v-progress-linear>
+        </v-card-text>
+      </v-card>
+    </v-dialog>
+  </div>
+</template>
+
+<script>
+import Vue from "vue";
+import { shell } from "electron";
+import { FIO_INFO_URL, FIO_API_PREFIX } from "../utils/constants";
+import axios from "axios";
+
+export default Vue.extend({
+  name: "Toolbar",
+
+  props: {
+    value: Boolean,
+  },
+
+  data: () => ({
+    token: "",
+    loading: false,
+    errorMsg: false,
+  }),
+
+  mounted() {
+    this.updateToken();
+  },
+
+  computed: {
+    urlAPI() {
+      const date = new Date().toISOString().slice(0, 10);
+      return (
+        FIO_API_PREFIX +
+        "/" +
+        "periods" +
+        "/" +
+        this.token +
+        "/" +
+        date +
+        "/" +
+        date +
+        "/" +
+        "transactions.json"
+      );
+    },
+  },
+
+  methods: {
+    updateToken() {
+      this.token = localStorage.getItem("token");
+    },
+    moreInfo() {
+      shell.openExternal(FIO_INFO_URL);
+    },
+    saveToken() {
+      if (this.token != localStorage.getItem("token")) {
+        this.loading = true;
+        axios
+          .get(this.urlAPI, { timeout: 3000 })
+          .then((response) => {
+            this.$store.commit("setUser", response.data.accountStatement.info);
+            localStorage.setItem("token", this.token);
+
+            this.errorMsg = false;
+            this.$emit("input");
+          })
+          .catch(() => {
+            this.errorMsg = true;
+            this.updateToken();
+          })
+          .finally(() => {
+            this.loading = false;
+          });
+      } else {
+        this.closeDialog();
+      }
+    },
+    closeDialog() {
+      this.$emit("input");
+      this.errorMsg = false;
+    },
+  },
+});
+</script>
+
+<style scoped>
+.link {
+  color: orange;
+}
+
+.link:hover {
+  cursor: pointer;
+  text-decoration-line: underline;
+}
+</style>
