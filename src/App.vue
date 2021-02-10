@@ -1,6 +1,6 @@
 <template>
   <v-app>
-    <LoginDialog v-model="dialog" />
+    <LoginDialog v-model="dialog" :login="true"/>
 
     <v-main :class="{ 'blur-content': dialog }">
       <NavigationDrawer />

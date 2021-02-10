@@ -16,8 +16,10 @@
             v-model="token"
             label="Token"
             color="orange"
+            :maxlength="maxSize"
+            :counter="maxSize"
             error
-            error-messages="Your token is invalid or your internet conection failed"
+            :error-messages="errorMsg"
           ></v-text-field>
 
           <v-text-field
@@ -25,6 +27,8 @@
             v-model="token"
             label="Token"
             color="orange"
+            :maxlength="maxSize"
+            :counter="maxSize"
           ></v-text-field>
 
           <p style="padding-right: 5px">
@@ -32,10 +36,17 @@
             <span class="link" @click="moreInfo">here</span>
           </p>
         </v-card-text>
-        <v-card-actions>
+        <v-card-actions v-if="!login">
           <v-spacer></v-spacer>
           <v-btn color="orange" text @click.native="closeDialog"> Close </v-btn>
           <v-btn color="orange" text @click.native="saveToken"> Save </v-btn>
+        </v-card-actions>
+
+        <v-card-actions v-else>
+          <v-spacer></v-spacer>
+          <v-btn color="orange" text @click.native="saveToken">
+            Validate
+          </v-btn>
         </v-card-actions>
       </v-card>
 
@@ -56,7 +67,12 @@
 <script>
 import Vue from "vue";
 import { shell } from "electron";
-import { FIO_INFO_URL, FIO_API_PREFIX } from "../utils/constants";
+import {
+  FIO_INFO_URL,
+  FIO_API_PREFIX,
+  TOKEN_MAX_SIZE,
+  TOKEN_ERROR_MSG,
+} from "../utils/constants";
 import axios from "axios";
 
 export default Vue.extend({
@@ -64,12 +80,17 @@ export default Vue.extend({
 
   props: {
     value: Boolean,
+    login: {
+      type: Boolean,
+      default: false,
+    },
   },
 
   data: () => ({
     token: "",
     loading: false,
-    errorMsg: false,
+    errorMsg: "",
+    maxSize: TOKEN_MAX_SIZE,
   }),
 
   mounted() {
@@ -103,7 +124,7 @@ export default Vue.extend({
       shell.openExternal(FIO_INFO_URL);
     },
     saveToken() {
-      if (this.token != localStorage.getItem("token")) {
+      if (!this.token || this.token != localStorage.getItem("token")) {
         this.loading = true;
         axios
           .get(this.urlAPI, { timeout: 3000 })
@@ -111,11 +132,11 @@ export default Vue.extend({
             this.$store.commit("setUser", response.data.accountStatement.info);
             localStorage.setItem("token", this.token);
 
-            this.errorMsg = false;
+            this.errorMsg = "";
             this.$emit("input");
           })
           .catch(() => {
-            this.errorMsg = true;
+            this.errorMsg = TOKEN_ERROR_MSG;
             this.updateToken();
           })
           .finally(() => {
@@ -127,7 +148,7 @@ export default Vue.extend({
     },
     closeDialog() {
       this.$emit("input");
-      this.errorMsg = false;
+      this.errorMsg = "";
     },
   },
 });
