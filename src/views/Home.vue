@@ -70,6 +70,7 @@ export default Vue.extend({
       { text: "Specific symbol", value: "ss" },
     ],
   }),
+  
   computed: {
     items() {
       return this.valid
@@ -85,9 +86,12 @@ export default Vue.extend({
   },
 
   watch: {
-    "$store.state.payments.items": function () {
-      this.valid = true;
-    }
+    payments: {
+      deep: true,
+      handler() {
+        this.valid = true;
+      },
+    },
   },
 
   methods: {
