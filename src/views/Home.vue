@@ -54,7 +54,7 @@
 import Vue from "vue";
 
 export default Vue.extend({
-  name: "NavigationDrawer",
+  name: "Home",
 
   data: () => ({
     valid: true,
@@ -77,9 +77,11 @@ export default Vue.extend({
         ? this.payments.items
         : this.payments.items.filter((p) => p.valid == this.valid);
     },
+
     isPaymentsEmpty() {
       return this.$store.getters.isPaymentsEmpty;
     },
+
     payments() {
       return this.$store.getters.getPayments;
     },
@@ -98,15 +100,18 @@ export default Vue.extend({
     setValid() {
       this.valid = !this.valid;
     },
+
     viewDetail(row) {
       console.log(row);
     },
+
     formatCurrency(amount) {
       return amount.toLocaleString("en-US", {
         style: "currency",
         currency: "CZK",
       });
     },
+    
     isAccountValid(id) {
       return this.payments.errors.find((x) => x.id === id).account != "";
     },

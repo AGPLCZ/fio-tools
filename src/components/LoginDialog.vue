@@ -120,9 +120,11 @@ export default Vue.extend({
     updateToken() {
       this.token = localStorage.getItem("token");
     },
+
     moreInfo() {
       shell.openExternal(FIO_INFO_URL);
     },
+
     saveToken() {
       if (!this.token || this.token != localStorage.getItem("token")) {
         this.loading = true;
@@ -145,6 +147,7 @@ export default Vue.extend({
         this.closeDialog();
       }
     },
+
     closeDialog() {
       this.$emit("input");
       this.errorMsg = "";

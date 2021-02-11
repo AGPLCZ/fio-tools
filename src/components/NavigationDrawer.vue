@@ -64,6 +64,7 @@ export default Vue.extend({
     isPaymentsEmpty() {
       return !this.$store.getters.isPaymentsEmpty;
     },
+
     user() {
       return this.$store.getters.getUser;
     }
@@ -78,9 +79,12 @@ export default Vue.extend({
   methods: {
     openDialog() {
       ipcRenderer.send(OPEN_DIALOG);
+      this.$router.push('/', () => {});
     },
+    
     resetData() {
       this.$store.commit("setPayments", []);
+      this.$router.push('/', () => {});
     },
   },
 });

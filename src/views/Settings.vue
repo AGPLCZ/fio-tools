@@ -30,7 +30,7 @@
         <v-list-item-content>
           <v-list-item-title>Default currency</v-list-item-title>
           <v-list-item-subtitle
-            ><v-select :items="items" label="Currency" dense></v-select
+            ><v-select label="Currency" dense></v-select
           ></v-list-item-subtitle>
         </v-list-item-content>
       </v-list-item>
@@ -38,7 +38,7 @@
         <v-list-item-content>
           <v-list-item-title>Default payment method</v-list-item-title>
           <v-list-item-subtitle
-            ><v-select :items="items" label="Payment" dense></v-select
+            ><v-select label="Payment" dense></v-select
           ></v-list-item-subtitle>
         </v-list-item-content>
       </v-list-item>
@@ -54,13 +54,13 @@ import LoginDialog from "../components/LoginDialog.vue";
 export default Vue.extend({
   name: "Settings",
 
-  data: () => ({
-    dialog: false,
-  }),
-
   components: {
     Toolbar,
     LoginDialog,
   },
+
+  data: () => ({
+    dialog: false,
+  }),
 });
 </script>
