@@ -27,13 +27,20 @@
     <v-data-table
       dense
       :headers="headers"
-      :items="payments"
+      :items="items"
       hide-default-footer
       disable-pagination
       class="elevation-1"
-      :class="{ 'row-pointer': payments.length }"
+      :class="{ 'row-pointer': items.length }"
       @click:row="viewDetail"
     >
+      <template v-slot:[`item.account`]="{ item }">
+        <div :class="{ 'error--text': isAccountValid(item.id) }">
+          {{ item.account }}
+        </div>
+        
+      </template>
+
       <template v-slot:[`item.amount`]="{ item }">
         {{ formatCurrency(parseInt(item.amount)) }}
       </template>
@@ -49,7 +56,8 @@ export default Vue.extend({
 
   data: () => ({
     valid: true,
-    payments: [],
+    payments: {},
+    items: [],
     headers: [
       { text: "Account", value: "account" },
       {
@@ -64,7 +72,7 @@ export default Vue.extend({
   }),
 
   watch: {
-    "$store.state.payments": function () {
+    "$store.state.payments.items": function () {
       this.initialize();
     },
   },
@@ -76,9 +84,11 @@ export default Vue.extend({
   methods: {
     initialize() {
       this.payments = this.$store.getters.getPayments;
+      this.items = this.payments.items.filter((p) => p.valid == this.valid);
     },
     setValid() {
       this.valid = !this.valid;
+      this.items = this.payments.items.filter((p) => p.valid == this.valid);
     },
     viewDetail(row) {
       console.log(row);
@@ -89,6 +99,9 @@ export default Vue.extend({
         currency: "CZK",
       });
     },
+    isAccountValid(id) {
+      return this.payments.errors.find(x => x.id === id).account != "";
+    }
   },
 });
 </script>

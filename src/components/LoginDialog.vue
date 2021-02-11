@@ -137,7 +137,6 @@ export default Vue.extend({
           })
           .catch(() => {
             this.errorMsg = TOKEN_ERROR_MSG;
-            this.updateToken();
           })
           .finally(() => {
             this.loading = false;
@@ -149,6 +148,7 @@ export default Vue.extend({
     closeDialog() {
       this.$emit("input");
       this.errorMsg = "";
+      this.updateToken();
     },
   },
 });

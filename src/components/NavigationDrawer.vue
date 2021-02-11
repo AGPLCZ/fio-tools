@@ -17,7 +17,7 @@
     <v-divider></v-divider>
 
     <div class="pa-2">
-      <v-btn block class="mt-1" color="orange" @click="resetData" :disabled="!$store.getters.getPayments.length"> Reset data </v-btn>
+      <v-btn block class="mt-1" color="orange" @click="resetData" :disabled="isPaymentsEmpty"> Reset data </v-btn>
       <v-btn block class="mt-1" color="orange" @click="openDialog">
         Load data
       </v-btn>
@@ -50,6 +50,12 @@ export default Vue.extend({
   data: () => ({
     user: null
   }),
+
+  computed: {
+    isPaymentsEmpty(){
+      return !this.$store.getters.getPayments.items.length;
+    }
+  },
 
   mounted() {
     this.initialize();
