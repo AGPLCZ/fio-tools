@@ -17,7 +17,7 @@
     <v-divider></v-divider>
 
     <div class="pa-2">
-      <v-btn block class="mt-1" color="orange" @click="resetData"> Reset data </v-btn>
+      <v-btn block class="mt-1" color="orange" @click="resetData" :disabled="!$store.getters.getPayments.length"> Reset data </v-btn>
       <v-btn block class="mt-1" color="orange" @click="openDialog">
         Load data
       </v-btn>
