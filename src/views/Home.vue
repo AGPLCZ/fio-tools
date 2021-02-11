@@ -1,27 +1,28 @@
 <template>
   <div class="home">
     <v-toolbar flat>
-      <div v-if="isPaymentsEmpty">
-        <v-chip
-          v-if="!valid"
-          class="ma-2"
-          color="green"
-          text-color="white"
-          @click="setValid"
-        >
-          All Data
-        </v-chip>
+      <v-chip
+        v-if="!valid"
+        class="ma-2"
+        :color="isPaymentsEmpty ? 'green' : 'grey'"
+        text-color="white"
+        @click="setValid"
+        :disabled="isPaymentsEmpty == 0"
+      >
+        All Data
+      </v-chip>
 
-        <v-chip
-          v-else
-          class="ma-2"
-          color="red"
-          text-color="white"
-          @click="setValid"
-        >
-          Invalid Data
-        </v-chip>
-      </div>
+      <v-chip
+        v-else
+        class="ma-2"
+        :color="isPaymentsEmpty ? 'red' : 'grey'"
+        text-color="white"
+        @click="setValid"
+        :disabled="isPaymentsEmpty == 0"
+      >
+        Invalid Data
+      </v-chip>
+
       <v-spacer></v-spacer>
 
       <v-btn color="orange" dark class="mb-2"> New Item </v-btn>
@@ -80,6 +81,12 @@ export default Vue.extend({
     },
     payments() {
       return this.$store.getters.getPayments;
+    },
+  },
+
+  watch: {
+    "$store.state.payments.items": function () {
+      this.valid = true;
     }
   },
 
