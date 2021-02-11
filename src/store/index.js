@@ -54,6 +54,9 @@ export default new Vuex.Store({
     getPayments(state) {
       return state.payments;
     },
+    isPaymentsEmpty(state) {
+      return state.payments.items.length;
+    },
     getUser(state) {
       return state.user;
     },

@@ -35,7 +35,7 @@
 
     <template v-slot:append>
       <v-list dense>
-        <v-list-item route to="/settings" active-class="orange--text">
+        <v-list-item route to="/settings">
           <v-list-item-icon>
             <v-icon>mdi-wrench</v-icon>
           </v-list-item-icon>
@@ -58,23 +58,15 @@ export default Vue.extend({
   name: "NavigationDrawer",
 
   data: () => ({
-    user: null,
   }),
 
   computed: {
     isPaymentsEmpty() {
-      return !this.$store.getters.getPayments.items.length;
+      return !this.$store.getters.isPaymentsEmpty;
     },
-  },
-
-  mounted() {
-    this.initialize();
-  },
-
-  watch: {
-    "$store.state.user": function () {
-      this.initialize();
-    },
+    user() {
+      return this.$store.getters.getUser;
+    }
   },
 
   created() {
@@ -84,9 +76,6 @@ export default Vue.extend({
   },
 
   methods: {
-    initialize() {
-      this.user = this.$store.getters.getUser;
-    },
     openDialog() {
       ipcRenderer.send(OPEN_DIALOG);
     },

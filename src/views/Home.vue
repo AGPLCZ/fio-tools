@@ -1,25 +1,27 @@
 <template>
   <div class="home">
     <v-toolbar flat>
-      <v-chip
-        v-if="!valid"
-        class="ma-2"
-        color="green"
-        text-color="white"
-        @click="setValid"
-      >
-        All Data
-      </v-chip>
+      <div v-if="isPaymentsEmpty">
+        <v-chip
+          v-if="!valid"
+          class="ma-2"
+          color="green"
+          text-color="white"
+          @click="setValid"
+        >
+          All Data
+        </v-chip>
 
-      <v-chip
-        v-else
-        class="ma-2"
-        color="red"
-        text-color="white"
-        @click="setValid"
-      >
-        Invalid Data
-      </v-chip>
+        <v-chip
+          v-else
+          class="ma-2"
+          color="red"
+          text-color="white"
+          @click="setValid"
+        >
+          Invalid Data
+        </v-chip>
+      </div>
       <v-spacer></v-spacer>
 
       <v-btn color="orange" dark class="mb-2"> New Item </v-btn>
@@ -31,7 +33,7 @@
       hide-default-footer
       disable-pagination
       class="elevation-1"
-      :class="{ 'row-pointer': items }"
+      :class="{ 'row-pointer': isPaymentsEmpty }"
       @click:row="viewDetail"
     >
       <template v-slot:[`item.account`]="{ item }">
@@ -55,7 +57,6 @@ export default Vue.extend({
 
   data: () => ({
     valid: true,
-    payments: {},
     headers: [
       { text: "Account", value: "account" },
       {
@@ -74,22 +75,15 @@ export default Vue.extend({
         ? this.payments.items
         : this.payments.items.filter((p) => p.valid == this.valid);
     },
-  },
-
-  watch: {
-    "$store.state.payments.items": function () {
-      this.initialize();
+    isPaymentsEmpty() {
+      return this.$store.getters.isPaymentsEmpty;
     },
-  },
-
-  mounted() {
-    this.initialize();
+    payments() {
+      return this.$store.getters.getPayments;
+    }
   },
 
   methods: {
-    initialize() {
-      this.payments = this.$store.getters.getPayments;
-    },
     setValid() {
       this.valid = !this.valid;
     },
