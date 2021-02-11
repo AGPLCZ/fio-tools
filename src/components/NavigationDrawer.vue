@@ -10,16 +10,26 @@
           <img src="../assets/account.png" class="mx-auto" />
         </v-list-item-avatar>
 
-        <v-list-item-title v-if="user">{{user.accountId}}/{{user.bankId}}</v-list-item-title>
+        <v-list-item-title v-if="user"
+          >{{ user.accountId }}/{{ user.bankId }}</v-list-item-title
+        >
       </v-list-item>
     </template>
 
     <v-divider></v-divider>
 
     <div class="pa-2">
-      <v-btn block class="mt-1" color="orange" @click="resetData" :disabled="isPaymentsEmpty"> Reset data </v-btn>
       <v-btn block class="mt-1" color="orange" @click="openDialog">
         Load data
+      </v-btn>
+      <v-btn
+        block
+        class="mt-1"
+        color="orange"
+        @click="resetData"
+        :disabled="isPaymentsEmpty"
+      >
+        Reset data
       </v-btn>
     </div>
 
@@ -48,13 +58,13 @@ export default Vue.extend({
   name: "NavigationDrawer",
 
   data: () => ({
-    user: null
+    user: null,
   }),
 
   computed: {
-    isPaymentsEmpty(){
+    isPaymentsEmpty() {
       return !this.$store.getters.getPayments.items.length;
-    }
+    },
   },
 
   mounted() {

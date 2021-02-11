@@ -2,13 +2,13 @@
   <div class="home">
     <v-toolbar flat>
       <v-chip
-        v-if="valid"
+        v-if="!valid"
         class="ma-2"
         color="green"
         text-color="white"
         @click="setValid"
       >
-        Valid Data
+        All Data
       </v-chip>
 
       <v-chip
@@ -31,14 +31,13 @@
       hide-default-footer
       disable-pagination
       class="elevation-1"
-      :class="{ 'row-pointer': items.length }"
+      :class="{ 'row-pointer': items }"
       @click:row="viewDetail"
     >
       <template v-slot:[`item.account`]="{ item }">
         <div :class="{ 'error--text': isAccountValid(item.id) }">
           {{ item.account }}
         </div>
-        
       </template>
 
       <template v-slot:[`item.amount`]="{ item }">
@@ -57,7 +56,6 @@ export default Vue.extend({
   data: () => ({
     valid: true,
     payments: {},
-    items: [],
     headers: [
       { text: "Account", value: "account" },
       {
@@ -70,6 +68,13 @@ export default Vue.extend({
       { text: "Specific symbol", value: "ss" },
     ],
   }),
+  computed: {
+    items() {
+      return this.valid
+        ? this.payments.items
+        : this.payments.items.filter((p) => p.valid == this.valid);
+    },
+  },
 
   watch: {
     "$store.state.payments.items": function () {
@@ -84,11 +89,9 @@ export default Vue.extend({
   methods: {
     initialize() {
       this.payments = this.$store.getters.getPayments;
-      this.items = this.payments.items.filter((p) => p.valid == this.valid);
     },
     setValid() {
       this.valid = !this.valid;
-      this.items = this.payments.items.filter((p) => p.valid == this.valid);
     },
     viewDetail(row) {
       console.log(row);
@@ -100,8 +103,8 @@ export default Vue.extend({
       });
     },
     isAccountValid(id) {
-      return this.payments.errors.find(x => x.id === id).account != "";
-    }
+      return this.payments.errors.find((x) => x.id === id).account != "";
+    },
   },
 });
 </script>
