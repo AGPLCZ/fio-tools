@@ -6,7 +6,7 @@
         class="ma-2"
         :color="isPaymentsEmpty ? 'green' : 'grey'"
         text-color="white"
-        @click="setValid"
+        @click="setInvalid"
         :disabled="isPaymentsEmpty == 0"
       >
         All Data
@@ -17,7 +17,7 @@
         class="ma-2"
         :color="isPaymentsEmpty ? 'red' : 'grey'"
         text-color="white"
-        @click="setValid"
+        @click="setInvalid"
         :disabled="isPaymentsEmpty == 0"
       >
         Invalid Data
@@ -38,13 +38,36 @@
       @click:row="viewDetail"
     >
       <template v-slot:[`item.account`]="{ item }">
-        <div :class="{ 'error--text': isAccountValid(item.id) }">
+        <div :class="{ 'error--text': isAccountInvalid(item.id) }">
           {{ item.account }}
         </div>
       </template>
 
       <template v-slot:[`item.amount`]="{ item }">
-        {{ formatCurrency(parseInt(item.amount)) }}
+        <div v-if="!isAmountInvalid(item.id)">
+          {{ formatCurrency(parseInt(item.amount)) }}
+        </div>
+        <div v-else :class="{ 'error--text': isAmountInvalid(item.id) }">
+          {{ item.amount }}
+        </div>
+      </template>
+
+      <template v-slot:[`item.ks`]="{ item }">
+        <div :class="{ 'error--text': isKsInvalid(item.id) }">
+          {{ item.ks }}
+        </div>
+      </template>
+
+      <template v-slot:[`item.vs`]="{ item }">
+        <div :class="{ 'error--text': isVsInvalid(item.id) }">
+          {{ item.vs }}
+        </div>
+      </template>
+
+      <template v-slot:[`item.ss`]="{ item }">
+        <div :class="{ 'error--text': isSsInvalid(item.id) }">
+          {{ item.ss }}
+        </div>
       </template>
     </v-data-table>
   </div>
@@ -97,7 +120,7 @@ export default Vue.extend({
   },
 
   methods: {
-    setValid() {
+    setInvalid() {
       this.valid = !this.valid;
     },
 
@@ -112,8 +135,24 @@ export default Vue.extend({
       });
     },
     
-    isAccountValid(id) {
+    isAccountInvalid(id) {
       return this.payments.errors.find((x) => x.id === id).account != "";
+    },
+
+    isAmountInvalid(id) {
+      return this.payments.errors.find((x) => x.id === id).amount != "";
+    },
+
+    isKsInvalid(id) {
+      return this.payments.errors.find((x) => x.id === id).ks != "";
+    },
+
+    isVsInvalid(id) {
+      return this.payments.errors.find((x) => x.id === id).vs != "";
+    },
+
+    isSsInvalid(id) {
+      return this.payments.errors.find((x) => x.id === id).ss != "";
     },
   },
 });

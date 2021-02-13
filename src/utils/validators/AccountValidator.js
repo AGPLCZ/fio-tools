@@ -9,6 +9,8 @@ export default class AccountValidator {
 
   static accountNumber(n) {
     var number = n.toString().replace("-", "");
+    if (number.length == 0)
+      return "Your account number can not be empty";
     if (isNaN(number))
       return "Invalid number format"
     var digits = Array.from(number, Number);
@@ -25,7 +27,8 @@ export default class AccountValidator {
   }
 
   static validate(account) {
-    
+    if (account.length == 0)
+      return "Your account can not be empty";
     var accountSplited = account.split("/");
     if (accountSplited.length < 2)
       return "Your account is missing '/'";

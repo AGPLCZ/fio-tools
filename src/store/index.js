@@ -1,7 +1,8 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 import XLSX from "xlsx";
-import Validator from "../utils/validators/Validator"
+import parseData from "../utils/parser"
+import getOptions from "../utils/options";
 
 Vue.use(Vuex)
 
@@ -24,18 +25,11 @@ export default new Vuex.Store({
   },
   mutations: {
     addPayments(state, path) {
-      const data = loadFile(path);
-      var currentPayments = []
-      data.forEach((row) => {
-        var item = { id: ++state.id };
-        for (var i = 0; i < state.columnOrder.length; i++) {
-          item[state.columnOrder[i]] = row[i];
-        }
-        currentPayments.push(item);
-
-        state.payments.errors.push(Validator.validate(item));
-      })
-      state.payments.items = currentPayments.concat(state.payments.items)
+      var data = loadFile(path);
+      var options = getOptions(data, state);
+      var payments = parseData(data, options, state);
+      state.payments.items = payments.items.concat(state.payments.items)
+      state.payments.errors = payments.errors.concat(state.payments.errors)
     },
 
     setPayments(state, newPayments) {
