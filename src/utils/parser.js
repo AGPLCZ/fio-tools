@@ -1,4 +1,5 @@
 import Validator from "./validators/Validator";
+import { KS_SIZE, VS_MIN_SIZE, SS_SIZE } from "./constants";
 
 function addZeroes(num, len) {
   return !isNaN(num) && num.length && num.length < len ? "0".repeat(len - num.length) + num : num;
@@ -19,11 +20,11 @@ export function getItem(row, state, options) {
       tmp = tmp.length == 1 ? "" : tmp; // if both empty then empty string
     }
     if (state.columnOrder[j] == "ks")
-      tmp = addZeroes(tmp, 4)
+      tmp = addZeroes(tmp, KS_SIZE)
     if (state.columnOrder[j] == "vs")
-      tmp = addZeroes(tmp, 9)
+      tmp = addZeroes(tmp, VS_MIN_SIZE)
     if (state.columnOrder[j] == "ss")
-      tmp = addZeroes(tmp, 10)
+      tmp = addZeroes(tmp, SS_SIZE)
     item[state.columnOrder[j]] = tmp;
     j++;
   }

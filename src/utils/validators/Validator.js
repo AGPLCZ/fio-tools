@@ -1,4 +1,5 @@
 import AccountValidator from "./AccountValidator";
+import { AMOUNT_MAX_SIZE, KS_SIZE, VS_MAX_SIZE, SS_SIZE } from "../constants";
 
 export default class Validator {
   constructor() {
@@ -15,27 +16,25 @@ export default class Validator {
     if (isNaN(item))
       return "Invalid number format";
     if (item.length > maxLen)
-      return "Number is to long";
+      return "Number is to long, max length is " + maxLen;
     return "";
   }
 
   static validateAmount(item){
     if (item.length == 0 || item == "0")
       return "Your amount can not be empty";
-    return this.validateNumber(item, 18)
+    return this.validateNumber(item, AMOUNT_MAX_SIZE)
   }
 
   static validate(item) {
     item.valid = true;
     const errorMsgs = {
-      //TODO rest param validation
       account: this.validateAccount(item.account),
       amount: this.validateAmount(item.amount),
-      ks: this.validateNumber(item.ks, 4),
-      vs: this.validateNumber(item.vs, 10),
-      ss: this.validateNumber(item.ss, 10),
+      ks: this.validateNumber(item.ks, KS_SIZE),
+      vs: this.validateNumber(item.vs, VS_MAX_SIZE),
+      ss: this.validateNumber(item.ss, SS_SIZE),
     };
-    // console.log(errorMsgs);
     for (let value of Object.values(errorMsgs)) {
       if (value != "") {
         item.valid = false;

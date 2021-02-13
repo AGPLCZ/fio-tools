@@ -1,4 +1,5 @@
 import {BANK_CODES} from "../data";
+import { ACCOUNT_MAX_SIZE } from "../constants";
 
 export default class AccountValidator {
   constructor() {
@@ -14,10 +15,10 @@ export default class AccountValidator {
     if (isNaN(number))
       return "Invalid number format"
     var digits = Array.from(number, Number);
-    digits = Array(16 - digits.length).fill(0).concat(digits).reverse();
+    digits = Array(ACCOUNT_MAX_SIZE - digits.length).fill(0).concat(digits).reverse();
     var result = 0;
-    for (var i = 0; i < 16; i++) {
-      result += (digits[i] * ((2 ** i) % 11));
+    for (var i = 0; i < ACCOUNT_MAX_SIZE; i++) { 
+      result += (digits[i] * ((2 ** i) % 11)); //Calculates valid bank number formule
     }
     return result % 11 == 0 ? "" : "Invalid account number";
   }
