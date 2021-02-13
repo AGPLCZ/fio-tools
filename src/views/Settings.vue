@@ -28,14 +28,6 @@
       </v-list-item>
       <v-list-item>
         <v-list-item-content>
-          <v-list-item-title>Default currency</v-list-item-title>
-          <v-list-item-subtitle
-            ><v-select label="Currency" dense></v-select
-          ></v-list-item-subtitle>
-        </v-list-item-content>
-      </v-list-item>
-      <v-list-item>
-        <v-list-item-content>
           <v-list-item-title>Default payment method</v-list-item-title>
           <v-list-item-subtitle
             ><v-select label="Payment" dense></v-select

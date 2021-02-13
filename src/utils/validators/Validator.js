@@ -42,11 +42,6 @@ export default class Validator {
       }
     }
     errorMsgs.id = item.id;
-
     return errorMsgs;
-
   }
-
-
-
 }

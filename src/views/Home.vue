@@ -131,7 +131,7 @@ export default Vue.extend({
     formatCurrency(amount) {
       return amount.toLocaleString("en-US", {
         style: "currency",
-        currency: "CZK",
+        currency: this.$store.getters.getUser.currency,
       });
     },
     
