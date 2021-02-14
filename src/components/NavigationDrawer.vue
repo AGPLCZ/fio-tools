@@ -31,9 +31,23 @@
       >
         Reset data
       </v-btn>
+      <v-btn
+        block
+        outlined
+        class="mt-1"
+        color="orange"
+        :disabled="isPaymentsEmpty"
+      >
+        Send data
+      </v-btn>
     </div>
 
     <template v-slot:append>
+      <div class="pa-2">
+        <v-btn block outlined class="mt-1" color="orange" :disabled="isPaymentsEmpty">
+          Save data
+        </v-btn>
+      </div>
       <v-list dense>
         <v-list-item route to="/settings">
           <v-list-item-icon>
@@ -57,8 +71,7 @@ import { GET_FILE, OPEN_DIALOG } from "../utils/constants";
 export default Vue.extend({
   name: "NavigationDrawer",
 
-  data: () => ({
-  }),
+  data: () => ({}),
 
   computed: {
     isPaymentsEmpty() {
@@ -67,7 +80,7 @@ export default Vue.extend({
 
     user() {
       return this.$store.getters.getUser;
-    }
+    },
   },
 
   created() {
@@ -79,12 +92,12 @@ export default Vue.extend({
   methods: {
     openDialog() {
       ipcRenderer.send(OPEN_DIALOG);
-      this.$router.push('/', () => {});
+      this.$router.push("/", () => {});
     },
-    
+
     resetData() {
       this.$store.commit("resetPayments");
-      this.$router.push('/', () => {});
+      this.$router.push("/", () => {});
     },
   },
 });

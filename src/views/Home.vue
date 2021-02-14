@@ -48,14 +48,16 @@
       </template>
 
       <template v-slot:[`item.amount`]="{ item }">
-        <div v-if="!isAmountInvalid(item.id)">
-          {{ formatCurrency(parseInt(item.amount)) }}
-        </div>
-        <div v-else :class="{ 'error--text': isAmountInvalid(item.id) }">
-          <v-icon small color="error" v-if="item.amount == ''"
-            >mdi-alert-circle-outline</v-icon
-          >
-          {{ item.amount }}
+        <div class="text-right">
+          <div v-if="!isAmountInvalid(item.id)">
+            {{ formatCurrency(parseInt(item.amount)) }}
+          </div>
+          <div v-else :class="{ 'error--text': isAmountInvalid(item.id) }">
+            <v-icon small color="error" v-if="item.amount == ''"
+              >mdi-alert-circle-outline</v-icon
+            >
+            {{ item.amount }}
+          </div>
         </div>
       </template>
 
@@ -90,14 +92,14 @@ export default Vue.extend({
     valid: true,
     headers: [
       { text: "Account", value: "account" },
+      { text: "Constant symbol", value: "ks" },
+      { text: "Variable symbol", value: "vs" },
+      { text: "Specific symbol", value: "ss" },
       {
         text: "Amount",
         value: "amount",
         dataType: "Currency",
       },
-      { text: "Constant symbol", value: "ks" },
-      { text: "Variable symbol", value: "vs" },
-      { text: "Specific symbol", value: "ss" },
     ],
   }),
 
