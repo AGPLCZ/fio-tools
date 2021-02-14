@@ -127,13 +127,11 @@ export default Vue.extend({
     setPayment() {
       this.payment = Object.assign(
         {},
-        this.$store.getters.getPayments.items.find(
+        this.$store.getters.getPayments.find(
           (p) => p.id == this.$route.params.id
         )
       );
-      this.errors = this.$store.getters.getPayments.errors.find(
-        (p) => p.id == this.$route.params.id
-      );
+      this.errors = this.payment.errors;
     },
 
     setPaymentEmpty() {
@@ -144,31 +142,24 @@ export default Vue.extend({
 
     addPayment() {
       this.errors = Validator.validate(this.payment);
+      this.payment.errors = this.errors;
       if (this.$refs.form.validate()) {
-        this.$store.commit("addPayment", {
-          item: this.payment,
-          errors: this.errors,
-        });
+        this.$store.commit("addPayment", this.payment);
         this.$router.back();
       }
     },
 
     editPayment() {
       this.errors = Validator.validate(this.payment);
+      this.payment.errors = this.errors;
       if (this.$refs.form.validate()) {
-        this.$store.commit("updatePayment", {
-          item: this.payment,
-          errors: this.errors,
-        });
+        this.$store.commit("updatePayment", this.payment);
         this.$router.back();
       }
     },
 
     removePayment() {
-      this.$store.commit("removePayment", {
-        item: this.payment,
-        errors: this.errors,
-      });
+      this.$store.commit("removePayment", this.payment, this.errors);
       this.$router.back();
     },
   },

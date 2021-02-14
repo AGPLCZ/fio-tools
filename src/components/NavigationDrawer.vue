@@ -62,7 +62,7 @@ export default Vue.extend({
 
   computed: {
     isPaymentsEmpty() {
-      return !this.$store.getters.isPaymentsEmpty;
+      return !this.$store.getters.getPayments.length;
     },
 
     user() {

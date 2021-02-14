@@ -102,18 +102,18 @@ export default Vue.extend({
   }),
 
   computed: {
+    payments() {
+      return this.$store.getters.getPayments;
+    },
+
     items() {
       return this.valid
-        ? this.payments.items
-        : this.payments.items.filter((p) => p.valid == this.valid);
+        ? this.payments
+        : this.payments.filter((p) => p.valid == this.valid);
     },
 
     isPaymentsEmpty() {
-      return this.$store.getters.isPaymentsEmpty;
-    },
-
-    payments() {
-      return this.$store.getters.getPayments;
+      return this.payments.length;
     },
   },
 
@@ -147,8 +147,8 @@ export default Vue.extend({
     },
 
     isValid(id, property) {
-      var item = this.payments.errors.find((x) => x.id === id);
-      return item ? item[property] != "" : false;
+      var item = this.payments.find((x) => x.id === id);
+      return item ? item.errors[property] != "" : false;
     },
 
     isAccountInvalid(id) {

@@ -32,17 +32,14 @@ export function getItem(row, state, options) {
 }
 
 function loadData(data, options, state) {
-  var payments = {
-    items: [],
-    errors: []
-  };
+  var payments = [];
   data.forEach((row, number) => {
     if (options.header && number == 0)
       return;
     var item = getItem(row, state, options);
 
-    payments.items.push(item);
-    payments.errors.push(Validator.validate(item));
+    item.errors = Validator.validate(item);
+    payments.push(item);
   })
   return payments;
 }

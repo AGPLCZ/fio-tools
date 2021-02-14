@@ -14,56 +14,37 @@ function loadFile(path) {
   });
 }
 
-function arrayUpdate(array, item) {
-  array[array.findIndex(i => i.id === item.id)] = item;
-  return array;
-}
-
-function arrayRemove(array, item) {
-  var index = array.findIndex(i => i.id === item.id);
-  if (index !== -1) {
-    array.splice(index, 1);
-  }
-  return array;
-}
-
 export default new Vuex.Store({
   state: {
     id: 0,
     user: JSON.parse(localStorage.getItem("user")),
-    payments: {
-      items: [],
-      errors: []
-    },
+    payments: [],
     columnOrder: PAYMENT_PROPS
   },
   mutations: {
     addPayments(state, path) {
       var data = loadFile(path);
       var options = getOptions(data, state);
-      var payments = parseData(data, options, state);
-      state.payments.items = payments.items.concat(state.payments.items)
-      state.payments.errors = payments.errors.concat(state.payments.errors)
+      state.payments = parseData(data, options, state).concat(state.payments)
     },
 
     resetPayments(state) {
-      state.payments.items = [];
-      state.payments.errors = [];
+      state.payments = [];
     },
 
-    addPayment(state, payload) {
-      state.payments.items.unshift(payload.item);
-      state.payments.errors.unshift(payload.errors);
+    addPayment(state, payment) {
+      state.payments.unshift(payment);
     },
 
-    updatePayment(state, payload) {
-      state.payments.items = arrayUpdate(state.payments.items, payload.item);
-      state.payments.errors = arrayUpdate(state.payments.errors, payload.errors);
+    updatePayment(state, payment) {
+      state.payments[state.payments.findIndex(i => i.id === payment.id)] = payment;
     },
 
-    removePayment(state, payload) {
-      state.payments.items = arrayRemove(state.payments.items, payload.item);
-      state.payments.errors = arrayRemove(state.payments.errors, payload.errors);
+    removePayment(state, payment) {
+      var index = state.payments.findIndex(i => i.id === payment.id);
+      if (index !== -1) {
+        state.payments.splice(index, 1);
+      }
     },
 
     setUser(state, user) {
@@ -77,9 +58,6 @@ export default new Vuex.Store({
   getters: {
     getPayments(state) {
       return state.payments;
-    },
-    isPaymentsEmpty(state) {
-      return state.payments.items.length;
     },
     getUser(state) {
       return state.user;
