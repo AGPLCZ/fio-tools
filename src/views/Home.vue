@@ -146,29 +146,29 @@ export default Vue.extend({
       this.$router.push("/payments");
     },
 
-    isValid(id, property) {
+    isInvalid(id, property) {
       var item = this.payments.find((x) => x.id === id);
       return item ? item.errors[property] != "" : false;
     },
 
     isAccountInvalid(id) {
-      return this.isValid(id, "account");
+      return this.isInvalid(id, "account");
     },
 
     isAmountInvalid(id) {
-      return this.isValid(id, "amount");
+      return this.isInvalid(id, "amount");
     },
 
     isKsInvalid(id) {
-      return this.isValid(id, "ks");
+      return this.isInvalid(id, "ks");
     },
 
     isVsInvalid(id) {
-      return this.isValid(id, "vs");
+      return this.isInvalid(id, "vs");
     },
 
     isSsInvalid(id) {
-      return this.isValid(id, "ss");
+      return this.isInvalid(id, "ss");
     },
   },
 });
