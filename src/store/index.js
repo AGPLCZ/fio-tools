@@ -3,6 +3,7 @@ import Vuex from 'vuex'
 import XLSX from "xlsx";
 import parseData from "../utils/parser"
 import getOptions from "../utils/options";
+import {PAYMENT_PROPS} from "../utils/constants";
 
 Vue.use(Vuex)
 
@@ -13,6 +14,19 @@ function loadFile(path) {
   });
 }
 
+function arrayUpdate(array, item) {
+  array[array.findIndex(i => i.id === item.id)] = item;
+  return array;
+}
+
+function arrayRemove(array, item) {
+  var index = array.findIndex(i => i.id === item.id);
+  if (index !== -1) {
+    array.splice(index, 1);
+  }
+  return array;
+}
+
 export default new Vuex.Store({
   state: {
     id: 0,
@@ -21,7 +35,7 @@ export default new Vuex.Store({
       items: [],
       errors: []
     },
-    columnOrder: ["account", "amount", "ks", "vs", "ss", "messageTo", "messageFrom"]
+    columnOrder: PAYMENT_PROPS
   },
   mutations: {
     addPayments(state, path) {
@@ -32,8 +46,24 @@ export default new Vuex.Store({
       state.payments.errors = payments.errors.concat(state.payments.errors)
     },
 
-    setPayments(state, newPayments) {
-      state.payments.items = newPayments;
+    resetPayments(state) {
+      state.payments.items = [];
+      state.payments.errors = [];
+    },
+
+    addPayment(state, payload) {
+      state.payments.items.unshift(payload.item);
+      state.payments.errors.unshift(payload.errors);
+    },
+
+    updatePayment(state, payload) {
+      state.payments.items = arrayUpdate(state.payments.items, payload.item);
+      state.payments.errors = arrayUpdate(state.payments.errors, payload.errors);
+    },
+
+    removePayment(state, payload) {
+      state.payments.items = arrayRemove(state.payments.items, payload.item);
+      state.payments.errors = arrayRemove(state.payments.errors, payload.errors);
     },
 
     setUser(state, user) {

@@ -37,7 +37,7 @@
       <v-list dense>
         <v-list-item route to="/settings">
           <v-list-item-icon>
-            <v-icon>mdi-wrench</v-icon>
+            <v-icon>mdi-cog</v-icon>
           </v-list-item-icon>
 
           <v-list-item-content>
@@ -83,7 +83,7 @@ export default Vue.extend({
     },
     
     resetData() {
-      this.$store.commit("setPayments", []);
+      this.$store.commit("resetPayments");
       this.$router.push('/', () => {});
     },
   },

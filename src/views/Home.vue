@@ -25,7 +25,9 @@
 
       <v-spacer></v-spacer>
 
-      <v-btn color="orange" dark class="mb-2"> New Item </v-btn>
+      <v-btn color="orange" dark class="mb-2" @click="addPayment">
+        New Item
+      </v-btn>
     </v-toolbar>
     <v-data-table
       dense
@@ -39,7 +41,9 @@
     >
       <template v-slot:[`item.account`]="{ item }">
         <div :class="{ 'error--text': isAccountInvalid(item.id) }">
-          {{ item.account }}
+          <v-icon small color="error" v-if="item.account == ''"
+            >mdi-alert-circle-outline</v-icon
+          >{{ item.account }}
         </div>
       </template>
 
@@ -48,6 +52,9 @@
           {{ formatCurrency(parseInt(item.amount)) }}
         </div>
         <div v-else :class="{ 'error--text': isAmountInvalid(item.id) }">
+          <v-icon small color="error" v-if="item.amount == ''"
+            >mdi-alert-circle-outline</v-icon
+          >
           {{ item.amount }}
         </div>
       </template>
@@ -93,7 +100,7 @@ export default Vue.extend({
       { text: "Specific symbol", value: "ss" },
     ],
   }),
-  
+
   computed: {
     items() {
       return this.valid
@@ -124,8 +131,8 @@ export default Vue.extend({
       this.valid = !this.valid;
     },
 
-    viewDetail(row) {
-      console.log(row);
+    viewDetail(payment) {
+      this.$router.push("/payments/" + payment.id);
     },
 
     formatCurrency(amount) {
@@ -134,25 +141,34 @@ export default Vue.extend({
         currency: this.$store.getters.getUser.currency,
       });
     },
-    
+
+    addPayment() {
+      this.$router.push("/payments");
+    },
+
+    isValid(id, property) {
+      var item = this.payments.errors.find((x) => x.id === id);
+      return item ? item[property] != "" : false;
+    },
+
     isAccountInvalid(id) {
-      return this.payments.errors.find((x) => x.id === id).account != "";
+      return this.isValid(id, "account");
     },
 
     isAmountInvalid(id) {
-      return this.payments.errors.find((x) => x.id === id).amount != "";
+      return this.isValid(id, "amount");
     },
 
     isKsInvalid(id) {
-      return this.payments.errors.find((x) => x.id === id).ks != "";
+      return this.isValid(id, "ks");
     },
 
     isVsInvalid(id) {
-      return this.payments.errors.find((x) => x.id === id).vs != "";
+      return this.isValid(id, "vs");
     },
 
     isSsInvalid(id) {
-      return this.payments.errors.find((x) => x.id === id).ss != "";
+      return this.isValid(id, "ss");
     },
   },
 });

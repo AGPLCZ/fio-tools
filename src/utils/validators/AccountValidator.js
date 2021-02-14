@@ -29,7 +29,7 @@ export default class AccountValidator {
 
   static validate(account) {
     if (account.length == 0)
-      return "Your account can not be empty";
+      return "Account is required";
     var accountSplited = account.split("/");
     if (accountSplited.length < 2)
       return "Your account is missing '/'";

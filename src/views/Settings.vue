@@ -38,7 +38,7 @@
   </div>
 </template>
 
-<script lang="ts">
+<script>
 import Vue from "vue";
 import Toolbar from "../components/Toolbar.vue";
 import LoginDialog from "../components/LoginDialog.vue";

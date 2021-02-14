@@ -22,7 +22,7 @@ export default class Validator {
 
   static validateAmount(item){
     if (item.length == 0 || item == "0")
-      return "Your amount can not be empty";
+      return "Amount is required";
     return this.validateNumber(item, AMOUNT_MAX_SIZE)
   }
 
