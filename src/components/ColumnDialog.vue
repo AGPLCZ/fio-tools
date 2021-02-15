@@ -19,11 +19,11 @@
             @end="drag = false"
           >
             <div
-              class="pl-2"
+              class="pr-2"
               v-for="element in columnOrder"
               :key="element.value"
             >
-              <v-card class="pa-2 text-center" height="60px">
+              <v-card class="pa-2 text-center elevation-1" height="60px">
                 {{ element.name }}
               </v-card>
             </div>

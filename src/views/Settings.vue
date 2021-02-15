@@ -22,7 +22,7 @@
         <v-list-item-content>
           <v-list-item-title>Column Order</v-list-item-title>
           <v-list-item-subtitle
-            >Set your FIO bank api token</v-list-item-subtitle
+            >Set column layout of a file</v-list-item-subtitle
           >
         </v-list-item-content>
       </v-list-item>
