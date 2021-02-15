@@ -3,7 +3,6 @@ import Vuex from 'vuex'
 import XLSX from "xlsx";
 import parseData from "../utils/parser"
 import getOptions from "../utils/options";
-import {PAYMENT_PROPS} from "../utils/constants";
 
 Vue.use(Vuex)
 
@@ -19,7 +18,7 @@ export default new Vuex.Store({
     id: 0,
     user: JSON.parse(localStorage.getItem("user")),
     payments: [],
-    columnOrder: PAYMENT_PROPS
+    columnOrder: JSON.parse(localStorage.getItem("columnOrder")),
   },
   mutations: {
     addPayments(state, path) {
@@ -47,6 +46,11 @@ export default new Vuex.Store({
       }
     },
 
+    updateColumnOrder(state, columnOrder) {
+      localStorage.setItem("columnOrder", JSON.stringify(columnOrder));
+      state.columnOrder = columnOrder;
+    },
+
     setUser(state, user) {
       localStorage.setItem("user", JSON.stringify(user));
       state.user = user;
@@ -61,6 +65,9 @@ export default new Vuex.Store({
     },
     getUser(state) {
       return state.user;
+    },
+    getColumnOrder(state) {
+      return state.columnOrder;
     },
   }
 })

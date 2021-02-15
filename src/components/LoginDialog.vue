@@ -76,7 +76,7 @@ import {
 import axios from "axios";
 
 export default Vue.extend({
-  name: "Toolbar",
+  name: "LoginDialog",
 
   props: {
     value: Boolean,

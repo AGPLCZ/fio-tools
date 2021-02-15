@@ -33,21 +33,23 @@
       </v-btn>
       <v-btn
         block
-        outlined
         class="mt-1"
         color="orange"
         :disabled="isPaymentsEmpty"
       >
         Send data
       </v-btn>
+      <v-btn
+        block
+        class="mt-1"
+        color="orange"
+        :disabled="isPaymentsEmpty"
+      >
+        Save data
+      </v-btn>
     </div>
 
     <template v-slot:append>
-      <div class="pa-2">
-        <v-btn block outlined class="mt-1" color="orange" :disabled="isPaymentsEmpty">
-          Save data
-        </v-btn>
-      </div>
       <v-list dense>
         <v-list-item route to="/settings">
           <v-list-item-icon>

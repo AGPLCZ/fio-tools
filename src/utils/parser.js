@@ -15,17 +15,17 @@ export function getItem(row, state, options) {
   var tmp;
   for (var i = 0; i < state.columnOrder.length; i++) {
     tmp = toString(row[i]);
-    if (options.account && state.columnOrder[j] == "account") {
+    if (options.account && state.columnOrder[j].value == "account") {
       tmp = tmp + "/" + addZeroes(toString(row[++i]), 4);
       tmp = tmp.length == 1 ? "" : tmp; // if both empty then empty string
     }
-    if (state.columnOrder[j] == "ks")
+    if (state.columnOrder[j].value == "ks")
       tmp = addZeroes(tmp, KS_SIZE)
-    if (state.columnOrder[j] == "vs")
+    if (state.columnOrder[j].value == "vs")
       tmp = addZeroes(tmp, VS_MIN_SIZE)
-    if (state.columnOrder[j] == "ss")
+    if (state.columnOrder[j].value == "ss")
       tmp = addZeroes(tmp, SS_SIZE)
-    item[state.columnOrder[j]] = tmp;
+    item[state.columnOrder[j].value] = tmp;
     j++;
   }
   return item;

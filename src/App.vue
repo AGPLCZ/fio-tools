@@ -1,6 +1,6 @@
 <template>
   <v-app>
-    <LoginDialog v-model="dialog" :login="true"/>
+    <LoginDialog v-model="dialog" :login="true" />
 
     <v-main :class="{ 'blur-content': dialog }">
       <NavigationDrawer />
@@ -18,6 +18,7 @@
 import Vue from "vue";
 import NavigationDrawer from "./components/NavigationDrawer.vue";
 import LoginDialog from "./components/LoginDialog.vue";
+import { PAYMENT_PROPS } from "./utils/data";
 
 export default Vue.extend({
   name: "App",
@@ -31,6 +32,8 @@ export default Vue.extend({
   mounted() {
     // localStorage.clear();
     this.dialog = localStorage.getItem("token") == null;
+    if (localStorage.getItem("columnOrder") == null)
+      localStorage.setItem("columnOrder", JSON.stringify(PAYMENT_PROPS));
   },
 });
 </script>

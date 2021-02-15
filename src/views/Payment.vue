@@ -89,8 +89,8 @@
 import Vue from "vue";
 import Toolbar from "../components/Toolbar.vue";
 import Validator from "../utils/validators/Validator";
+import { PAYMENT_PROPS } from "../utils/data";
 import {
-  PAYMENT_PROPS,
   KS_SIZE,
   VS_MAX_SIZE,
   SS_SIZE,
@@ -136,7 +136,7 @@ export default Vue.extend({
 
     setPaymentEmpty() {
       for (var i = 0; i < PAYMENT_PROPS.length; i++) {
-        this.payment[PAYMENT_PROPS[i]] = "";
+        this.payment[PAYMENT_PROPS[i].value] = "";
       }
     },
 

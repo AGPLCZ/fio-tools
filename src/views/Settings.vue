@@ -1,11 +1,12 @@
 <template>
   <div class="settings">
     <Toolbar title="Settings" />
-    <LoginDialog v-model="dialog" />
+    <LoginDialog v-model="login" />
+    <ColumnDialog v-model="column" />
 
     <v-list three-line subheader>
       <v-subheader>User Controls</v-subheader>
-      <v-list-item link @click="dialog = true">
+      <v-list-item link @click="login = true">
         <v-list-item-content>
           <v-list-item-title>API token</v-list-item-title>
           <v-list-item-subtitle
@@ -17,21 +18,12 @@
     <v-divider></v-divider>
     <v-list three-line subheader>
       <v-subheader>General</v-subheader>
-      <v-list-item link>
+      <v-list-item link @click="column = true">
         <v-list-item-content>
-          <v-list-item-title>Column order</v-list-item-title>
+          <v-list-item-title>Column Order</v-list-item-title>
           <v-list-item-subtitle
-            >Set your structure of files you want to
-            upload</v-list-item-subtitle
+            >Set your FIO bank api token</v-list-item-subtitle
           >
-        </v-list-item-content>
-      </v-list-item>
-      <v-list-item>
-        <v-list-item-content>
-          <v-list-item-title>Default payment method</v-list-item-title>
-          <v-list-item-subtitle
-            ><v-select label="Payment" dense></v-select
-          ></v-list-item-subtitle>
         </v-list-item-content>
       </v-list-item>
     </v-list>
@@ -42,6 +34,7 @@
 import Vue from "vue";
 import Toolbar from "../components/Toolbar.vue";
 import LoginDialog from "../components/LoginDialog.vue";
+import ColumnDialog from "../components/ColumnDialog.vue";
 
 export default Vue.extend({
   name: "Settings",
@@ -49,10 +42,12 @@ export default Vue.extend({
   components: {
     Toolbar,
     LoginDialog,
+    ColumnDialog,
   },
 
   data: () => ({
-    dialog: false,
+    login: false,
+    column: false,
   }),
 });
 </script>

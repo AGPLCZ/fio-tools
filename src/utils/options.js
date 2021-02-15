@@ -5,7 +5,7 @@ function getAccountType(data, state) {
   var x = 0;
   data.forEach((row) => {
     for (var i = 0; i < state.columnOrder.length; i++) {
-      if (state.columnOrder[i] == "account") {
+      if (state.columnOrder[i].value == "account") {
         row[i] = "" + row[i];
         x = (Validator.validateAccount(row[i]) != "") ? x + 1 : x - 1;
       }
