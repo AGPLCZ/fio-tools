@@ -15,9 +15,10 @@ function getAccountType(data, state) {
 }
 
 function hasHeader(firstRow, state, options) {
-  var errors = Validator.validate(getItem(firstRow, state, options));
+  var item = getItem(firstRow, state, options);
+  var errors = Validator.validate(item);
   return Object.keys(errors).every(function (key) {
-    return errors[key] != "";
+    return errors[key] != "" || item[key] == "";
   });
 }
 
