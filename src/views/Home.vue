@@ -70,18 +70,7 @@ export default Vue.extend({
 
   data: () => ({
     valid: true,
-    search: "",
-    headers: [
-      { text: "Account", value: "account" },
-      { text: "Constant symbol", value: "ks" },
-      { text: "Variable symbol", value: "vs" },
-      { text: "Specific symbol", value: "ss" },
-      {
-        text: "Amount",
-        value: "amount",
-        dataType: "Currency",
-      },
-    ],
+    search: ""
   }),
 
   components: {
