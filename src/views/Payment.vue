@@ -2,13 +2,13 @@
   <div class="payment">
     <Toolbar v-if="options == FORM_OPTION.ADD" title="Add payment" />
     <Toolbar v-if="options == FORM_OPTION.EDIT" title="Edit payment" />
-    <Toolbar v-if="options == FORM_OPTION.MULTIPLE_EDIT" title="Edit payments" />
+    <Toolbar v-if="options == FORM_OPTION.EDIT_SELECTED" title="Edit payments" />
 
     <v-form ref="form" v-model="valid">
       <v-container>
         <v-row class="pa-3">
           <v-text-field
-            :disabled="options == FORM_OPTION.MULTIPLE_EDIT"
+            :disabled="options == FORM_OPTION.EDIT_SELECTED"
             color="orange"
             v-model="payment.account"
             label="Account"
@@ -112,7 +112,7 @@
           </v-btn>
 
           <v-btn
-            v-if="options == FORM_OPTION.MULTIPLE_EDIT"
+            v-if="options == FORM_OPTION.EDIT_SELECTED"
             color="success"
             class="mr-4"
             @click="editSelected"
@@ -130,7 +130,8 @@ import Vue from "vue";
 import Toolbar from "../components/Toolbar.vue";
 import Validator from "../utils/validators/Validator";
 import { PAYMENT_PROPS, CURRENCIES, PAYMENT_TYPE } from "../utils/data";
-import { KS_SIZE, VS_MAX_SIZE, SS_SIZE, FORM_OPTION } from "../utils/constants";
+import { KS_SIZE, VS_MAX_SIZE, SS_SIZE } from "../utils/constants";
+import { FORM_OPTION } from "../utils/enums";
 
 export default Vue.extend({
   name: "Payment",
@@ -159,7 +160,7 @@ export default Vue.extend({
       return this.$route.params.id == undefined
         ? FORM_OPTION.ADD
         : this.$route.params.id == Infinity
-        ? FORM_OPTION.MULTIPLE_EDIT
+        ? FORM_OPTION.EDIT_SELECTED
         : FORM_OPTION.EDIT;
     },
   },

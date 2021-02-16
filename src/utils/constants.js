@@ -12,8 +12,3 @@ export const KS_SIZE = 4;
 export const VS_MIN_SIZE = 9;
 export const VS_MAX_SIZE = 10;
 export const SS_SIZE = 10;
-export const FORM_OPTION = {
-  ADD: 0,
-  EDIT: 1,
-  MULTIPLE_EDIT: 2,
-};
