@@ -26,6 +26,16 @@ export default class Validator {
     return this.validateNumber(item, AMOUNT_MAX_SIZE)
   }
 
+  static validateSelected(item) {
+    const errorMsgs = {
+      amount: this.validateNumber(item.amount, AMOUNT_MAX_SIZE),
+      ks: this.validateNumber(item.ks, KS_SIZE),
+      vs: this.validateNumber(item.vs, VS_MAX_SIZE),
+      ss: this.validateNumber(item.ss, SS_SIZE),
+    };
+    return errorMsgs;
+  }
+
   static validate(item) {
     item.valid = true;
     const errorMsgs = {
@@ -41,7 +51,6 @@ export default class Validator {
         break;
       }
     }
-    errorMsgs.id = item.id;
     return errorMsgs;
   }
 }

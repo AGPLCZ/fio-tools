@@ -1,17 +1,17 @@
 <template>
   <div class="payment">
-    <Toolbar v-if="exists" title="Edit payment" />
+    <Toolbar v-if="options == 1" title="Edit payment" />
     <Toolbar v-else title="Add payment" />
 
     <v-form ref="form" v-model="valid">
       <v-container>
         <v-row class="pa-3">
           <v-text-field
+            :disabled="options == 2"
             color="orange"
             v-model="payment.account"
             label="Account"
             :rules="[() => !errors.account || errors.account]"
-            required
           ></v-text-field>
         </v-row>
 
@@ -21,7 +21,6 @@
             v-model="payment.amount"
             label="Amount"
             :rules="[() => !errors.amount || errors.amount]"
-            required
           ></v-text-field>
         </v-row>
 
@@ -93,19 +92,31 @@
           </v-col>
         </v-row>
 
-        <v-row class="pa-3" v-if="exists">
-          <v-btn color="success" class="mr-4" @click="editPayment">
+        <v-row class="pa-3">
+          <v-btn
+            v-if="options == 0"
+            color="success"
+            class="mr-4"
+            @click="addPayment"
+          >
+            Add payment
+          </v-btn>
+          <v-btn
+            v-if="options == 1"
+            color="success"
+            class="mr-4"
+            @click="editPayment"
+          >
             Edit payment
           </v-btn>
 
-          <v-btn color="error" class="mr-4" @click="removePayment">
-            Remove payment
-          </v-btn>
-        </v-row>
-
-        <v-row class="pa-3" v-else>
-          <v-btn color="success" class="mr-4" @click="addPayment">
-            Add payment
+          <v-btn
+            v-if="options == 2"
+            color="success"
+            class="mr-4"
+            @click="editSelected"
+          >
+            Edit selected
           </v-btn>
         </v-row>
       </v-container>
@@ -118,7 +129,7 @@ import Vue from "vue";
 import Toolbar from "../components/Toolbar.vue";
 import Validator from "../utils/validators/Validator";
 import { PAYMENT_PROPS, CURRENCIES, PAYMENT_TYPE } from "../utils/data";
-import { KS_SIZE, VS_MAX_SIZE, SS_SIZE } from "../utils/constants";
+import { KS_SIZE, VS_MAX_SIZE, SS_SIZE, FORM_OPTION } from "../utils/constants";
 
 export default Vue.extend({
   name: "Payment",
@@ -139,13 +150,17 @@ export default Vue.extend({
   }),
 
   computed: {
-    exists() {
-      return this.$route.params.id != undefined;
+    options() {
+      return this.$route.params.id == undefined
+        ? FORM_OPTION.ADD
+        : this.$route.params.id == Infinity
+        ? FORM_OPTION.MULTIPLE_EDIT
+        : FORM_OPTION.EDIT;
     },
   },
 
   mounted() {
-    if (this.exists) this.setPayment();
+    if (this.options == FORM_OPTION.EDIT) this.setPayment();
     else this.setPaymentEmpty();
   },
 
@@ -165,8 +180,10 @@ export default Vue.extend({
       for (var i = 0; i < PAYMENT_PROPS.length; i++) {
         this.payment[PAYMENT_PROPS[i].value] = "";
       }
-      this.payment.currency = this.$store.getters.getUser.currency;
-      this.payment.type = PAYMENT_TYPE[0].value;
+      if (this.options == FORM_OPTION.ADD) {
+        this.payment.currency = this.$store.getters.getUser.currency;
+        this.payment.type = PAYMENT_TYPE[0].value;
+      }
     },
 
     addPayment() {
@@ -187,8 +204,17 @@ export default Vue.extend({
       }
     },
 
+    editSelected() {
+      this.errors = Validator.validateSelected(this.payment);
+      this.payment.errors = this.errors;
+      if (this.$refs.form.validate()) {
+        this.$store.commit("updatePaymentSelected", this.payment);
+        this.$router.back();
+      }
+    },
+
     removePayment() {
-      this.$store.commit("removePayment", this.payment, this.errors);
+      this.$store.commit("removePayment", this.payment.id);
       this.$router.back();
     },
   },

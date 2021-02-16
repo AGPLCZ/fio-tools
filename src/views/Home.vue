@@ -1,6 +1,14 @@
 <template>
   <div class="home">
     <v-toolbar flat>
+      <v-text-field
+      v-model="search"
+        width="25%"
+        append-icon="mdi-magnify"
+        label="Search"
+        single-line
+        hide-details
+      ></v-text-field>
       <v-chip
         v-if="!valid"
         class="ma-2"
@@ -24,6 +32,26 @@
       </v-chip>
 
       <v-spacer></v-spacer>
+      <v-btn
+        :disabled="!selected.length"
+        @click="editSelected"
+        color="#2C3A47"
+        class="mb-2 mr-2"
+        icon
+        small
+      >
+        <v-icon> mdi-pencil </v-icon>
+      </v-btn>
+      <v-btn
+        :disabled="!selected.length"
+        @click="deleteSelected"
+        color="error"
+        class="mb-2 mr-2"
+        icon
+        small
+      >
+        <v-icon> mdi-delete </v-icon>
+      </v-btn>
 
       <v-btn color="orange" dark class="mb-2" @click="addPayment">
         New Item
@@ -31,8 +59,11 @@
     </v-toolbar>
     <v-data-table
       dense
+      v-model="selected"
       :headers="headers"
       :items="items"
+      :search="search"
+      :show-select="items.length != 0"
       hide-default-footer
       disable-pagination
       class="elevation-1"
@@ -90,6 +121,7 @@ export default Vue.extend({
 
   data: () => ({
     valid: true,
+    search: "",
     headers: [
       { text: "Account", value: "account" },
       { text: "Constant symbol", value: "ks" },
@@ -116,6 +148,15 @@ export default Vue.extend({
 
     isPaymentsEmpty() {
       return this.payments.length;
+    },
+
+    selected: {
+      get() {
+        return this.$store.getters.getSelected;
+      },
+      set(value) {
+        return this.$store.commit("updateSelected", value);
+      },
     },
   },
 
@@ -146,6 +187,17 @@ export default Vue.extend({
 
     addPayment() {
       this.$router.push("/payments");
+    },
+
+    editSelected() {
+      this.$router.push("/payments/" + Infinity);
+    },
+
+    deleteSelected() {
+      this.selected.forEach((item) => {
+        this.$store.commit("removePayment", item.id);
+      });
+      this.$store.commit("updateSelected", []);
     },
 
     isInvalid(id, property) {

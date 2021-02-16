@@ -1,10 +1,11 @@
-import Vue from 'vue'
-import Vuex from 'vuex'
+import Vue from "vue";
+import Vuex from "vuex";
 import XLSX from "xlsx";
-import parseData from "../utils/parser"
+import Validator from "../utils/validators/Validator";
+import parseData from "../utils/parser";
 import getOptions from "../utils/options";
 
-Vue.use(Vuex)
+Vue.use(Vuex);
 
 function loadFile(path) {
   const file = XLSX.readFile(path);
@@ -18,13 +19,14 @@ export default new Vuex.Store({
     id: 0,
     user: JSON.parse(localStorage.getItem("user")),
     payments: [],
+    selectedPayments: [],
     columnOrder: JSON.parse(localStorage.getItem("columnOrder")),
   },
   mutations: {
     addPayments(state, path) {
       var data = loadFile(path);
       var options = getOptions(data, state);
-      state.payments = parseData(data, options, state).concat(state.payments)
+      state.payments = parseData(data, options, state).concat(state.payments);
     },
 
     resetPayments(state) {
@@ -36,14 +38,34 @@ export default new Vuex.Store({
     },
 
     updatePayment(state, payment) {
-      state.payments[state.payments.findIndex(i => i.id === payment.id)] = payment;
+      state.payments[
+        state.payments.findIndex((i) => i.id === payment.id)
+      ] = payment;
     },
 
-    removePayment(state, payment) {
-      var index = state.payments.findIndex(i => i.id === payment.id);
+    removePayment(state, id) {
+      var index = state.payments.findIndex((i) => i.id === id);
       if (index !== -1) {
         state.payments.splice(index, 1);
       }
+    },
+
+    updatePaymentSelected(state, template) {
+      Object.keys(template).forEach((key) => {
+        if (template[key] != "" && key != "errors") {
+          state.selectedPayments.forEach((item) => {
+            item[key] = template[key];
+          });
+        }
+      });
+      state.selectedPayments.forEach((item) => {
+        item.errors = Validator.validate(item);
+      });
+      state.selectedPayments = [];
+    },
+
+    updateSelected(state, payments) {
+      state.selectedPayments = payments;
     },
 
     updateColumnOrder(state, columnOrder) {
@@ -54,14 +76,15 @@ export default new Vuex.Store({
     setUser(state, user) {
       localStorage.setItem("user", JSON.stringify(user));
       state.user = user;
-    }
+    },
   },
-  actions: {
-
-  },
+  actions: {},
   getters: {
     getPayments(state) {
       return state.payments;
+    },
+    getSelected(state) {
+      return state.selectedPayments;
     },
     getUser(state) {
       return state.user;
@@ -69,5 +92,5 @@ export default new Vuex.Store({
     getColumnOrder(state) {
       return state.columnOrder;
     },
-  }
-})
+  },
+});
