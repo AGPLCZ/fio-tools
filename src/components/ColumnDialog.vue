@@ -24,7 +24,7 @@
               :key="element.value"
             >
               <v-card class="pa-2 text-center elevation-1" height="60px">
-                {{ element.name }}
+                {{ element.text }}
               </v-card>
             </div>
           </draggable>
