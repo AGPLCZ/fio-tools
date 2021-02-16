@@ -30,7 +30,12 @@
           </draggable>
         </v-card-text>
         <v-card-actions>
-          <v-btn color="orange" :disabled="isDefault" text @click.native="toDefault">
+          <v-btn
+            color="orange"
+            :disabled="isDefault"
+            text
+            @click.native="toDefault"
+          >
             Default
           </v-btn>
           <v-spacer></v-spacer>
