@@ -51,16 +51,16 @@ export default new Vuex.Store({
     },
 
     updatePaymentSelected(state, template) {
-      Object.keys(template).forEach((key) => {
-        if (template[key] != "" && key != "errors") {
+      var keys = Object.keys(template);
+      for (let index = 0; index < keys.length; index++) {
+        if (template[keys[index]] != "" && keys[index] != "errors") {
           state.selectedPayments.forEach((item) => {
-            item[key] = template[key];
+            item[keys[index]] = template[keys[index]];
+            if (index == keys.length - 1)
+              item.errors = Validator.validate(item);
           });
         }
-      });
-      state.selectedPayments.forEach((item) => {
-        item.errors = Validator.validate(item);
-      });
+      }
       state.selectedPayments = [];
     },
 
