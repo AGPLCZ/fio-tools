@@ -1,13 +1,14 @@
 <template>
   <div class="payment">
-    <Toolbar v-if="options == 1" title="Edit payment" />
-    <Toolbar v-else title="Add payment" />
+    <Toolbar v-if="options == FORM_OPTION.ADD" title="Add payment" />
+    <Toolbar v-if="options == FORM_OPTION.EDIT" title="Edit payment" />
+    <Toolbar v-if="options == FORM_OPTION.MULTIPLE_EDIT" title="Edit payments" />
 
     <v-form ref="form" v-model="valid">
       <v-container>
         <v-row class="pa-3">
           <v-text-field
-            :disabled="options == 2"
+            :disabled="options == FORM_OPTION.MULTIPLE_EDIT"
             color="orange"
             v-model="payment.account"
             label="Account"
@@ -94,7 +95,7 @@
 
         <v-row class="pa-3">
           <v-btn
-            v-if="options == 0"
+            v-if="options == FORM_OPTION.ADD"
             color="success"
             class="mr-4"
             @click="addPayment"
@@ -102,7 +103,7 @@
             Add payment
           </v-btn>
           <v-btn
-            v-if="options == 1"
+            v-if="options == FORM_OPTION.EDIT"
             color="success"
             class="mr-4"
             @click="editPayment"
@@ -111,7 +112,7 @@
           </v-btn>
 
           <v-btn
-            v-if="options == 2"
+            v-if="options == FORM_OPTION.MULTIPLE_EDIT"
             color="success"
             class="mr-4"
             @click="editSelected"
@@ -148,6 +149,10 @@ export default Vue.extend({
     currencies: CURRENCIES,
     types: PAYMENT_TYPE,
   }),
+
+  enums: {
+    FORM_OPTION,
+  },
 
   computed: {
     options() {
