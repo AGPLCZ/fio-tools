@@ -39,12 +39,12 @@ export default new Vuex.Store({
 
     updatePayment(state, payment) {
       state.payments[
-        state.payments.findIndex((i) => i.id === payment.id)
+        state.payments.findIndex((item) => item.id === payment.id)
       ] = payment;
     },
 
     removePayment(state, id) {
-      var index = state.payments.findIndex((i) => i.id === id);
+      var index = state.payments.findIndex((item) => item.id === id);
       if (index !== -1) {
         state.payments.splice(index, 1);
       }

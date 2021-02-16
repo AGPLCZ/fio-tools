@@ -4,10 +4,10 @@ import {getItem} from "./parser";
 function getAccountType(data, state) {
   var x = 0;
   data.forEach((row) => {
-    for (var i = 0; i < state.columnOrder.length; i++) {
-      if (state.columnOrder[i].value == "account") {
-        row[i] = "" + row[i];
-        x = (Validator.validateAccount(row[i]) != "") ? x + 1 : x - 1;
+    for (var index = 0; index < state.columnOrder.length; index++) {
+      if (state.columnOrder[index].value == "account") {
+        row[index] = "" + row[index];
+        x = (Validator.validateAccount(row[index]) != "") ? x + 1 : x - 1;
       }
     }
   });

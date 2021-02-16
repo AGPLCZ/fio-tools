@@ -175,7 +175,7 @@ export default Vue.extend({
       this.payment = Object.assign(
         {},
         this.$store.getters.getPayments.find(
-          (p) => p.id == this.$route.params.id
+          (payment) => payment.id == this.$route.params.id
         )
       );
       this.errors = this.payment.errors;
@@ -183,8 +183,8 @@ export default Vue.extend({
 
     setPaymentEmpty() {
       this.payment = {};
-      for (var i = 0; i < PAYMENT_PROPS.length; i++) {
-        this.payment[PAYMENT_PROPS[i].value] = "";
+      for (var index = 0; index < PAYMENT_PROPS.length; index++) {
+        this.payment[PAYMENT_PROPS[index].value] = "";
       }
       if (this.options == FORM_OPTION.ADD) {
         this.payment.currency = this.$store.getters.getUser.currency;

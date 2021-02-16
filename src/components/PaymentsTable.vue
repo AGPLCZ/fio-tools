@@ -85,7 +85,7 @@ export default {
     items() {
       return this.valid
         ? this.payments
-        : this.payments.filter((p) => p.valid == this.valid);
+        : this.payments.filter((payment) => payment.valid == this.valid);
     },
 
     selected: {

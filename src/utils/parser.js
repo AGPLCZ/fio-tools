@@ -12,22 +12,22 @@ function toString(item) {
 
 export function getItem(row, state, options) {
   var item = { id: ++state.id };
-  var j = 0;
+  var columnIndex = 0;
   var tmp;
-  for (var i = 0; i < state.columnOrder.length; i++) {
-    tmp = toString(row[i]);
-    if (options.account && state.columnOrder[j].value == "account") {
-      tmp = tmp + "/" + addZeroes(toString(row[++i]), 4);
+  for (var index = 0; index < state.columnOrder.length; index++) {
+    tmp = toString(row[index]);
+    if (options.account && state.columnOrder[columnIndex].value == "account") {
+      tmp = tmp + "/" + addZeroes(toString(row[++index]), 4);
       tmp = tmp.length == 1 ? "" : tmp; // if both empty then empty string
     }
-    if (state.columnOrder[j].value == "ks")
+    if (state.columnOrder[columnIndex].value == "ks")
       tmp = addZeroes(tmp, KS_SIZE)
-    if (state.columnOrder[j].value == "vs")
+    if (state.columnOrder[columnIndex].value == "vs")
       tmp = addZeroes(tmp, VS_MIN_SIZE)
-    if (state.columnOrder[j].value == "ss")
+    if (state.columnOrder[columnIndex].value == "ss")
       tmp = addZeroes(tmp, SS_SIZE)
-    item[state.columnOrder[j].value] = tmp;
-    j++;
+    item[state.columnOrder[columnIndex].value] = tmp;
+    columnIndex++;
   }
   item.currency = state.user.currency;
   item.type = PAYMENT_TYPE[0].value;
