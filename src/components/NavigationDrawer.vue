@@ -26,16 +26,7 @@
         block
         class="mt-1"
         color="orange"
-        @click="resetData"
-        :disabled="isPaymentsEmpty"
-      >
-        Reset data
-      </v-btn>
-      <v-btn
-        block
-        class="mt-1"
-        color="orange"
-        :disabled="isPaymentsEmpty"
+        :disabled="payments.length == 0"
       >
         Send data
       </v-btn>
@@ -43,7 +34,7 @@
         block
         class="mt-1"
         color="orange"
-        :disabled="isPaymentsEmpty"
+        :disabled="payments.length == 0"
       >
         Save data
       </v-btn>
@@ -76,8 +67,8 @@ export default Vue.extend({
   data: () => ({}),
 
   computed: {
-    isPaymentsEmpty() {
-      return !this.$store.getters.getPayments.length;
+    payments() {
+      return this.$store.getters.getPayments;
     },
 
     user() {
@@ -94,11 +85,6 @@ export default Vue.extend({
   methods: {
     openDialog() {
       ipcRenderer.send(OPEN_DIALOG);
-      this.$router.push("/", () => {});
-    },
-
-    resetData() {
-      this.$store.commit("resetPayments");
       this.$router.push("/", () => {});
     },
   },

@@ -2,7 +2,7 @@
   <div class="home">
     <v-toolbar flat>
       <v-text-field
-      v-model="search"
+        v-model="search"
         width="25%"
         append-icon="mdi-magnify"
         label="Search"
@@ -12,10 +12,10 @@
       <v-chip
         v-if="!valid"
         class="ma-2"
-        :color="isPaymentsEmpty ? 'green' : 'grey'"
+        :color="payments.length ? 'green' : 'grey'"
         text-color="white"
         @click="setInvalid"
-        :disabled="isPaymentsEmpty == 0"
+        :disabled="payments.length == 0"
       >
         All Data
       </v-chip>
@@ -23,10 +23,10 @@
       <v-chip
         v-else
         class="ma-2"
-        :color="isPaymentsEmpty ? 'red' : 'grey'"
+        :color="payments.length ? 'red' : 'grey'"
         text-color="white"
         @click="setInvalid"
-        :disabled="isPaymentsEmpty == 0"
+        :disabled="payments.length == 0"
       >
         Invalid Data
       </v-chip>
@@ -57,64 +57,13 @@
         New Item
       </v-btn>
     </v-toolbar>
-    <v-data-table
-      dense
-      v-model="selected"
-      :headers="headers"
-      :items="items"
-      :search="search"
-      :show-select="items.length != 0"
-      hide-default-footer
-      disable-pagination
-      class="elevation-1"
-      :class="{ 'row-pointer': isPaymentsEmpty }"
-      @click:row="viewDetail"
-    >
-      <template v-slot:[`item.account`]="{ item }">
-        <div :class="{ 'error--text': isAccountInvalid(item.id) }">
-          <v-icon small color="error" v-if="item.account == ''"
-            >mdi-alert-circle-outline</v-icon
-          >{{ item.account }}
-        </div>
-      </template>
-
-      <template v-slot:[`item.amount`]="{ item }">
-        <div class="text-right">
-          <div v-if="!isAmountInvalid(item.id)">
-            {{ formatCurrency(parseInt(item.amount)) }}
-          </div>
-          <div v-else :class="{ 'error--text': isAmountInvalid(item.id) }">
-            <v-icon small color="error" v-if="item.amount == ''"
-              >mdi-alert-circle-outline</v-icon
-            >
-            {{ item.amount }}
-          </div>
-        </div>
-      </template>
-
-      <template v-slot:[`item.ks`]="{ item }">
-        <div :class="{ 'error--text': isKsInvalid(item.id) }">
-          {{ item.ks }}
-        </div>
-      </template>
-
-      <template v-slot:[`item.vs`]="{ item }">
-        <div :class="{ 'error--text': isVsInvalid(item.id) }">
-          {{ item.vs }}
-        </div>
-      </template>
-
-      <template v-slot:[`item.ss`]="{ item }">
-        <div :class="{ 'error--text': isSsInvalid(item.id) }">
-          {{ item.ss }}
-        </div>
-      </template>
-    </v-data-table>
+    <PaymentsTable :search="search" :valid="valid" />
   </div>
 </template>
 
 <script>
 import Vue from "vue";
+import PaymentsTable from "../components/PaymentsTable.vue";
 
 export default Vue.extend({
   name: "Home",
@@ -135,28 +84,17 @@ export default Vue.extend({
     ],
   }),
 
+  components: {
+    PaymentsTable,
+  },
+
   computed: {
     payments() {
       return this.$store.getters.getPayments;
     },
 
-    items() {
-      return this.valid
-        ? this.payments
-        : this.payments.filter((p) => p.valid == this.valid);
-    },
-
-    isPaymentsEmpty() {
-      return this.payments.length;
-    },
-
-    selected: {
-      get() {
-        return this.$store.getters.getSelected;
-      },
-      set(value) {
-        return this.$store.commit("updateSelected", value);
-      },
+    selected() {
+      return this.$store.getters.getSelected;
     },
   },
 
@@ -174,17 +112,6 @@ export default Vue.extend({
       this.valid = !this.valid;
     },
 
-    viewDetail(payment) {
-      this.$router.push("/payments/" + payment.id);
-    },
-
-    formatCurrency(amount) {
-      return amount.toLocaleString("en-US", {
-        style: "currency",
-        currency: this.$store.getters.getUser.currency,
-      });
-    },
-
     addPayment() {
       this.$router.push("/payments");
     },
@@ -199,37 +126,6 @@ export default Vue.extend({
       });
       this.$store.commit("updateSelected", []);
     },
-
-    isInvalid(id, property) {
-      var item = this.payments.find((x) => x.id === id);
-      return item ? item.errors[property] != "" : false;
-    },
-
-    isAccountInvalid(id) {
-      return this.isInvalid(id, "account");
-    },
-
-    isAmountInvalid(id) {
-      return this.isInvalid(id, "amount");
-    },
-
-    isKsInvalid(id) {
-      return this.isInvalid(id, "ks");
-    },
-
-    isVsInvalid(id) {
-      return this.isInvalid(id, "vs");
-    },
-
-    isSsInvalid(id) {
-      return this.isInvalid(id, "ss");
-    },
   },
 });
 </script>
-
-<style lang="css" scoped>
-.row-pointer >>> tbody tr :hover {
-  cursor: pointer;
-}
-</style>
