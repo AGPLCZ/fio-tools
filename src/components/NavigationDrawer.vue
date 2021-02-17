@@ -56,6 +56,7 @@
 import Vue from "vue";
 import { ipcRenderer } from "electron";
 import { GET_FILE, OPEN_DIALOG } from "../utils/constants";
+import axios from "axios";
 
 export default Vue.extend({
   name: "NavigationDrawer",
@@ -85,7 +86,12 @@ export default Vue.extend({
     },
 
     async test() {
-      var blob = new Blob(['<?xml version="1.0" encoding="UTF-8"?><Import xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://www.fio.cz/schema/importIB.xsd"><Orders><DomesticTransaction><accountFrom>2701933259</accountFrom><currency>CZK</currency><amount>100.00</amount><accountTo>115-2889070247</accountTo><bankCode>0100</bankCode><ks>0558</ks><vs>1234567890</vs><ss>1234567890</ss><date>2021-02-17</date><messageForRecipient>Hračky pro děti v PENNY MARKET</messageForRecipient><comment></comment><paymentType>431001</paymentType></DomesticTransaction></Orders></Import>'], { type: "text/xml" });
+      var blob = new Blob(
+        [
+          '<?xml version="1.0" encoding="UTF-8"?><Import xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://www.fio.cz/schema/importIB.xsd"><Orders><DomesticTransaction><accountFrom>2701933259</accountFrom><currency>CZK</currency><amount>100.00</amount><accountTo>115-2889070247</accountTo><bankCode>0100</bankCode><ks>0558</ks><vs>1234567890</vs><ss>1234567890</ss><date>2021-02-17</date><messageForRecipient>Hračky pro děti v PENNY MARKET</messageForRecipient><comment></comment><paymentType>431001</paymentType></DomesticTransaction></Orders></Import>',
+        ],
+        { type: "text/xml" }
+      );
       const formData = new FormData();
       formData.append("type", "xml");
       formData.append(
@@ -95,13 +101,18 @@ export default Vue.extend({
       formData.append("file", blob, "davka.xml");
       formData.append("lng", "en");
 
-      fetch("https://www.fio.cz/ib_api/rest/import/", {
-        body: formData,
-        method: "POST",
-      })
-      .then((response) => response.text())
-      .then((str) => new window.DOMParser().parseFromString(str, "text/xml"))
-      .then((data) => console.log(data));
+      axios
+        .post("https://www.fio.cz/ib_api/rest/import/", formData)
+        .then((response) => {
+          const responceXML = new window.DOMParser().parseFromString(
+            response.data,
+            "text/xml"
+          );
+          console.log(responceXML);
+        })
+        .catch((e) => {
+          console.log(e);
+        });
     },
   },
 });
