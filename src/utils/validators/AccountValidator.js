@@ -9,16 +9,16 @@ export default class AccountValidator {
   }
 
   static accountNumber(n) {
-    var number = n.toString().replace("-", "");
+    var number = n.replace("-", "");
     if (number.length == 0)
       return "Your account number can not be empty";
-    if (isNaN(number))
+    if (isNaN(number) || !/^(\d{1,6}-)?\d{1,10}$/.test(n))
       return "Invalid number format"
     var digits = Array.from(number, Number);
     digits = Array(ACCOUNT_MAX_SIZE - digits.length).fill(0).concat(digits).reverse();
     var result = 0;
     for (var i = 0; i < ACCOUNT_MAX_SIZE; i++) { 
-      result += (digits[i] * ((2 ** i) % 11)); //Calculates valid bank number formule
+      result += (digits[i] * ((2 ** i) % 11)); //Calculates valid bank number formula
     }
     return result % 11 == 0 ? "" : "Invalid account number";
   }
@@ -30,12 +30,12 @@ export default class AccountValidator {
   static validate(account) {
     if (account.length == 0)
       return "Account is required";
-    var accountSplited = account.split("/");
-    if (accountSplited.length < 2)
+    var accountSplitted = account.split("/");
+    if (accountSplitted.length < 2)
       return "Your account is missing '/'";
-    if (accountSplited.length > 2)
+    if (accountSplitted.length > 2)
       return "Your account has to many '/' in it";
-    const tmp = this.accountNumber(accountSplited[0]);
-    return tmp ? tmp : this.accountBank(accountSplited[1])
+    const tmp = this.accountNumber(accountSplitted[0]);
+    return tmp ? tmp : this.accountBank(accountSplitted[1])
   }
 }
