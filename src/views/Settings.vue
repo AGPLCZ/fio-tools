@@ -33,8 +33,8 @@
 <script>
 import Vue from "vue";
 import Toolbar from "../components/Toolbar.vue";
-import LoginDialog from "../components/LoginDialog.vue";
-import ColumnDialog from "../components/ColumnDialog.vue";
+import LoginDialog from "../components/dialogs/LoginDialog.vue";
+import ColumnDialog from "../components/dialogs/ColumnDialog.vue";
 
 export default Vue.extend({
   name: "Settings",

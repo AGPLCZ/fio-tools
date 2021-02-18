@@ -17,7 +17,7 @@
 <script lang="ts">
 import Vue from "vue";
 import NavigationDrawer from "./components/NavigationDrawer.vue";
-import LoginDialog from "./components/LoginDialog.vue";
+import LoginDialog from "./components/dialogs/LoginDialog.vue";
 import { PAYMENT_PROPS } from "./utils/data";
 
 export default Vue.extend({

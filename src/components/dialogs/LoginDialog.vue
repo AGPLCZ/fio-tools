@@ -72,7 +72,7 @@ import {
   FIO_API_PREFIX,
   TOKEN_MAX_SIZE,
   TOKEN_ERROR_MSG,
-} from "../utils/constants";
+} from "../../utils/constants";
 import axios from "axios";
 
 export default Vue.extend({

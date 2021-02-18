@@ -29,7 +29,7 @@
 <script>
 import Vue from "vue";
 import { shell } from "electron";
-import { FIO_PAYMENT_URL } from "../utils/constants";
+import { FIO_PAYMENT_URL } from "../../utils/constants";
 
 export default Vue.extend({
   name: "SuccessDialog",
