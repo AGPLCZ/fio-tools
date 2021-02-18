@@ -63,7 +63,7 @@
 <script>
 import Vue from "vue";
 import { ipcRenderer } from "electron";
-import { GET_FILE, OPEN_DIALOG, ERROR_DIALOG } from "../utils/constants";
+import { FIO_API_PREFIX, GET_FILE, OPEN_DIALOG, ERROR_DIALOG } from "../utils/constants";
 import SuccessDialog from "./SuccessDialog.vue";
 import XMLBuilder from "../utils/XMLBuilder";
 import axios from "axios";
@@ -116,7 +116,7 @@ export default Vue.extend({
 
     async sendData() {
       axios
-        .post("https://www.fio.cz/ib_api/rest/import/", this.getFormData())
+        .post(FIO_API_PREFIX + "/import/", this.getFormData())
         .then((response) => {
           const responceXML = new window.DOMParser().parseFromString(
             response.data,
