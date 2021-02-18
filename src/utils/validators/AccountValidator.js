@@ -1,4 +1,4 @@
-import {BANK_CODES} from "../data";
+import { BANK_CODES } from "../data";
 import { ACCOUNT_MAX_SIZE } from "../constants";
 
 export default class AccountValidator {
@@ -17,7 +17,7 @@ export default class AccountValidator {
     var digits = Array.from(number, Number);
     digits = Array(ACCOUNT_MAX_SIZE - digits.length).fill(0).concat(digits).reverse();
     var result = 0;
-    for (var i = 0; i < ACCOUNT_MAX_SIZE; i++) { 
+    for (var i = 0; i < ACCOUNT_MAX_SIZE; i++) {
       result += (digits[i] * ((2 ** i) % 11)); //Calculates valid bank number formula
     }
     return result % 11 == 0 ? "" : "Invalid account number";

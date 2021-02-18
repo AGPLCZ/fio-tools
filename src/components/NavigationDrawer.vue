@@ -1,6 +1,6 @@
 <template>
   <div>
-    <SuccessDialog v-model="sended" :dataCount="dataCount" />
+    <SuccessDialog v-model="sended" />
     <v-navigation-drawer dark permanent left app color="#2C3A47">
       <template v-slot:prepend>
         <v-list-item class="px-2">
@@ -77,7 +77,6 @@ export default Vue.extend({
 
   data: () => ({
     sended: false,
-    dataCount: 0
   }),
 
   computed: {
@@ -133,9 +132,8 @@ export default Vue.extend({
                 .nodeValue
             );
           } else {
-            this.dataCount = responceXML.getElementsByTagName("detail").length;
             this.sended = true;
-            this.$store.commit("resetPayments");
+            this.$store.commit("removeValidPayments");
           }
         })
         .catch((e) => {

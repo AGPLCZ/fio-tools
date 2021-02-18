@@ -1,5 +1,5 @@
 import Validator from "./validators/Validator";
-import {getItem} from "./parser";
+import { getItem } from "./parser";
 
 function getAccountType(data, state) {
   var x = 0;
@@ -7,7 +7,7 @@ function getAccountType(data, state) {
     for (var index = 0; index < state.columnOrder.length; index++) {
       if (state.columnOrder[index].value == "account") {
         row[index] = "" + row[index];
-        x = (Validator.validateAccount(row[index]) != "") ? x + 1 : x - 1;
+        x = Validator.validateAccount(row[index]) != "" ? x + 1 : x - 1;
       }
     }
   });
@@ -22,10 +22,9 @@ function hasHeader(firstRow, state, options) {
   });
 }
 
-
 export default function (data, state) {
   var options = {};
   options.account = getAccountType(data, state);
-  options.header = hasHeader(data[0], state, options)
+  options.header = hasHeader(data[0], state, options);
   return options;
 }

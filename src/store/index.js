@@ -29,8 +29,8 @@ export default new Vuex.Store({
       state.payments = parseData(data, options, state).concat(state.payments);
     },
 
-    resetPayments(state) {
-      state.payments = [];
+    removeValidPayments(state) {
+      state.payments = state.payments.filter((payment) => !payment.valid);
     },
 
     addPayment(state, payment) {

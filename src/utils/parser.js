@@ -3,11 +3,13 @@ import { KS_SIZE, VS_MIN_SIZE, SS_SIZE } from "./constants";
 import { PAYMENT_TYPE } from "./data";
 
 function addZeroes(num, len) {
-  return !isNaN(num) && num.length && num.length < len ? "0".repeat(len - num.length) + num : num;
+  return !isNaN(num) && num.length && num.length < len
+    ? "0".repeat(len - num.length) + num
+    : num;
 }
 
 function toString(item) {
-  return (item == undefined || item == "undefined") ? "" : "" + item;
+  return item == undefined || item == "undefined" ? "" : "" + item;
 }
 
 export function getItem(row, state, options) {
@@ -21,11 +23,11 @@ export function getItem(row, state, options) {
       tmp = tmp.length == 1 ? "" : tmp; // if both empty then empty string
     }
     if (state.columnOrder[columnIndex].value == "ks")
-      tmp = addZeroes(tmp, KS_SIZE)
+      tmp = addZeroes(tmp, KS_SIZE);
     if (state.columnOrder[columnIndex].value == "vs")
-      tmp = addZeroes(tmp, VS_MIN_SIZE)
+      tmp = addZeroes(tmp, VS_MIN_SIZE);
     if (state.columnOrder[columnIndex].value == "ss")
-      tmp = addZeroes(tmp, SS_SIZE)
+      tmp = addZeroes(tmp, SS_SIZE);
     item[state.columnOrder[columnIndex].value] = tmp;
     columnIndex++;
   }
@@ -37,13 +39,12 @@ export function getItem(row, state, options) {
 function loadData(data, options, state) {
   var payments = [];
   data.forEach((row, number) => {
-    if (options.header && number == 0)
-      return;
+    if (options.header && number == 0) return;
     var item = getItem(row, state, options);
 
     item.errors = Validator.validate(item);
     payments.push(item);
-  })
+  });
   return payments;
 }
 
