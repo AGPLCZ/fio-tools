@@ -1,18 +1,11 @@
 import Vue from "vue";
 import Vuex from "vuex";
-import XLSX from "xlsx";
 import Validator from "../utils/validators/Validator";
 import parseData from "../utils/parser";
 import getOptions from "../utils/options";
+import { sendData, getUser, loadFile, timer } from "../utils/tools";
 
 Vue.use(Vuex);
-
-function loadFile(path) {
-  const file = XLSX.readFile(path);
-  return XLSX.utils.sheet_to_json(file.Sheets[file.SheetNames[0]], {
-    header: 1,
-  });
-}
 
 export default new Vuex.Store({
   state: {
@@ -21,6 +14,7 @@ export default new Vuex.Store({
     payments: [],
     selectedPayments: [],
     columnOrder: JSON.parse(localStorage.getItem("columnOrder")),
+    timer: 0,
   },
   mutations: {
     addPayments(state, path) {
@@ -38,9 +32,11 @@ export default new Vuex.Store({
     },
 
     updatePayment(state, payment) {
-      state.payments[
-        state.payments.findIndex((item) => item.id === payment.id)
-      ] = payment;
+      state.payments[state.payments.findIndex((item) => item.id === payment.id)] = payment;
+      // to trigger depp change
+      var tmp = state.payments;
+      state.payments = [];
+      state.payments = tmp;
     },
 
     removePayment(state, id) {
@@ -77,11 +73,29 @@ export default new Vuex.Store({
       localStorage.setItem("user", JSON.stringify(user));
       state.user = user;
     },
+
+    apiCooldown(state, time) {
+      if (state.timer == 0) {
+        state.timer = time;
+        timer(0, state);
+      }
+    }
   },
-  actions: {},
+  actions: {
+    async sendData({ state }) {
+      return sendData(state);
+    },
+
+    async getUser({ commit }, url) {
+      return getUser(commit, url)
+    }
+  },
   getters: {
     getPayments(state) {
       return state.payments;
+    },
+    getPayments2(state) {
+      return state.payments.filter(p => p.valid);
     },
     getSelected(state) {
       return state.selectedPayments;
@@ -92,5 +106,8 @@ export default new Vuex.Store({
     getColumnOrder(state) {
       return state.columnOrder;
     },
+    getTimer(state) {
+      return state.timer;
+    }
   },
 });

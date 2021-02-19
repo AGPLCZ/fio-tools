@@ -7,7 +7,7 @@
 <script>
 import Vue from "vue";
 // import { ipcRenderer } from "electron";
-// import { GET_FILE, OPEN_DIALOG } from "../../utils/constants";
+// import { GET_FILE, OPEN_DIALOG } from "../../utils/data/constants";
 
 export default Vue.extend({
   name: "ButtonSaveData",

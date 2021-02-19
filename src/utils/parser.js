@@ -1,6 +1,6 @@
 import Validator from "./validators/Validator";
-import { KS_SIZE, VS_MIN_SIZE, SS_SIZE } from "./constants";
-import { PAYMENT_TYPE } from "./data";
+import { KS_SIZE, VS_MIN_SIZE, SS_SIZE } from "./data/constants";
+import { PAYMENT_TYPE } from "./data/collections";
 
 function addZeroes(num, len) {
   return !isNaN(num) && num.length && num.length < len

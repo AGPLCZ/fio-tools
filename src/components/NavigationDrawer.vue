@@ -19,9 +19,9 @@
     <v-divider></v-divider>
 
     <div class="pa-2">
-      <ButtonLoadData />
-      <ButtonSendData />
-      <ButtonSaveData />
+      <LoadDataButton />
+      <SendDataButton />
+      <SaveDataButton />
     </div>
 
     <template v-slot:append>
@@ -42,17 +42,17 @@
 
 <script>
 import Vue from "vue";
-import ButtonLoadData from "./buttons/ButtonLoadData";
-import ButtonSendData from "./buttons/ButtonSendData";
-import ButtonSaveData from "./buttons/ButtonSaveData";
+import LoadDataButton from "./buttons/LoadDataButton";
+import SendDataButton from "./buttons/SendDataButton";
+import SaveDataButton from "./buttons/SaveDataButton";
 
 export default Vue.extend({
   name: "NavigationDrawer",
 
   components: {
-    ButtonLoadData,
-    ButtonSendData,
-    ButtonSaveData,
+    LoadDataButton,
+    SendDataButton,
+    SaveDataButton,
   },
 
   data: () => ({}),

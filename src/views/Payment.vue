@@ -129,9 +129,9 @@
 import Vue from "vue";
 import Toolbar from "../components/Toolbar.vue";
 import Validator from "../utils/validators/Validator";
-import { PAYMENT_PROPS, CURRENCIES, PAYMENT_TYPE } from "../utils/data";
-import { KS_SIZE, VS_MAX_SIZE, SS_SIZE } from "../utils/constants";
-import { FORM_OPTION } from "../utils/enums";
+import { PAYMENT_PROPS, CURRENCIES, PAYMENT_TYPE } from "../utils/data/collections";
+import { KS_SIZE, VS_MAX_SIZE, SS_SIZE } from "../utils/data/constants";
+import { FORM_OPTION } from "../utils/data/enums";
 
 export default Vue.extend({
   name: "Payment",
@@ -217,11 +217,6 @@ export default Vue.extend({
         this.$store.commit("updatePaymentSelected", this.payment);
         this.$router.back();
       }
-    },
-
-    removePayment() {
-      this.$store.commit("removePayment", this.payment.id);
-      this.$router.back();
     },
   },
 });

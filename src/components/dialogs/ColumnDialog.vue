@@ -51,7 +51,7 @@
 
 <script>
 import Vue from "vue";
-import { PAYMENT_PROPS } from "../../utils/data";
+import { PAYMENT_PROPS } from "../../utils/data/collections";
 import draggable from "vuedraggable";
 
 export default Vue.extend({

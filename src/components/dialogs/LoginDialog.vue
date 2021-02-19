@@ -1,5 +1,7 @@
 <template>
   <div>
+    <LoadingDialog v-model="loading" :size="650" msg="Validating token" />
+
     <v-dialog
       :value="value"
       @input="$emit('input')"
@@ -49,17 +51,6 @@
           </v-btn>
         </v-card-actions>
       </v-card>
-
-      <v-card v-else color="orange" dark>
-        <v-card-text>
-          Validating token
-          <v-progress-linear
-            indeterminate
-            color="white"
-            class="mb-0"
-          ></v-progress-linear>
-        </v-card-text>
-      </v-card>
     </v-dialog>
   </div>
 </template>
@@ -72,8 +63,8 @@ import {
   FIO_API_PREFIX,
   TOKEN_MAX_SIZE,
   TOKEN_ERROR_MSG,
-} from "../../utils/constants";
-import axios from "axios";
+} from "../../utils/data/constants";
+import LoadingDialog from "../dialogs/LoadingDialog";
 
 export default Vue.extend({
   name: "LoginDialog",
@@ -84,6 +75,10 @@ export default Vue.extend({
       type: Boolean,
       default: false,
     },
+  },
+
+  components: {
+    LoadingDialog,
   },
 
   data: () => ({
@@ -125,23 +120,23 @@ export default Vue.extend({
       shell.openExternal(FIO_INFO_URL);
     },
 
-    saveToken() {
+    async saveToken() {
       if (!this.token || this.token != localStorage.getItem("token")) {
         this.loading = true;
-        axios
-          .get(this.urlAPI, { timeout: 3000 })
-          .then((response) => {
-            this.$store.commit("setUser", response.data.accountStatement.info);
+        await this.$store
+          .dispatch("getUser", this.urlAPI)
+          .then(() => {
             localStorage.setItem("token", this.token);
-
             this.errorMsg = "";
             this.$emit("input");
           })
-          .catch(() => {
+          .catch((e) => {
+            console.log(e);
             this.errorMsg = TOKEN_ERROR_MSG;
           })
           .finally(() => {
             this.loading = false;
+            this.$store.commit("apiCooldown", 30);
           });
       } else {
         this.closeDialog();

@@ -1,5 +1,5 @@
 import AccountValidator from "./AccountValidator";
-import { AMOUNT_MAX_SIZE, KS_SIZE, VS_MAX_SIZE, SS_SIZE } from "../constants";
+import { AMOUNT_MAX_SIZE, KS_SIZE, VS_MAX_SIZE, SS_SIZE } from "../data/constants";
 
 export default class Validator {
   constructor() {

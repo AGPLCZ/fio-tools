@@ -1,5 +1,5 @@
-import { BANK_CODES } from "../data";
-import { ACCOUNT_MAX_SIZE } from "../constants";
+import { BANK_CODES } from "../data/collections";
+import { ACCOUNT_MAX_SIZE } from "../data/constants";
 
 export default class AccountValidator {
   constructor() {

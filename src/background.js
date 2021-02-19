@@ -3,7 +3,7 @@
 import { app, protocol, BrowserWindow, ipcMain, dialog } from "electron";
 import { createProtocol } from "vue-cli-plugin-electron-builder/lib";
 import installExtension, { VUEJS_DEVTOOLS } from "electron-devtools-installer";
-import { GET_FILE, OPEN_DIALOG, ERROR_DIALOG } from "./utils/constants";
+import { GET_FILE, OPEN_DIALOG, ERROR_DIALOG } from "./utils/data/constants";
 const isDevelopment = process.env.NODE_ENV !== "production";
 
 // Scheme must be registered before the app is ready
