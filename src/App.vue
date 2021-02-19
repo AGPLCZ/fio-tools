@@ -30,7 +30,7 @@ export default Vue.extend({
   }),
 
   mounted() {
-    // localStorage.clear();
+    localStorage.clear();
     this.dialog = localStorage.getItem("token") == null;
     if (localStorage.getItem("columnOrder") == null)
       localStorage.setItem("columnOrder", JSON.stringify(PAYMENT_PROPS));

@@ -128,6 +128,8 @@ export default Vue.extend({
           .then(() => {
             localStorage.setItem("token", this.token);
             this.errorMsg = "";
+            this.$store.commit("apiCooldownReset", 30);
+
             this.$emit("input");
           })
           .catch((e) => {
@@ -136,7 +138,6 @@ export default Vue.extend({
           })
           .finally(() => {
             this.loading = false;
-            this.$store.commit("apiCooldown", 30);
           });
       } else {
         this.closeDialog();

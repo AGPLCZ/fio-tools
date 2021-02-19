@@ -79,6 +79,15 @@ export default new Vuex.Store({
         state.timer = time;
         timer(0, state);
       }
+    },
+
+    apiCooldownReset(state, time) {
+      if (state.timer != 0)
+        state.timer = time;
+      if (state.timer == 0) {
+        state.timer = time;
+        timer(0, state);
+      }
     }
   },
   actions: {
