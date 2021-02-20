@@ -1,12 +1,12 @@
 <template>
   <div>
-    <LoadingDialog v-model="loading" :size="650" msg="Validating token" />
+    <LoadingDialog v-model="loading" msg="Validating token" />
 
     <v-dialog
       :value="value"
       @input="$emit('input')"
       persistent
-      max-width="650px"
+      max-width="650"
     >
       <v-card v-if="!loading">
         <v-card-title>

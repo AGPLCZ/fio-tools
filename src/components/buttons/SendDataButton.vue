@@ -2,7 +2,7 @@
   <div>
     <SuccessDialog v-model="sended" />
     <LoadingTimerDialog v-model="waitingForAPI" />
-    <LoadingDialog v-model="loading" :size="235" msg="Sending data" />
+    <LoadingDialog v-model="loading" msg="Sending data" />
     <v-btn
       block
       class="mt-1"

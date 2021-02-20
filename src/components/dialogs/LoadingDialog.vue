@@ -3,7 +3,7 @@
     :value="value"
     @input="$emit('input')"
     persistent
-    :max-width="size"
+    max-width="235"
   >
     <v-card color="orange" dark>
       <v-card-text class="text-center">
@@ -26,7 +26,6 @@ export default Vue.extend({
 
   props: {
     value: Boolean,
-    size: Number,
     msg: String,
   },
 });
