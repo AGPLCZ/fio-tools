@@ -13,7 +13,7 @@
     @click:row="viewDetail"
   >
     <template v-slot:[`item.account`]="{ item }">
-      <div :class="{ 'error--text': isAccountInvalid(item.id) }">
+      <div :class="{ 'error--text': isAccountInvalid(item.errors) }">
         <v-icon small color="error" v-if="item.account == ''"
           >mdi-alert-circle-outline</v-icon
         >{{ item.account }}
@@ -22,10 +22,10 @@
 
     <template v-slot:[`item.amount`]="{ item }">
       <div class="text-right">
-        <div v-if="!isAmountInvalid(item.id)">
+        <div v-if="!isAmountInvalid(item.errors)">
           {{ formatCurrency(parseInt(item.amount)) }}
         </div>
-        <div v-else :class="{ 'error--text': isAmountInvalid(item.id) }">
+        <div v-else :class="{ 'error--text': isAmountInvalid(item.errors) }">
           <v-icon small color="error" v-if="item.amount == ''"
             >mdi-alert-circle-outline</v-icon
           >
@@ -35,19 +35,19 @@
     </template>
 
     <template v-slot:[`item.ks`]="{ item }">
-      <div :class="{ 'error--text': isKsInvalid(item.id) }">
+      <div :class="{ 'error--text': isKsInvalid(item.errors) }">
         {{ item.ks }}
       </div>
     </template>
 
     <template v-slot:[`item.vs`]="{ item }">
-      <div :class="{ 'error--text': isVsInvalid(item.id) }">
+      <div :class="{ 'error--text': isVsInvalid(item.errors) }">
         {{ item.vs }}
       </div>
     </template>
 
     <template v-slot:[`item.ss`]="{ item }">
-      <div :class="{ 'error--text': isSsInvalid(item.id) }">
+      <div :class="{ 'error--text': isSsInvalid(item.errors) }">
         {{ item.ss }}
       </div>
     </template>
@@ -109,29 +109,29 @@ export default {
       this.$router.push("/payments/" + payment.id);
     },
 
-    isInvalid(id, property) {
-      var item = this.payments.find((x) => x.id === id);
-      return item ? item.errors[property] != "" : false;
+//TODO nemusimhledat podle errors, errors je uz u itemu
+    isInvalid(errors, property) {
+      return errors[property] != "";
     },
 
-    isAccountInvalid(id) {
-      return this.isInvalid(id, "account");
+    isAccountInvalid(errors) {
+      return this.isInvalid(errors, "account");
     },
 
-    isAmountInvalid(id) {
-      return this.isInvalid(id, "amount");
+    isAmountInvalid(errors) {
+      return this.isInvalid(errors, "amount");
     },
 
-    isKsInvalid(id) {
-      return this.isInvalid(id, "ks");
+    isKsInvalid(errors) {
+      return this.isInvalid(errors, "ks");
     },
 
-    isVsInvalid(id) {
-      return this.isInvalid(id, "vs");
+    isVsInvalid(errors) {
+      return this.isInvalid(errors, "vs");
     },
 
-    isSsInvalid(id) {
-      return this.isInvalid(id, "ss");
+    isSsInvalid(errors) {
+      return this.isInvalid(errors, "ss");
     },
   },
 };
