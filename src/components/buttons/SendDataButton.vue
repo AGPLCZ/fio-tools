@@ -55,10 +55,6 @@ export default Vue.extend({
     },
   },
 
-  mounted() {
-    this.validPayments = this.payments.filter((payment) => payment.valid);
-  },
-
   methods: {
     validResponse(responceXML) {
       var errorMsg = [];
