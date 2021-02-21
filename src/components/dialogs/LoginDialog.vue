@@ -155,7 +155,7 @@ export default Vue.extend({
 
 <style scoped>
 .link {
-  color: orange;
+  color: var(--v-primary-base);
 }
 
 .link:hover {

@@ -60,6 +60,19 @@ export default Vue.extend({
   },
 
   methods: {
+    validResponse(responceXML) {
+      var errorMsg = [];
+      var filtered = this.payments.filter((payment) => payment.valid);
+      responceXML.getElementsByTagName("detail").forEach((detail) => {
+        var status = detail.getElementsByTagName("message")[0];
+        if (status.getAttribute("status") == "error") {
+          errorMsg.push(
+            filtered[detail.getAttribute("id") - 1].account + ": " + status.textContent
+          );
+        }
+      });
+      return errorMsg;
+    },
     async sendData() {
       if (this.$store.getters.getTimer != 0) {
         this.waitingForAPI = true;
@@ -68,20 +81,13 @@ export default Vue.extend({
         await this.$store
           .dispatch("sendData")
           .then((responceXML) => {
-            console.log(responceXML);
             if (
               responceXML.getElementsByTagName("status")[0].childNodes[0]
                 .nodeValue == "error"
             ) {
-              var errorMsg = [];
-              responceXML.getElementsByTagName("message").forEach((status) => {
-                if (status.getAttribute('status') == "error"){
-                  errorMsg.push(status.textContent)
-                }
-              })
               ipcRenderer.send(
                 ERROR_DIALOG,
-                errorMsg.join(", ")
+                this.validResponse(responceXML).join(", ")
               );
             } else {
               this.sended = true;

@@ -6,13 +6,14 @@ Vue.use(Vuetify);
 
 export default new Vuetify({
     theme: {
-        themes: {
-          light: {
-            primary: colors.orange,
-          },
-          dark: {
-            primary: colors.orange,
-          },
+        options: {
+            customProperties: true,
         },
-      },
+        themes: {
+            light: {
+                primary: colors.orange,
+                secondary: "#2C3A47"
+            },
+        },
+    },
 });

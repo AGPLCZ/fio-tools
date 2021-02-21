@@ -1,5 +1,5 @@
 <template>
-  <v-navigation-drawer dark permanent left app color="#2C3A47">
+  <v-navigation-drawer dark permanent left app color="secondary">
     <template v-slot:prepend>
       <v-list-item class="px-2">
         <!-- catching error(routing to same page as user currently is) -->
@@ -7,7 +7,7 @@
           @click="$router.push('/', () => {})"
           class="clickable"
         >
-          <img src="../assets/account.png" class="mx-auto" />
+          <img src="../assets/fio.png" class="mx-auto" />
         </v-list-item-avatar>
 
         <v-list-item-title v-if="user"
