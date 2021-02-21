@@ -67,7 +67,7 @@ export default Vue.extend({
           );
         }
       });
-      return errorMsg;
+      return errorMsg.join("\n");
     },
     async sendData() {
       if (this.$store.getters.getTimer != 0) {
@@ -83,7 +83,7 @@ export default Vue.extend({
             ) {
               ipcRenderer.send(
                 ERROR_DIALOG,
-                this.errorResponse(responceXML).join(", ")
+                this.errorResponse(responceXML)
               );
             } else {
               this.sended = true;

@@ -57,7 +57,7 @@ ipcMain.on(OPEN_DIALOG, (event) => {
 ipcMain.on(ERROR_DIALOG, (e, value) => {
   const options = {
     type: "error",
-    message: "Error message: " + value,
+    message: "Error message: \n" + value,
   };
   dialog.showMessageBox(null, options);
 });
