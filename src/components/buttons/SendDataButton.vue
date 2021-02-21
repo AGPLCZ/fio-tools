@@ -56,7 +56,7 @@ export default Vue.extend({
   },
 
   methods: {
-    validResponse(responceXML) {
+    errorResponse(responceXML) {
       var errorMsg = [];
       var filtered = this.payments.filter((payment) => payment.valid);
       responceXML.getElementsByTagName("detail").forEach((detail) => {
@@ -83,7 +83,7 @@ export default Vue.extend({
             ) {
               ipcRenderer.send(
                 ERROR_DIALOG,
-                this.validResponse(responceXML).join(", ")
+                this.errorResponse(responceXML).join(", ")
               );
             } else {
               this.sended = true;
