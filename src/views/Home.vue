@@ -53,7 +53,7 @@
         <v-icon> mdi-delete </v-icon>
       </v-btn>
 
-      <v-btn color="orange" dark class="mb-2" @click="addPayment">
+      <v-btn color="primary" dark class="mb-2" @click="addPayment">
         New Item
       </v-btn>
     </v-toolbar>

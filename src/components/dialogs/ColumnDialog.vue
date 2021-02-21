@@ -31,7 +31,7 @@
         </v-card-text>
         <v-card-actions>
           <v-btn
-            color="orange"
+            color="primary"
             :disabled="isDefault"
             text
             @click.native="toDefault"
@@ -39,10 +39,10 @@
             Default
           </v-btn>
           <v-spacer></v-spacer>
-          <v-btn color="orange" text @click.native="$emit('input')">
+          <v-btn color="primary" text @click.native="$emit('input')">
             Close
           </v-btn>
-          <v-btn color="orange" text @click.native="save"> Save </v-btn>
+          <v-btn color="primary" text @click.native="save"> Save </v-btn>
         </v-card-actions>
       </v-card>
     </v-dialog>

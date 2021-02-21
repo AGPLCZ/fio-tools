@@ -2,14 +2,16 @@
   <div class="payment">
     <Toolbar v-if="options == FORM_OPTION.ADD" title="Add payment" />
     <Toolbar v-if="options == FORM_OPTION.EDIT" title="Edit payment" />
-    <Toolbar v-if="options == FORM_OPTION.EDIT_SELECTED" title="Edit payments" />
+    <Toolbar
+      v-if="options == FORM_OPTION.EDIT_SELECTED"
+      title="Edit payments"
+    />
 
     <v-form ref="form" v-model="valid">
       <v-container>
         <v-row class="pa-3">
           <v-text-field
             :disabled="options == FORM_OPTION.EDIT_SELECTED"
-            color="orange"
             v-model="payment.account"
             label="Account"
             :rules="[() => !errors.account || errors.account]"
@@ -18,7 +20,6 @@
 
         <v-row class="pa-3">
           <v-text-field
-            color="orange"
             v-model="payment.amount"
             label="Amount"
             :rules="[() => !errors.amount || errors.amount]"
@@ -28,7 +29,6 @@
         <v-row>
           <v-col>
             <v-text-field
-              color="orange"
               v-model="payment.ks"
               label="Constant symbol"
               :rules="[() => !errors.ks || errors.ks]"
@@ -37,7 +37,6 @@
           </v-col>
           <v-col>
             <v-text-field
-              color="orange"
               v-model="payment.vs"
               label="Variable symbol"
               :rules="[() => !errors.vs || errors.vs]"
@@ -46,7 +45,6 @@
           </v-col>
           <v-col>
             <v-text-field
-              color="orange"
               v-model="payment.ss"
               label="Symbolic symbol"
               :rules="[() => !errors.ss || errors.ss]"
@@ -58,14 +56,12 @@
         <v-row>
           <v-col>
             <v-text-field
-              color="orange"
               v-model="payment.messageFrom"
               label="Message to you"
             ></v-text-field>
           </v-col>
           <v-col>
             <v-text-field
-              color="orange"
               v-model="payment.messageTo"
               label="Message to receiver"
             ></v-text-field>
@@ -75,7 +71,6 @@
         <v-row>
           <v-col>
             <v-autocomplete
-              color="orange"
               v-model="payment.currency"
               :items="currencies"
               label="Currencies"
@@ -83,7 +78,6 @@
           </v-col>
           <v-col>
             <v-autocomplete
-              color="orange"
               v-model="payment.type"
               :items="types"
               item-text="text"
@@ -129,7 +123,11 @@
 import Vue from "vue";
 import Toolbar from "../components/Toolbar.vue";
 import Validator from "../utils/validators/Validator";
-import { PAYMENT_PROPS, CURRENCIES, PAYMENT_TYPE } from "../utils/data/collections";
+import {
+  PAYMENT_PROPS,
+  CURRENCIES,
+  PAYMENT_TYPE,
+} from "../utils/data/collections";
 import { KS_SIZE, VS_MAX_SIZE, SS_SIZE } from "../utils/data/constants";
 import { FORM_OPTION } from "../utils/data/enums";
 

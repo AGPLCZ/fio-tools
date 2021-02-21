@@ -1,10 +1,6 @@
 <template>
-  <v-dialog
-    :value="value"
-    @input="$emit('input')"
-    max-width="235"
-  >
-    <v-card color="orange" dark>
+  <v-dialog :value="value" @input="$emit('input')" max-width="235">
+    <v-card color="primary" dark>
       <v-card-text class="text-center">
         Data will send in {{ timer }}
         <v-progress-linear

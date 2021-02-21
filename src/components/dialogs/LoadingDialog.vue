@@ -5,7 +5,7 @@
     persistent
     max-width="235"
   >
-    <v-card color="orange" dark>
+    <v-card color="primary" dark>
       <v-card-text class="text-center">
         {{ msg }}
         <v-progress-linear

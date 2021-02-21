@@ -1,5 +1,5 @@
 <template>
-  <v-btn block class="mt-1" color="orange" @click="openDialog">
+  <v-btn block color="primary" class="mt-1" @click="openDialog">
     Load data
   </v-btn>
 </template>

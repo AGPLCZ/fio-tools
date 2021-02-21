@@ -1,5 +1,5 @@
 <template>
-  <v-btn block class="mt-1" color="orange" :disabled="payments.length == 0">
+  <v-btn block color="primary" class="mt-1" :disabled="payments.length == 0">
     Save data
   </v-btn>
 </template>

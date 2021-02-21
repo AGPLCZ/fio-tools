@@ -17,7 +17,7 @@
             v-if="errorMsg"
             v-model="token"
             label="Token"
-            color="orange"
+            color="primary"
             :maxlength="maxSize"
             :counter="maxSize"
             error
@@ -28,7 +28,7 @@
             v-else
             v-model="token"
             label="Token"
-            color="orange"
+            color="primary"
             :maxlength="maxSize"
             :counter="maxSize"
           ></v-text-field>
@@ -40,13 +40,13 @@
         </v-card-text>
         <v-card-actions v-if="!login">
           <v-spacer></v-spacer>
-          <v-btn color="orange" text @click.native="closeDialog"> Close </v-btn>
-          <v-btn color="orange" text @click.native="saveToken"> Save </v-btn>
+          <v-btn color="primary" text @click.native="closeDialog"> Close </v-btn>
+          <v-btn color="primary" text @click.native="saveToken"> Save </v-btn>
         </v-card-actions>
 
         <v-card-actions v-else>
           <v-spacer></v-spacer>
-          <v-btn color="orange" text @click.native="saveToken">
+          <v-btn color="primary" text @click.native="saveToken">
             Validate
           </v-btn>
         </v-card-actions>

@@ -6,7 +6,7 @@
     <v-btn
       block
       class="mt-1"
-      color="orange"
+      color="primary"
       :disabled="payments.length == 0"
       @click="sendData"
     >
@@ -29,30 +29,34 @@ export default Vue.extend({
   components: {
     SuccessDialog,
     LoadingTimerDialog,
-    LoadingDialog
+    LoadingDialog,
   },
 
   data: () => ({
     sended: false,
     waitingForAPI: false,
-    loading: false
+    loading: false,
   }),
 
   computed: {
     payments() {
-      return this.$store.getters.getPayments.filter(payment => payment.valid);
+      return this.$store.getters.getPayments.filter((payment) => payment.valid);
     },
   },
 
   watch: {
     waitingForAPI(newValue, oldValue) {
-      if (newValue == undefined && oldValue && this.$store.getters.getTimer == 0)
+      if (
+        newValue == undefined &&
+        oldValue &&
+        this.$store.getters.getTimer == 0
+      )
         this.sendData();
     },
   },
 
   mounted() {
-    this.validPayments = this.payments.filter(payment => payment.valid);
+    this.validPayments = this.payments.filter((payment) => payment.valid);
   },
 
   methods: {
@@ -64,14 +68,20 @@ export default Vue.extend({
         await this.$store
           .dispatch("sendData")
           .then((responceXML) => {
+            console.log(responceXML);
             if (
               responceXML.getElementsByTagName("status")[0].childNodes[0]
                 .nodeValue == "error"
             ) {
+              var errorMsg = [];
+              responceXML.getElementsByTagName("message").forEach((status) => {
+                if (status.getAttribute('status') == "error"){
+                  errorMsg.push(status.textContent)
+                }
+              })
               ipcRenderer.send(
                 ERROR_DIALOG,
-                responceXML.getElementsByTagName("message")[0].childNodes[0]
-                  .nodeValue
+                errorMsg.join(", ")
               );
             } else {
               this.sended = true;

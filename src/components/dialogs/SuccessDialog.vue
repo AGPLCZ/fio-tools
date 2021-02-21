@@ -16,7 +16,7 @@
         </p></v-card-text
       >
       <v-card-actions style="margin-top: -40px">
-        <v-btn block color="orange" text @click.native="$emit('input')">
+        <v-btn block color="primary" text @click.native="$emit('input')">
           OK
         </v-btn>
       </v-card-actions>
