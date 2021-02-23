@@ -14,7 +14,7 @@
   </v-app>
 </template>
 
-<script lang="ts">
+<script>
 import Vue from "vue";
 import NavigationDrawer from "./components/NavigationDrawer.vue";
 import LoginDialog from "./components/dialogs/LoginDialog.vue";
@@ -34,6 +34,9 @@ export default Vue.extend({
     this.dialog = localStorage.getItem("token") == null;
     if (localStorage.getItem("columnOrder") == null)
       localStorage.setItem("columnOrder", JSON.stringify(PAYMENT_PROPS));
+
+    if (localStorage.getItem("columnCheck") == null)
+      localStorage.setItem("columnCheck", false);
   },
 });
 </script>

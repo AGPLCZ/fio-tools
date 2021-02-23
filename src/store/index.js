@@ -14,6 +14,7 @@ export default new Vuex.Store({
     payments: [],
     selectedPayments: [],
     columnOrder: JSON.parse(localStorage.getItem("columnOrder")),
+    columnCheck: JSON.parse(localStorage.getItem("columnCheck")),
     timer: 0,
   },
   mutations: {
@@ -69,6 +70,11 @@ export default new Vuex.Store({
       state.columnOrder = columnOrder;
     },
 
+    updateColumnCheck(state, columnCheck) {
+      localStorage.setItem("columnCheck", columnCheck);
+      state.columnCheck = columnCheck;
+    },
+
     setUser(state, user) {
       localStorage.setItem("user", JSON.stringify(user));
       state.user = user;
@@ -103,9 +109,6 @@ export default new Vuex.Store({
     getPayments(state) {
       return state.payments;
     },
-    getPayments2(state) {
-      return state.payments.filter(p => p.valid);
-    },
     getSelected(state) {
       return state.selectedPayments;
     },
@@ -114,6 +117,9 @@ export default new Vuex.Store({
     },
     getColumnOrder(state) {
       return state.columnOrder;
+    },
+    getColumnCheck(state) {
+      return state.columnCheck;
     },
     getTimer(state) {
       return state.timer;

@@ -1,12 +1,12 @@
 <template>
   <div class="settings">
     <Toolbar title="Settings" />
-    <LoginDialog v-model="login" />
-    <ColumnDialog v-model="column" />
+    <LoginDialog v-model="loginDialog" />
+    <ColumnDialog v-model="columnDialog" />
 
     <v-list three-line subheader>
       <v-subheader>User Controls</v-subheader>
-      <v-list-item link @click="login = true">
+      <v-list-item link @click="loginDialog = true">
         <v-list-item-content>
           <v-list-item-title>API token</v-list-item-title>
           <v-list-item-subtitle
@@ -18,11 +18,24 @@
     <v-divider></v-divider>
     <v-list three-line subheader>
       <v-subheader>General</v-subheader>
-      <v-list-item link @click="column = true">
+      <v-list-item link @click="columnDialog = true">
         <v-list-item-content>
           <v-list-item-title>Column Order</v-list-item-title>
           <v-list-item-subtitle
-            >Set column layout of a file</v-list-item-subtitle
+            >Set columnDialog layout of a file</v-list-item-subtitle
+          >
+        </v-list-item-content>
+      </v-list-item>
+
+      <v-list-item>
+        <v-list-item-action>
+          <v-checkbox v-model="columnCheck"></v-checkbox>
+        </v-list-item-action>
+        <v-list-item-content>
+          <v-list-item-title>Set layout before data load</v-list-item-title>
+          <v-list-item-subtitle
+            >Show columnDialog order dialog every time file is being
+            loaded</v-list-item-subtitle
           >
         </v-list-item-content>
       </v-list-item>
@@ -46,8 +59,19 @@ export default Vue.extend({
   },
 
   data: () => ({
-    login: false,
-    column: false,
+    loginDialog: false,
+    columnDialog: false,
   }),
+
+  computed: {
+    columnCheck: {
+      get() {
+        return this.$store.getters.getColumnCheck;
+      },
+      set(newValue) {
+        this.$store.commit("updateColumnCheck", newValue);
+      },
+    },
+  },
 });
 </script>

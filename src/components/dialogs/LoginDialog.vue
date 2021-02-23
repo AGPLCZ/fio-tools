@@ -1,6 +1,6 @@
 <template>
   <div>
-    <LoadingDialog v-model="loading" msg="Validating token" />
+    <LoadingDialog v-model="loadingDialog" msg="Validating token" />
 
     <v-dialog
       :value="value"
@@ -8,7 +8,7 @@
       persistent
       max-width="650"
     >
-      <v-card v-if="!loading">
+      <v-card v-if="!loadingDialog">
         <v-card-title>
           <span class="headline">Set your API token</span>
         </v-card-title>
@@ -83,7 +83,7 @@ export default Vue.extend({
 
   data: () => ({
     token: "",
-    loading: false,
+    loadingDialog: false,
     errorMsg: "",
     maxSize: TOKEN_MAX_SIZE,
   }),
@@ -122,7 +122,7 @@ export default Vue.extend({
 
     async saveToken() {
       if (!this.token || this.token != localStorage.getItem("token")) {
-        this.loading = true;
+        this.loadingDialog = true;
         await this.$store
           .dispatch("getUser", this.urlAPI)
           .then(() => {
@@ -137,7 +137,7 @@ export default Vue.extend({
             this.errorMsg = TOKEN_ERROR_MSG;
           })
           .finally(() => {
-            this.loading = false;
+            this.loadingDialog = false;
           });
       } else {
         this.closeDialog();

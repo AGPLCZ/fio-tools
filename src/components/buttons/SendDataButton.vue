@@ -1,8 +1,8 @@
 <template>
   <div>
-    <SuccessDialog v-model="sended" />
-    <LoadingTimerDialog v-model="waitingForAPI" />
-    <LoadingDialog v-model="loading" msg="Sending data" />
+    <SuccessDialog v-model="successDialog" />
+    <LoadingTimerDialog v-model="waitingForAPIdialog" />
+    <LoadingDialog v-model="loadingDialog" msg="Sending data" />
     <v-btn
       block
       class="mt-1"
@@ -33,9 +33,9 @@ export default Vue.extend({
   },
 
   data: () => ({
-    sended: false,
-    waitingForAPI: false,
-    loading: false,
+    successDialog: false,
+    waitingForAPIdialog: false,
+    loadingDialog: false,
   }),
 
   computed: {
@@ -45,7 +45,7 @@ export default Vue.extend({
   },
 
   watch: {
-    waitingForAPI(newValue, oldValue) {
+    waitingForAPIdialog(newValue, oldValue) {
       if (
         newValue == undefined &&
         oldValue &&
@@ -71,9 +71,9 @@ export default Vue.extend({
     },
     async sendData() {
       if (this.$store.getters.getTimer != 0) {
-        this.waitingForAPI = true;
+        this.waitingForAPIdialog = true;
       } else {
-        this.loading = true;
+        this.loadingDialog = true;
         await this.$store
           .dispatch("sendData")
           .then((responceXML) => {
@@ -86,7 +86,7 @@ export default Vue.extend({
                 this.errorResponse(responceXML)
               );
             } else {
-              this.sended = true;
+              this.successDialog = true;
               this.$store.commit("removeValidPayments");
             }
           })
@@ -94,7 +94,7 @@ export default Vue.extend({
             ipcRenderer.send(ERROR_DIALOG, e);
           })
           .finally(() => {
-            this.loading = false;
+            this.loadingDialog = false;
             this.$store.commit("apiCooldown", 30);
           });
       }
