@@ -1,7 +1,7 @@
 <template>
   <div class="settings">
     <Toolbar title="Settings" />
-    <LoginDialog v-model="loginDialog" />
+    <LoginDialog v-model="loginDialog" :type="LOGIN_DIALOG.EDIT"/>
     <ColumnDialog v-model="columnDialog" />
 
     <v-list three-line subheader>
@@ -60,6 +60,7 @@ import Vue from "vue";
 import Toolbar from "../components/Toolbar.vue";
 import LoginDialog from "../components/dialogs/LoginDialog.vue";
 import ColumnDialog from "../components/dialogs/ColumnDialog.vue";
+import { LOGIN_DIALOG } from "../utils/data/enums";
 
 export default Vue.extend({
   name: "Settings",
@@ -74,6 +75,10 @@ export default Vue.extend({
     loginDialog: false,
     columnDialog: false,
   }),
+
+  enums: {
+    LOGIN_DIALOG,
+  },
 
   computed: {
     columnCheck: {

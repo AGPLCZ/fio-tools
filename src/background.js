@@ -3,7 +3,7 @@
 import { app, protocol, BrowserWindow, ipcMain, dialog } from "electron";
 import { createProtocol } from "vue-cli-plugin-electron-builder/lib";
 import installExtension, { VUEJS_DEVTOOLS } from "electron-devtools-installer";
-import { GET_FILE, LOAD_DIALOG, SAVE_DIALOG, ERROR_DIALOG } from "./utils/data/constants";
+import { GET_FILE, SAVE_FILE, LOAD_DIALOG, SAVE_DIALOG, ERROR_DIALOG } from "./utils/data/constants";
 import XLSX from "xlsx";
 const isDevelopment = process.env.NODE_ENV !== "production";
 
@@ -39,7 +39,7 @@ async function createWindow() {
   }
 }
 
-// Handle file dialog
+// Handle file get dialog
 ipcMain.on(LOAD_DIALOG, (event) => {
   dialog
     .showOpenDialog({
@@ -54,7 +54,7 @@ ipcMain.on(LOAD_DIALOG, (event) => {
     });
 });
 
-// Handle file dialog
+// Handle file save dialog
 ipcMain.on(SAVE_DIALOG, (event, book) => {
   dialog
     .showSaveDialog({
@@ -63,6 +63,7 @@ ipcMain.on(SAVE_DIALOG, (event, book) => {
     .then((result) => {
       if (!result.canceled) {
         XLSX.writeFile(book, result.filePath);
+        event.reply(SAVE_FILE);
       }
     })
     .catch((err) => {

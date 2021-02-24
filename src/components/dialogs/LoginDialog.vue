@@ -2,12 +2,7 @@
   <div>
     <LoadingDialog v-model="loadingDialog" msg="Validating token" />
 
-    <v-dialog
-      :value="value"
-      @input="$emit('input')"
-      persistent
-      max-width="650"
-    >
+    <v-dialog :value="value" @input="$emit('input')" persistent max-width="650">
       <v-card v-if="!loadingDialog">
         <v-card-title>
           <span class="headline">Set your API token</span>
@@ -38,13 +33,15 @@
             <span class="link" @click="moreInfo">here</span>
           </p>
         </v-card-text>
-        <v-card-actions v-if="!login">
+        <v-card-actions v-if="type==LOGIN_DIALOG.EDIT">
           <v-spacer></v-spacer>
-          <v-btn color="primary" text @click.native="closeDialog"> Close </v-btn>
+          <v-btn color="primary" text @click.native="closeDialog">
+            Close
+          </v-btn>
           <v-btn color="primary" text @click.native="saveToken"> Save </v-btn>
         </v-card-actions>
 
-        <v-card-actions v-else>
+        <v-card-actions v-if="type==LOGIN_DIALOG.DEFAULT">
           <v-spacer></v-spacer>
           <v-btn color="primary" text @click.native="saveToken">
             Validate
@@ -65,16 +62,18 @@ import {
   TOKEN_ERROR_MSG,
 } from "../../utils/data/constants";
 import LoadingDialog from "../dialogs/LoadingDialog";
+import { LOGIN_DIALOG } from "../../utils/data/enums";
 
 export default Vue.extend({
   name: "LoginDialog",
 
   props: {
     value: Boolean,
-    login: {
-      type: Boolean,
-      default: false,
-    },
+    type: LOGIN_DIALOG,
+  },
+
+  enums: {
+    LOGIN_DIALOG,
   },
 
   components: {

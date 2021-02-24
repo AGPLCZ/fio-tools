@@ -1,6 +1,6 @@
 <template>
   <div>
-    <SuccessDialog v-model="successDialog" />
+    <SuccessDialog v-model="successDialog" :type="SUCCESS_DIALOG.SEND" />
     <LoadingTimerDialog v-model="waitingForAPIdialog" />
     <LoadingDialog v-model="loadingDialog" msg="Sending data" />
     <v-btn
@@ -19,6 +19,7 @@
 import Vue from "vue";
 import { ipcRenderer } from "electron";
 import { ERROR_DIALOG } from "../../utils/data/constants";
+import { SUCCESS_DIALOG } from "../../utils/data/enums";
 import SuccessDialog from "../dialogs/SuccessDialog";
 import LoadingTimerDialog from "../dialogs/LoadingTimerDialog";
 import LoadingDialog from "../dialogs/LoadingDialog";
@@ -37,6 +38,10 @@ export default Vue.extend({
     waitingForAPIdialog: false,
     loadingDialog: false,
   }),
+
+  enums: {
+    SUCCESS_DIALOG,
+  },
 
   computed: {
     payments() {
@@ -63,7 +68,9 @@ export default Vue.extend({
         var status = detail.getElementsByTagName("message")[0];
         if (status.getAttribute("status") == "error") {
           errorMsg.push(
-            filtered[detail.getAttribute("id") - 1].account + ": " + status.textContent
+            filtered[detail.getAttribute("id") - 1].account +
+              ": " +
+              status.textContent
           );
         }
       });
@@ -81,10 +88,7 @@ export default Vue.extend({
               responceXML.getElementsByTagName("status")[0].childNodes[0]
                 .nodeValue == "error"
             ) {
-              ipcRenderer.send(
-                ERROR_DIALOG,
-                this.errorResponse(responceXML)
-              );
+              ipcRenderer.send(ERROR_DIALOG, this.errorResponse(responceXML));
             } else {
               this.successDialog = true;
               this.$store.commit("removeValidPayments");
