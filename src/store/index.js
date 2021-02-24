@@ -15,6 +15,7 @@ export default new Vuex.Store({
     selectedPayments: [],
     columnOrder: JSON.parse(localStorage.getItem("columnOrder")),
     columnCheck: JSON.parse(localStorage.getItem("columnCheck")),
+    saveHeader: JSON.parse(localStorage.getItem("saveHeader")),
     timer: 0,
   },
   mutations: {
@@ -65,14 +66,19 @@ export default new Vuex.Store({
       state.selectedPayments = payments;
     },
 
-    updateColumnOrder(state, columnOrder) {
-      localStorage.setItem("columnOrder", JSON.stringify(columnOrder));
-      state.columnOrder = columnOrder;
+    updateColumnOrder(state, value) {
+      localStorage.setItem("columnOrder", JSON.stringify(value));
+      state.columnOrder = value;
     },
 
-    updateColumnCheck(state, columnCheck) {
-      localStorage.setItem("columnCheck", columnCheck);
-      state.columnCheck = columnCheck;
+    updateColumnCheck(state, value) {
+      localStorage.setItem("columnCheck", value);
+      state.columnCheck = value;
+    },
+
+    updateSaveHeader(state, value) {
+      localStorage.setItem("saveHeader", value);
+      state.saveHeader = value;
     },
 
     setUser(state, user) {
@@ -112,6 +118,9 @@ export default new Vuex.Store({
     getSelected(state) {
       return state.selectedPayments;
     },
+    getTimer(state) {
+      return state.timer;
+    },
     getUser(state) {
       return state.user;
     },
@@ -121,8 +130,8 @@ export default new Vuex.Store({
     getColumnCheck(state) {
       return state.columnCheck;
     },
-    getTimer(state) {
-      return state.timer;
-    }
+    getSaveHeader(state) {
+      return state.saveHeader;
+    },
   },
 });

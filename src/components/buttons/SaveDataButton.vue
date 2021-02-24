@@ -1,13 +1,20 @@
 <template>
-  <v-btn block color="primary" class="mt-1" :disabled="payments.length == 0">
+  <v-btn
+    block
+    color="primary"
+    class="mt-1"
+    @click="saveDialog"
+    :disabled="payments.length == 0"
+  >
     Save data
   </v-btn>
 </template>
 
 <script>
 import Vue from "vue";
-// import { ipcRenderer } from "electron";
-// import { GET_FILE, OPEN_DIALOG } from "../../utils/data/constants";
+import { ipcRenderer } from "electron";
+import { SAVE_DIALOG } from "../../utils/data/constants";
+import { createWorkbook } from "../../utils/tools";
 
 export default Vue.extend({
   name: "ButtonSaveData",
@@ -20,7 +27,12 @@ export default Vue.extend({
 
   data: () => ({}),
 
-  methods: {},
+  methods: {
+    saveDialog() {
+      ipcRenderer.send(SAVE_DIALOG, createWorkbook(this.payments, this.$store.getters.getColumnOrder, this.$store.getters.getSaveHeader));
+      this.$router.push("/", () => {});
+    },
+  },
 });
 </script>
 

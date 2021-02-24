@@ -1,5 +1,6 @@
-export const OPEN_DIALOG = "open-dialog";
+export const LOAD_DIALOG = "load-dialog";
 export const GET_FILE = "get-file";
+export const SAVE_DIALOG = "save-dialog";
 export const ERROR_DIALOG = "error-dialog";
 export const FIO_INFO_URL =
   "https://www.fio.cz/bankovni-sluzby/api-bankovnictvi";

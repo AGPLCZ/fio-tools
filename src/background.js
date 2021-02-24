@@ -3,7 +3,8 @@
 import { app, protocol, BrowserWindow, ipcMain, dialog } from "electron";
 import { createProtocol } from "vue-cli-plugin-electron-builder/lib";
 import installExtension, { VUEJS_DEVTOOLS } from "electron-devtools-installer";
-import { GET_FILE, OPEN_DIALOG, ERROR_DIALOG } from "./utils/data/constants";
+import { GET_FILE, LOAD_DIALOG, SAVE_DIALOG, ERROR_DIALOG } from "./utils/data/constants";
+import XLSX from "xlsx";
 const isDevelopment = process.env.NODE_ENV !== "production";
 
 // Scheme must be registered before the app is ready
@@ -39,7 +40,7 @@ async function createWindow() {
 }
 
 // Handle file dialog
-ipcMain.on(OPEN_DIALOG, (event) => {
+ipcMain.on(LOAD_DIALOG, (event) => {
   dialog
     .showOpenDialog({
       defaultPath: app.getPath("desktop"),
@@ -50,6 +51,22 @@ ipcMain.on(OPEN_DIALOG, (event) => {
     })
     .catch((err) => {
       dialog.showErrorBox("Failed to load file", err);
+    });
+});
+
+// Handle file dialog
+ipcMain.on(SAVE_DIALOG, (event, book) => {
+  dialog
+    .showSaveDialog({
+      filters: [{ name: "Excel Workbook", extensions: ["xlsx"] }, { name: "CVS UTF-8 (Comma delimited)", extensions: ["csv"] }, { name: "Excel 97-2003 Workbook", extensions: ["xls"] }],
+    })
+    .then((result) => {
+      if (!result.canceled) {
+        XLSX.writeFile(book, result.filePath);
+      }
+    })
+    .catch((err) => {
+      dialog.showErrorBox("Failed to save file", err);
     });
 });
 

@@ -11,7 +11,7 @@
 <script>
 import Vue from "vue";
 import { ipcRenderer } from "electron";
-import { GET_FILE, OPEN_DIALOG } from "../../utils/data/constants";
+import { GET_FILE, LOAD_DIALOG } from "../../utils/data/constants";
 import ColumnDialog from "..//dialogs/ColumnDialog.vue";
 
 export default Vue.extend({
@@ -45,7 +45,7 @@ export default Vue.extend({
 
   methods: {
     openDialog() {
-      ipcRenderer.send(OPEN_DIALOG);
+      ipcRenderer.send(LOAD_DIALOG);
       this.$router.push("/", () => {});
     },
 

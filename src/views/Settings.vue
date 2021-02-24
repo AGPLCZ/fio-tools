@@ -34,8 +34,20 @@
         <v-list-item-content>
           <v-list-item-title>Set layout before data load</v-list-item-title>
           <v-list-item-subtitle
-            >Show columnDialog order dialog every time file is being
+            >Show Column Dialog order dialog every time file is being
             loaded</v-list-item-subtitle
+          >
+        </v-list-item-content>
+      </v-list-item>
+
+      <v-list-item>
+        <v-list-item-action>
+          <v-checkbox v-model="saveHeader"></v-checkbox>
+        </v-list-item-action>
+        <v-list-item-content>
+          <v-list-item-title>Save file with header</v-list-item-title>
+          <v-list-item-subtitle
+            >Add header to file on save</v-list-item-subtitle
           >
         </v-list-item-content>
       </v-list-item>
@@ -70,6 +82,14 @@ export default Vue.extend({
       },
       set(newValue) {
         this.$store.commit("updateColumnCheck", newValue);
+      },
+    },
+    saveHeader: {
+      get() {
+        return this.$store.getters.getSaveHeader;
+      },
+      set(newValue) {
+        this.$store.commit("updateSaveHeader", newValue);
       },
     },
   },
