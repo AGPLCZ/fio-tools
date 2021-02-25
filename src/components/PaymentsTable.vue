@@ -12,6 +12,35 @@
     :class="{ 'row-pointer': payments.length }"
     @click:row="viewDetail"
   >
+    <template v-slot:[`header.data-table-select`]="{ props, on }">
+      <v-simple-checkbox
+        color="primary"
+        v-if="props.indeterminate"
+        v-ripple
+        v-bind="props"
+        :value="props.indeterminate"
+        v-on="on"
+      ></v-simple-checkbox>
+      <v-simple-checkbox
+        color="primary"
+        v-if="!props.indeterminate"
+        v-ripple
+        v-bind="props"
+        v-on="on"
+      ></v-simple-checkbox>
+    </template>
+
+    <template v-slot:[`item.data-table-select`]="{ item, isSelected, select }">
+      <v-simple-checkbox
+        :class="{ invalid: !item.valid && !isSelected }"
+        :dark="!item.valid && !isSelected"
+        color="primary"
+        v-ripple
+        :value="isSelected"
+        @input="select($event)"
+      ></v-simple-checkbox>
+    </template>
+
     <template v-slot:[`item.account`]="{ item }">
       <div :class="{ 'error--text': isAccountInvalid(item.errors) }">
         <v-icon small color="error" v-if="item.account == ''"
@@ -109,7 +138,6 @@ export default {
       this.$router.push("/payments/" + payment.id);
     },
 
-//TODO nemusimhledat podle errors, errors je uz u itemu
     isInvalid(errors, property) {
       return errors[property] != "";
     },
@@ -141,7 +169,9 @@ export default {
 .row-pointer >>> tbody tr :hover {
   cursor: pointer;
 }
-</style>
 
-<style>
+.invalid {
+  background-color: red;
+  opacity: 0.75;
+}
 </style>
