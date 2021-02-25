@@ -34,7 +34,7 @@
       <v-simple-checkbox
         :class="{ invalid: !item.valid && !isSelected }"
         :dark="!item.valid && !isSelected"
-        color="primary"
+        :color="!item.valid && isSelected ? 'error' : 'primary'"
         v-ripple
         :value="isSelected"
         @input="select($event)"
@@ -43,9 +43,7 @@
 
     <template v-slot:[`item.account`]="{ item }">
       <div :class="{ 'error--text': isAccountInvalid(item.errors) }">
-        <v-icon small color="error" v-if="item.account == ''"
-          >mdi-alert-circle-outline</v-icon
-        >{{ item.account }}
+        {{ item.account }}
       </div>
     </template>
 
@@ -55,9 +53,6 @@
           {{ formatCurrency(parseInt(item.amount)) }}
         </div>
         <div v-else :class="{ 'error--text': isAmountInvalid(item.errors) }">
-          <v-icon small color="error" v-if="item.amount == ''"
-            >mdi-alert-circle-outline</v-icon
-          >
           {{ item.amount }}
         </div>
       </div>
