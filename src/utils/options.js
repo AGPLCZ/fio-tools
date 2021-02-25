@@ -7,7 +7,7 @@ function getAccountType(data, state) {
     for (var index = 0; index < state.columnOrder.length; index++) {
       if (state.columnOrder[index].value == "account") {
         row[index] = "" + row[index];
-        x = Validator.validateAccount(row[index]) != "" ? x + 1 : x - 1;
+        x = Validator.validateAccount(row[index]).message != "" ? x + 1 : x - 1;
       }
     }
   });

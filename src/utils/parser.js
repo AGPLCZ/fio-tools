@@ -41,7 +41,6 @@ function loadData(data, options, state) {
   data.forEach((row, number) => {
     if (options.header && number == 0) return;
     var item = getItem(row, state, options);
-
     item.errors = Validator.validate(item);
     payments.push(item);
   });

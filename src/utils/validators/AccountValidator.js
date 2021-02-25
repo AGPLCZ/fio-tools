@@ -1,5 +1,6 @@
 import { BANK_CODES } from "../data/collections";
 import { ACCOUNT_MAX_SIZE } from "../data/constants";
+import { PAYMENT_ORDER } from "../data/enums";
 
 export default class AccountValidator {
   constructor() {
@@ -7,6 +8,7 @@ export default class AccountValidator {
       throw Error('A static class cannot be instantiated.');
     }
   }
+
 
   static accountNumber(n) {
     var number = n.replace("-", "");
@@ -27,7 +29,7 @@ export default class AccountValidator {
     return BANK_CODES.includes(n) ? "" : "Invalid bank code";
   }
 
-  static validate(account) {
+  static czech(account) {
     if (account.length == 0)
       return "Account is required";
     var accountSplitted = account.split("/");
@@ -37,5 +39,13 @@ export default class AccountValidator {
       return "Your account has to many '/' in it";
     const tmp = this.accountNumber(accountSplitted[0]);
     return tmp ? tmp : this.accountBank(accountSplitted[1])
+  }
+
+
+  static validate(account) {
+    const czechMessage = this.czech(account);
+    if (czechMessage == "")
+      return { message: czechMessage, order: PAYMENT_ORDER.CZ };
+    return { message: czechMessage, order: PAYMENT_ORDER.CZ };
   }
 }
