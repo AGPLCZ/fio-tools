@@ -33,7 +33,7 @@
             <span class="link" @click="moreInfo">here</span>
           </p>
         </v-card-text>
-        <v-card-actions v-if="type==LOGIN_DIALOG.EDIT">
+        <v-card-actions v-if="type==LOGIN_DIALOG.SETTINGS">
           <v-spacer></v-spacer>
           <v-btn color="primary" text @click.native="closeDialog">
             Close

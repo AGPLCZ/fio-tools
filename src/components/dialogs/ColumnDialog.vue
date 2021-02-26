@@ -39,10 +39,16 @@
             Default
           </v-btn>
           <v-spacer></v-spacer>
-          <v-btn color="primary" text @click.native="$emit('input')">
-            Close
-          </v-btn>
-          <v-btn color="primary" text @click.native="save"> Save </v-btn>
+          <div v-if="type==COLUMN_DIALOG.DEFAULT">
+            <v-btn color="primary" text @click.native="save"> Continue </v-btn>
+          </div>
+
+          <div v-if="type==COLUMN_DIALOG.SETTINGS">
+            <v-btn color="primary" text @click.native="$emit('input')">
+              Close
+            </v-btn>
+            <v-btn color="primary" text @click.native="save"> Save </v-btn>
+          </div>
         </v-card-actions>
       </v-card>
     </v-dialog>
@@ -52,6 +58,7 @@
 <script>
 import Vue from "vue";
 import { PAYMENT_PROPS } from "../../utils/data/collections";
+import { COLUMN_DIALOG } from "../../utils/data/enums";
 import draggable from "vuedraggable";
 
 export default Vue.extend({
@@ -59,6 +66,11 @@ export default Vue.extend({
 
   props: {
     value: Boolean,
+    type: COLUMN_DIALOG,
+  },
+
+  enums: {
+    COLUMN_DIALOG,
   },
 
   components: {
@@ -67,7 +79,7 @@ export default Vue.extend({
 
   computed: {
     isDefault() {
-      return this.columnOrder == PAYMENT_PROPS;
+      return JSON.stringify(this.columnOrder)==JSON.stringify(PAYMENT_PROPS);
     },
   },
 

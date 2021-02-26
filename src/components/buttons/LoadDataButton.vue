@@ -1,6 +1,6 @@
 <template>
   <div>
-    <ColumnDialog v-model="columnDialog" />
+    <ColumnDialog v-model="columnDialog" :type="COLUMN_DIALOG.DEFAULT" />
 
     <v-btn block color="primary" class="mt-1" @click="clicked">
       Load data
@@ -12,6 +12,7 @@
 import Vue from "vue";
 import { ipcRenderer } from "electron";
 import { GET_FILE, LOAD_DIALOG } from "../../utils/data/constants";
+import { COLUMN_DIALOG } from "../../utils/data/enums";
 import ColumnDialog from "..//dialogs/ColumnDialog.vue";
 
 export default Vue.extend({
@@ -24,6 +25,10 @@ export default Vue.extend({
   data: () => ({
     columnDialog: false,
   }),
+
+  enums: {
+    COLUMN_DIALOG,
+  },
 
   computed: {
     columnCheck() {

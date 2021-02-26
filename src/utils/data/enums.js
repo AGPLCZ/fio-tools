@@ -6,7 +6,12 @@ export const FORM_OPTION = {
 
 export const LOGIN_DIALOG = {
   DEFAULT: 0,
-  EDIT: 1
+  SETTINGS: 1
+};
+
+export const COLUMN_DIALOG = {
+  DEFAULT: 0,
+  SETTINGS: 1
 };
 
 export const SUCCESS_DIALOG = {
