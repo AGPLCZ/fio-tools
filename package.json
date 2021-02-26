@@ -1,5 +1,6 @@
 {
   "name": "fio-tool",
+  "productName": "FIO Tool",
   "author": "Matěj Novotný <matej.novotnny@gmail.com>",
   "description": "Electron app, using FIO bank api to create payments",
   "version": "0.1.0",

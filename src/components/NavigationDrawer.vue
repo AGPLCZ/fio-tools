@@ -7,7 +7,7 @@
           @click="$router.push('/', () => {})"
           class="clickable"
         >
-          <img src="../assets/fio.png" class="mx-auto" />
+          <img src="../assets/account.png" class="mx-auto" />
         </v-list-item-avatar>
 
         <v-list-item-title v-if="user"
