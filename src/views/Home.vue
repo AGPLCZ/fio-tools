@@ -9,6 +9,7 @@
         single-line
         hide-details
       ></v-text-field>
+
       <v-chip
         v-if="!valid"
         class="ma-2"
@@ -32,30 +33,57 @@
       </v-chip>
 
       <v-spacer></v-spacer>
-      <v-btn
-        :disabled="!selected.length"
-        @click="editSelected"
-        color="#2C3A47"
-        class="mb-2 mr-2"
-        icon
-        small
-      >
-        <v-icon> mdi-pencil </v-icon>
-      </v-btn>
-      <v-btn
-        :disabled="!selected.length"
-        @click="deleteSelected"
-        color="error"
-        class="mb-2 mr-2"
-        icon
-        small
-      >
-        <v-icon> mdi-delete </v-icon>
-      </v-btn>
+      <v-tooltip bottom>
+        <template v-slot:activator="{ on, attrs }">
+          <v-btn
+            v-bind="attrs"
+            v-on="on"
+            :disabled="!selected.length"
+            @click="editSelected"
+            color="#2C3A47"
+            class="mb-2 mr-2"
+            icon
+            small
+          >
+            <v-icon> mdi-pencil </v-icon>
+          </v-btn>
+        </template>
+        <span>Edit selected payments</span>
+      </v-tooltip>
 
-      <v-btn color="primary" dark class="mb-2" @click="addPayment">
-        New Item
-      </v-btn>
+      <v-tooltip bottom>
+        <template v-slot:activator="{ on, attrs }">
+          <v-btn
+            v-bind="attrs"
+            v-on="on"
+            :disabled="!selected.length"
+            @click="deleteSelected"
+            color="error"
+            class="mb-2 mr-2"
+            icon
+            small
+          >
+            <v-icon> mdi-delete </v-icon>
+          </v-btn>
+        </template>
+        <span>Delete selected payments</span>
+      </v-tooltip>
+
+      <v-tooltip bottom>
+        <template v-slot:activator="{ on, attrs }">
+          <v-btn
+            v-bind="attrs"
+            v-on="on"
+            color="primary"
+            dark
+            class="mb-2"
+            @click="addPayment"
+          >
+            New Item
+          </v-btn>
+        </template>
+        <span>Insert new payment</span>
+      </v-tooltip>
     </v-toolbar>
     <PaymentsTable :search="search" :valid="valid" />
   </div>
@@ -70,7 +98,7 @@ export default Vue.extend({
 
   data: () => ({
     valid: true,
-    search: ""
+    search: "",
   }),
 
   components: {
