@@ -34,7 +34,7 @@
       <v-simple-checkbox
         :class="{ invalid: !item.valid && !isSelected }"
         :dark="!item.valid && !isSelected"
-        :color="!item.valid && isSelected ? 'error' : 'primary'"
+        color="primary"
         v-ripple
         :value="isSelected"
         @input="select($event)"
