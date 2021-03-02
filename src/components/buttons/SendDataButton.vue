@@ -64,16 +64,17 @@ export default Vue.extend({
     errorResponse(responceXML) {
       var errorMsg = [];
       var filtered = this.payments.filter((payment) => payment.valid);
-      responceXML.getElementsByTagName("detail").forEach((detail) => {
-        var status = detail.getElementsByTagName("message")[0];
+      const details = responceXML.getElementsByTagName("detail");
+      for (var index = 0; index < details.length; index++) {
+        var status = details[index].getElementsByTagName("message")[0];
         if (status.getAttribute("status") == "error") {
           errorMsg.push(
-            filtered[detail.getAttribute("id") - 1].account +
+            filtered[details[index].getAttribute("id") - 1].account +
               ": " +
               status.textContent
           );
         }
-      });
+      }
       return errorMsg.join("\n");
     },
     async sendData() {
