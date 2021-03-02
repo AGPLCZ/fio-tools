@@ -28,7 +28,7 @@ export async function getUser(commit, url) {
   return await axios
     .get(url, { timeout: 3000 })
     .then((response) => {
-      commit("setUser", response.data.accountStatement.info);
+      commit("updateUser", response.data.accountStatement.info);
       return;
     });
 }

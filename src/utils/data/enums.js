@@ -19,6 +19,11 @@ export const SUCCESS_DIALOG = {
   SAVE: 1
 };
 
+export const TIMER_TARGET = {
+  SEND: 0,
+  GET: 1,
+};
+
 export const PAYMENT_ORDER = {
   CZ: 0,
   EU: 1,

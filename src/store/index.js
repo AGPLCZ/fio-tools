@@ -17,6 +17,7 @@ export default new Vuex.Store({
     columnCheck: JSON.parse(localStorage.getItem("columnCheck")),
     saveHeader: JSON.parse(localStorage.getItem("saveHeader")),
     timer: 0,
+    timerTarget: ""
   },
   mutations: {
     addPayments(state, path) {
@@ -81,9 +82,13 @@ export default new Vuex.Store({
       state.saveHeader = value;
     },
 
-    setUser(state, user) {
+    updateUser(state, user) {
       localStorage.setItem("user", JSON.stringify(user));
       state.user = user;
+    },
+
+    updateTimerTarget(state, target) {
+      state.timerTarget = target;
     },
 
     apiCooldown(state, time) {
@@ -120,6 +125,9 @@ export default new Vuex.Store({
     },
     getTimer(state) {
       return state.timer;
+    },
+    getTimerTarget(state) {
+      return state.timerTarget;
     },
     getUser(state) {
       return state.user;
