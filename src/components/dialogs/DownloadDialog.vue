@@ -61,7 +61,7 @@
         </v-card-text>
         <v-card-actions>
           <v-spacer></v-spacer>
-          <v-btn color="primary" text @click.native="closeDialog">
+          <v-btn color="primary" text @click.native="$emit('input')">
             Close
           </v-btn>
           <v-btn color="primary" text @click.native="downloadData">
@@ -159,15 +159,6 @@ export default Vue.extend({
   },
 
   methods: {
-    validateVs() {
-      if (isNaN(this.vs)) {
-        return "Invalid number format";
-      }
-      if (this.vs.length > VS_MAX_SIZE)
-        return "Number is to long, max length is " + VS_MAX_SIZE;
-      return "";
-    },
-
     filter(payments) {
       if (this.account != "")
         payments = payments.filter((payment) => payment.account == this.account);
@@ -178,7 +169,7 @@ export default Vue.extend({
 
     async downloadData() {
       this.errors.account = Validator.validateAccount(this.account, true);
-      this.errors.vs = this.validateVs();
+      this.errors.vs = Validator.validateNumber(this.vs, this.vsMaxSize);
       if (this.$refs.form.validate()) {
         if (this.$store.getters.getTimer != 0) {
           this.waitingForAPIdialog = true;
@@ -203,11 +194,6 @@ export default Vue.extend({
             });
         }
       }
-    },
-
-    closeDialog() {
-      console.log(Validator.validateAccount(this.account));
-      this.$emit("input");
     },
   },
 });
