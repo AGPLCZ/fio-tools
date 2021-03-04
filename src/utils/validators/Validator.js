@@ -8,11 +8,11 @@ export default class Validator {
     }
   }
 
-  static validateAccount(item){
-    return AccountValidator.validate(item)
+  static validateAccount(item, filter = false) {
+    return AccountValidator.validate(item, filter)
   }
 
-  static validateNumber(item, maxLen){
+  static validateNumber(item, maxLen) {
     if (isNaN(item))
       return "Invalid number format";
     if (item.length > maxLen)
@@ -20,7 +20,7 @@ export default class Validator {
     return "";
   }
 
-  static validateAmount(item){
+  static validateAmount(item) {
     if (item.length == 0 || item == "0")
       return "Amount is required";
     return this.validateNumber(item, AMOUNT_MAX_SIZE)

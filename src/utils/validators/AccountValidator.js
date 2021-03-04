@@ -28,9 +28,9 @@ export default class AccountValidator {
     return BANK_CODES.includes(n) ? "" : "Invalid bank code";
   }
 
-  static czech(account) {
+  static validate(account, filter) {
     if (account.length == 0)
-      return "Account is required";
+      return filter ? "" : "Account is required";
     var accountSplitted = account.split("/");
     if (accountSplitted.length < 2)
       return "Your account is missing '/'";
@@ -38,10 +38,5 @@ export default class AccountValidator {
       return "Your account has to many '/' in it";
     const tmp = this.accountNumber(accountSplitted[0]);
     return tmp ? tmp : this.accountBank(accountSplitted[1])
-  }
-
-
-  static validate(account) {
-    return this.czech(account);
   }
 }

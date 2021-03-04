@@ -39,13 +39,22 @@
                     msg="Payments to"
                   />
                 </v-col>
+              </v-row>
+              <v-row class="pl-4 pr-4">
+                <v-text-field
+                  v-model="account"
+                  :rules="[() => !errors.account || errors.account]"
+                  label="Account"
+                ></v-text-field>
+              </v-row>
 
-                <v-row class="pa-2 pl-6 pr-6">
-                  <v-text-field
-                    v-model="account"
-                    label="Account"
-                  ></v-text-field>
-                </v-row>
+              <v-row class="pl-4 pr-4">
+                <v-text-field
+                  v-model="vs"
+                  :rules="[() => !errors.vs || errors.vs]"
+                  :counter="vsMaxSize"
+                  label="Variable symbol prefix"
+                ></v-text-field>
               </v-row>
             </v-container>
           </v-form>
@@ -71,6 +80,7 @@ import {
   ERROR_DIALOG,
   FIO_API_PREFIX,
   BIG_DIALOG_SIZE,
+  VS_MAX_SIZE,
 } from "../../utils/data/constants";
 import { SUCCESS_DIALOG, TIMER_TARGET } from "../../utils/data/enums";
 import Validator from "../../utils/validators/Validator";
@@ -99,6 +109,12 @@ export default Vue.extend({
     dateFrom: new Date().toISOString().substr(0, 10),
     dateTo: new Date().toISOString().substr(0, 10),
     account: "",
+    vs: "",
+    vsMaxSize: VS_MAX_SIZE,
+    errors: {
+      account: "",
+      vs: "",
+    },
     successDialog: false,
     waitingForAPIdialog: false,
     loadingDialog: false,
@@ -143,33 +159,41 @@ export default Vue.extend({
   },
 
   methods: {
+    validateVs() {
+      if (isNaN(this.vs)) {
+        return "Invalid number format";
+      }
+      if (this.vs.length > VS_MAX_SIZE)
+        return "Number is to long, max length is " + VS_MAX_SIZE;
+      return "";
+    },
+
     async downloadData() {
-      //   this.errors = Validator.validateSelected(this.payment);
-      //   this.payment.errors = this.errors;
-      //   if (this.$refs.form.validate()) {
-      //     this.$store.commit("updatePaymentSelected", this.payment);
-      //     this.$router.back();
-      //   }
-      if (this.$store.getters.getTimer != 0) {
-        this.waitingForAPIdialog = true;
-        this.$store.commit("updateTimerTarget", TIMER_TARGET.DOWNLOAD);
-      } else {
-        this.loadingDialog = true;
-        await this.$store
-          .dispatch("downloadData", this.urlAPI)
-          .then((responce) => {
-            this.$store.commit("setPayments", responce.concat(this.payments));
-            this.successNumber = responce.length;
-            this.successDialog = true;
-          })
-          .catch((e) => {
-            ipcRenderer.send(ERROR_DIALOG, e);
-          })
-          .finally(() => {
-            this.loadingDialog = false;
-            this.$emit("input");
-            this.$store.commit("apiCooldown", 30);
-          });
+      this.errors.account = Validator.validateAccount(this.account, true);
+      this.errors.vs = this.validateVs();
+      if (this.$refs.form.validate()) {
+        if (this.$store.getters.getTimer != 0) {
+          this.waitingForAPIdialog = true;
+          this.$store.commit("updateTimerTarget", TIMER_TARGET.DOWNLOAD);
+        } else {
+          this.loadingDialog = true;
+          await this.$store
+            .dispatch("downloadData", this.urlAPI)
+            .then((responce) => {
+              //TODO responce add to filter with account + vs
+              this.$store.commit("setPayments", responce.concat(this.payments));
+              this.successNumber = responce.length;
+              this.successDialog = true;
+            })
+            .catch((e) => {
+              ipcRenderer.send(ERROR_DIALOG, e);
+            })
+            .finally(() => {
+              this.loadingDialog = false;
+              this.$emit("input");
+              this.$store.commit("apiCooldown", 30);
+            });
+        }
       }
     },
 
