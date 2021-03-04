@@ -36,15 +36,19 @@ export default {
   name: "DatePicker",
 
   props: {
+    value: {
+      type: String,
+      required: true,
+    },
     msg: String,
     minDate: {
-        default: '',
-        type: String,
+      default: "",
+      type: String,
     },
     maxDate: {
-        default: '',
-        type: String,
-    }
+      default: "",
+      type: String,
+    },
   },
 
   data: () => ({
@@ -52,13 +56,19 @@ export default {
     localDate: "",
   }),
 
-  mounted(){
-      this.localDate = new Date().toISOString().substr(0, 10);
+  mounted() {
+    this.localDate = this.value;
   },
 
   computed: {
     computedDateFormatted() {
       return this.formatDate(this.localDate);
+    },
+  },
+
+  watch: {
+    value(newValue) {
+      this.localDate = newValue;
     },
   },
 

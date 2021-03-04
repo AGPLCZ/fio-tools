@@ -106,15 +106,12 @@ export default Vue.extend({
   data: () => ({
     dialogSize: BIG_DIALOG_SIZE,
     valid: true,
-    dateFrom: new Date().toISOString().substr(0, 10),
-    dateTo: new Date().toISOString().substr(0, 10),
+    dateFrom: "",
+    dateTo: "",
     account: "",
     vs: "",
+    errors: {},
     vsMaxSize: VS_MAX_SIZE,
-    errors: {
-      account: "",
-      vs: "",
-    },
     successDialog: false,
     waitingForAPIdialog: false,
     loadingDialog: false,
@@ -147,6 +144,11 @@ export default Vue.extend({
   },
 
   watch: {
+    value(newValue) {
+      if (newValue) {
+        this.initialize();
+      }
+    },
     waitingForAPIdialog(newValue, oldValue) {
       if (
         newValue == undefined &&
@@ -158,10 +160,26 @@ export default Vue.extend({
     },
   },
 
+  mounted() {
+    this.initialize();
+  },
+
   methods: {
+    initialize() {
+      this.dateFrom = new Date().toISOString().substr(0, 10);
+      this.dateTo = new Date().toISOString().substr(0, 10);
+      this.account = "";
+      this.vs = "";
+      this.errors = {
+        account: "",
+        vs: "",
+      };
+    },
     filter(payments) {
       if (this.account != "")
-        payments = payments.filter((payment) => payment.account == this.account);
+        payments = payments.filter(
+          (payment) => payment.account == this.account
+        );
       if (this.vs != "")
         payments = payments.filter((payment) => payment.vs.startsWith(this.vs));
       return payments;
