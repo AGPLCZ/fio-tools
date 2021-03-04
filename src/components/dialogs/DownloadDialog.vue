@@ -21,25 +21,34 @@
           <span class="headline">Set filters</span>
         </v-card-title>
         <v-card-text>
-          <v-container>
-            <v-row>
-              <v-col cols="6">
-                <DatePicker
-                  v-model="dateFrom"
-                  :maxDate="dateTo"
-                  msg="Payments from"
-                />
-              </v-col>
+          <v-form ref="form" v-model="valid">
+            <v-container>
+              <v-row>
+                <v-col cols="6">
+                  <DatePicker
+                    v-model="dateFrom"
+                    :maxDate="dateTo"
+                    msg="Payments from"
+                  />
+                </v-col>
 
-              <v-col cols="6">
-                <DatePicker
-                  v-model="dateTo"
-                  :minDate="dateFrom"
-                  msg="Payments to"
-                />
-              </v-col>
-            </v-row>
-          </v-container>
+                <v-col cols="6">
+                  <DatePicker
+                    v-model="dateTo"
+                    :minDate="dateFrom"
+                    msg="Payments to"
+                  />
+                </v-col>
+
+                <v-row class="pa-2 pl-6 pr-6">
+                  <v-text-field
+                    v-model="account"
+                    label="Account"
+                  ></v-text-field>
+                </v-row>
+              </v-row>
+            </v-container>
+          </v-form>
         </v-card-text>
         <v-card-actions>
           <v-spacer></v-spacer>
@@ -64,6 +73,7 @@ import {
   BIG_DIALOG_SIZE,
 } from "../../utils/data/constants";
 import { SUCCESS_DIALOG, TIMER_TARGET } from "../../utils/data/enums";
+import Validator from "../../utils/validators/Validator";
 import SuccessDialog from "./SuccessDialog";
 import LoadingTimerDialog from "./LoadingTimerDialog";
 import LoadingDialog from "./LoadingDialog";
@@ -85,8 +95,10 @@ export default Vue.extend({
 
   data: () => ({
     dialogSize: BIG_DIALOG_SIZE,
+    valid: true,
     dateFrom: new Date().toISOString().substr(0, 10),
     dateTo: new Date().toISOString().substr(0, 10),
+    account: "",
     successDialog: false,
     waitingForAPIdialog: false,
     loadingDialog: false,
@@ -132,6 +144,12 @@ export default Vue.extend({
 
   methods: {
     async downloadData() {
+      //   this.errors = Validator.validateSelected(this.payment);
+      //   this.payment.errors = this.errors;
+      //   if (this.$refs.form.validate()) {
+      //     this.$store.commit("updatePaymentSelected", this.payment);
+      //     this.$router.back();
+      //   }
       if (this.$store.getters.getTimer != 0) {
         this.waitingForAPIdialog = true;
         this.$store.commit("updateTimerTarget", TIMER_TARGET.DOWNLOAD);
@@ -156,8 +174,7 @@ export default Vue.extend({
     },
 
     closeDialog() {
-      console.log(this.dateFrom);
-      console.log(this.dateTo);
+      console.log(Validator.validateAccount(this.account));
       this.$emit("input");
     },
   },

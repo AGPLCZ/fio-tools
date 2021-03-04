@@ -1,5 +1,3 @@
-import { PAYMENT_ORDER } from "./data/enums";
-
 export default class XMLBuilder {
   constructor() {
     if (this instanceof XMLBuilder) {
@@ -50,8 +48,7 @@ export default class XMLBuilder {
     //TODO sort based on types
     payments.forEach((payment) => {
       if (payment.valid)
-        if (payment.order == PAYMENT_ORDER.CZ)
-          ordersElem.appendChild(this.createItemCZ(doc, payment, account, today));
+        ordersElem.appendChild(this.createItemCZ(doc, payment, account, today));
     });
     return ordersElem;
   }

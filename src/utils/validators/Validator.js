@@ -37,11 +37,9 @@ export default class Validator {
   }
 
   static validate(item) {
-    const tmp = this.validateAccount(item.account);
     item.valid = true;
-    item.order = tmp.order;
     const errorMsgs = {
-      account: tmp.message,
+      account: this.validateAccount(item.account),
       amount: this.validateAmount(item.amount),
       ks: this.validateNumber(item.ks, KS_SIZE),
       vs: this.validateNumber(item.vs, VS_MAX_SIZE),

@@ -1,6 +1,5 @@
 import { BANK_CODES } from "../data/collections";
 import { ACCOUNT_MAX_SIZE } from "../data/constants";
-import { PAYMENT_ORDER } from "../data/enums";
 
 export default class AccountValidator {
   constructor() {
@@ -43,9 +42,6 @@ export default class AccountValidator {
 
 
   static validate(account) {
-    const czechMessage = this.czech(account);
-    if (czechMessage == "")
-      return { message: czechMessage, order: PAYMENT_ORDER.CZ };
-    return { message: czechMessage, order: PAYMENT_ORDER.CZ };
+    return this.czech(account);
   }
 }
