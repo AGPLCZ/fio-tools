@@ -168,6 +168,14 @@ export default Vue.extend({
       return "";
     },
 
+    filter(payments) {
+      if (this.account != "")
+        payments = payments.filter((payment) => payment.account == this.account);
+      if (this.vs != "")
+        payments = payments.filter((payment) => payment.vs.startsWith(this.vs));
+      return payments;
+    },
+
     async downloadData() {
       this.errors.account = Validator.validateAccount(this.account, true);
       this.errors.vs = this.validateVs();
@@ -180,9 +188,9 @@ export default Vue.extend({
           await this.$store
             .dispatch("downloadData", this.urlAPI)
             .then((responce) => {
-              //TODO responce add to filter with account + vs
-              this.$store.commit("setPayments", responce.concat(this.payments));
-              this.successNumber = responce.length;
+              var payments = this.filter(responce);
+              this.$store.commit("setPayments", payments.concat(this.payments));
+              this.successNumber = payments.length;
               this.successDialog = true;
             })
             .catch((e) => {
