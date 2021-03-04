@@ -1,5 +1,5 @@
 import Validator from "./validators/Validator";
-import { getItem } from "./parser";
+import { getItem } from "./parsers/loadData";
 
 function getAccountType(data, state) {
   var x = 0;

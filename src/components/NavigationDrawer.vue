@@ -22,6 +22,7 @@
       <LoadDataButton />
       <SendDataButton />
       <SaveDataButton />
+      <DownloadDataButton />
     </div>
 
     <template v-slot:append>
@@ -45,6 +46,7 @@ import Vue from "vue";
 import LoadDataButton from "./buttons/LoadDataButton";
 import SendDataButton from "./buttons/SendDataButton";
 import SaveDataButton from "./buttons/SaveDataButton";
+import DownloadDataButton from "./buttons/DownloadDataButton";
 
 export default Vue.extend({
   name: "NavigationDrawer",
@@ -53,6 +55,7 @@ export default Vue.extend({
     LoadDataButton,
     SendDataButton,
     SaveDataButton,
+    DownloadDataButton
   },
 
   data: () => ({}),

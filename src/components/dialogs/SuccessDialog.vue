@@ -37,6 +37,22 @@
         </v-btn>
       </v-card-actions>
     </v-card>
+
+    <v-card v-if="type == SUCCESS_DIALOG.DOWNLOAD">
+      <v-card-title primary-title class="justify-center">
+        Import successfull
+      </v-card-title>
+      <v-card-text style="margin-top: -10px" class="text-center">
+        <p style="padding-right: 5px">
+          Your data has been successfully downloaded
+        </p></v-card-text
+      >
+      <v-card-actions style="margin-top: -40px">
+        <v-btn block color="primary" text @click.native="$emit('input')">
+          OK
+        </v-btn>
+      </v-card-actions>
+    </v-card>
   </v-dialog>
 </template>
 

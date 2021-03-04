@@ -1,9 +1,9 @@
 import Vue from "vue";
 import Vuex from "vuex";
 import Validator from "../utils/validators/Validator";
-import parseData from "../utils/parser";
+import parseLoadData from "../utils/parsers/loadData";
 import getOptions from "../utils/options";
-import { sendData, getUser, loadFile, timer } from "../utils/tools";
+import { sendData, downloadData, getUser, loadFile, timer } from "../utils/tools";
 
 Vue.use(Vuex);
 
@@ -20,14 +20,14 @@ export default new Vuex.Store({
     timerTarget: ""
   },
   mutations: {
+    setPayments(state, payments) {
+      state.payments = payments;
+    },
+
     addPayments(state, path) {
       var data = loadFile(path);
       var options = getOptions(data, state);
-      state.payments = parseData(data, options, state).concat(state.payments);
-    },
-
-    removeValidPayments(state) {
-      state.payments = state.payments.filter((payment) => !payment.valid);
+      state.payments = parseLoadData(data, options, state).concat(state.payments);
     },
 
     addPayment(state, payment) {
@@ -110,6 +110,10 @@ export default new Vuex.Store({
   actions: {
     async sendData({ state }) {
       return sendData(state);
+    },
+
+    async downloadData({ commit, state }, url) {
+      return downloadData(state, commit, url);
     },
 
     async getUser({ commit }, url) {

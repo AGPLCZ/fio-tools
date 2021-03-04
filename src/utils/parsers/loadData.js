@@ -1,7 +1,7 @@
-import Validator from "./validators/Validator";
-import { KS_SIZE, VS_MIN_SIZE, SS_SIZE } from "./data/constants";
-import { PAYMENT_TYPE } from "./data/collections";
-import { PAYMENT_ORDER } from "./data/enums";
+import Validator from "../validators/Validator";
+import { KS_SIZE, VS_MIN_SIZE, SS_SIZE } from "../data/constants";
+import { PAYMENT_TYPE } from "../data/collections";
+import { PAYMENT_ORDER } from "../data/enums";
 
 function addZeroes(num, len) {
   return !isNaN(num) && num.length && num.length < len
@@ -35,7 +35,7 @@ export function getItem(row, state, options) {
   return item;
 }
 
-function loadData(data, options, state) {
+export default function (data, options, state) {
   var payments = [];
   data.forEach((row, number) => {
     if (options.header && number == 0) return;
@@ -47,8 +47,4 @@ function loadData(data, options, state) {
     payments.push(item);
   });
   return payments;
-}
-
-export default function (data, options, state) {
-  return loadData(data, options, state);
 }

@@ -7,7 +7,7 @@
       block
       class="mt-1"
       color="primary"
-      :disabled="payments.length == 0"
+      :disabled="paymentsValid.length == 0"
       @click="sendData"
     >
       Send data
@@ -45,7 +45,10 @@ export default Vue.extend({
 
   computed: {
     payments() {
-      return this.$store.getters.getPayments.filter((payment) => payment.valid);
+      return this.$store.getters.getPayments;
+    },
+    paymentsValid() {
+      return this.payments.filter((payment) => payment.valid);
     },
   },
 
@@ -64,13 +67,12 @@ export default Vue.extend({
   methods: {
     errorResponse(responceXML) {
       var errorMsg = [];
-      var filtered = this.payments.filter((payment) => payment.valid);
       const details = responceXML.getElementsByTagName("detail");
       for (var index = 0; index < details.length; index++) {
         var status = details[index].getElementsByTagName("message")[0];
         if (status.getAttribute("status") == "error") {
           errorMsg.push(
-            filtered[details[index].getAttribute("id") - 1].account +
+            this.paymentsValid[details[index].getAttribute("id") - 1].account +
               ": " +
               status.textContent
           );
@@ -94,7 +96,7 @@ export default Vue.extend({
               ipcRenderer.send(ERROR_DIALOG, this.errorResponse(responceXML));
             } else {
               this.successDialog = true;
-              this.$store.commit("removeValidPayments");
+              this.$store.commit("setPayments", this.payments.filter((payment) => !payment.valid));
             }
           })
           .catch((e) => {

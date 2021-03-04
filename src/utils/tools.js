@@ -1,4 +1,5 @@
 import XMLBuilder from "./XMLBuilder";
+import parseDownloadData from "./parsers/downloadData";
 import { FIO_API_PREFIX } from "./data/constants";
 import axios from "axios";
 import XLSX from "xlsx";
@@ -24,6 +25,16 @@ export async function sendData(state) {
 
 }
 
+export async function downloadData(state, commit, url) {
+  return await axios
+    .get(url)
+    .then((response) => {
+      var payments = parseDownloadData(state, response.data.accountStatement.transactionList.transaction).concat(state.payments);
+      commit("setPayments", payments);
+      return;
+    });
+}
+
 export async function getUser(commit, url) {
   return await axios
     .get(url, { timeout: 3000 })
@@ -45,7 +56,7 @@ function fitToColumn(arrayOfArray) {
   return arrayOfArray[0].map((a, i) => ({ wch: Math.max(...arrayOfArray.map(a2 => a2[i].toString().length)) }));
 }
 
-function createArrayOfArray(payments, columnOrder, saveHeader){
+function createArrayOfArray(payments, columnOrder, saveHeader) {
   const data = [];
   if (saveHeader) {
     const row = [];

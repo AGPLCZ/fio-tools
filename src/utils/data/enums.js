@@ -16,12 +16,13 @@ export const COLUMN_DIALOG = {
 
 export const SUCCESS_DIALOG = {
   SEND: 0,
-  SAVE: 1
+  SAVE: 1,
+  DOWNLOAD: 2
 };
 
 export const TIMER_TARGET = {
   SEND: 0,
-  GET: 1,
+  DOWNLOAD: 1,
 };
 
 export const PAYMENT_ORDER = {
