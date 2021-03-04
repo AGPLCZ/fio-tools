@@ -1,10 +1,5 @@
 <template>
-  <v-dialog
-    :value="value"
-    @input="$emit('input')"
-    persistent
-    max-width="235"
-  >
+  <v-dialog :value="value" @input="$emit('input')" persistent :max-width="dialogSize">
     <v-card color="primary" dark>
       <v-card-text class="text-center">
         {{ msg }}
@@ -20,6 +15,7 @@
 
 <script>
 import Vue from "vue";
+import { SMALL_DIALOG_SIZE } from "../../utils/data/constants";
 
 export default Vue.extend({
   name: "LoadingDialog",
@@ -28,5 +24,9 @@ export default Vue.extend({
     value: Boolean,
     msg: String,
   },
+
+  data: () => ({
+    dialogSize: SMALL_DIALOG_SIZE,
+  }),
 });
 </script>

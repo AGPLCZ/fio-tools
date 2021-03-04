@@ -1,6 +1,8 @@
 export const LOAD_DIALOG = "load-dialog";
 export const SAVE_DIALOG = "save-dialog";
 export const ERROR_DIALOG = "error-dialog";
+export const SMALL_DIALOG_SIZE = 235;
+export const BIG_DIALOG_SIZE = 650;
 export const GET_FILE = "get-file";
 export const SAVE_FILE = "save-file";
 export const FIO_INFO_URL =

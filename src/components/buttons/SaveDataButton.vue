@@ -22,7 +22,7 @@ import { createWorkbook } from "../../utils/tools";
 import SuccessDialog from "../dialogs/SuccessDialog";
 
 export default Vue.extend({
-  name: "ButtonSaveData",
+  name: "SaveDataButton",
 
   components: {
     SuccessDialog,
@@ -49,6 +49,7 @@ export default Vue.extend({
   },
   methods: {
     saveDialog() {
+      this.$router.push("/", () => {});
       ipcRenderer.send(
         SAVE_DIALOG,
         createWorkbook(
@@ -57,7 +58,6 @@ export default Vue.extend({
           this.$store.getters.getSaveHeader
         )
       );
-      this.$router.push("/", () => {});
     },
   },
 });

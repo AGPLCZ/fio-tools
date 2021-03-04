@@ -16,7 +16,7 @@ import { COLUMN_DIALOG } from "../../utils/data/enums";
 import ColumnDialog from "..//dialogs/ColumnDialog.vue";
 
 export default Vue.extend({
-  name: "ButtonLoadData",
+  name: "LoadDataButton",
 
   components: {
     ColumnDialog,

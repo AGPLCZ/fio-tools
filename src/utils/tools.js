@@ -25,13 +25,11 @@ export async function sendData(state) {
 
 }
 
-export async function downloadData(state, commit, url) {
+export async function downloadData(state, url) {
   return await axios
     .get(url)
     .then((response) => {
-      var payments = parseDownloadData(state, response.data.accountStatement.transactionList.transaction).concat(state.payments);
-      commit("setPayments", payments);
-      return;
+      return parseDownloadData(state, response.data.accountStatement.transactionList.transaction);
     });
 }
 

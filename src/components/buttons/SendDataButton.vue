@@ -1,7 +1,7 @@
 <template>
   <div>
     <SuccessDialog v-model="successDialog" :type="SUCCESS_DIALOG.SEND" />
-    <LoadingTimerDialog v-model="waitingForAPIdialog" />
+    <LoadingTimerDialog v-model="waitingForAPIdialog" msg="Data will send" />
     <LoadingDialog v-model="loadingDialog" msg="Sending data" />
     <v-btn
       block
@@ -25,7 +25,7 @@ import LoadingTimerDialog from "../dialogs/LoadingTimerDialog";
 import LoadingDialog from "../dialogs/LoadingDialog";
 
 export default Vue.extend({
-  name: "ButtonSendData",
+  name: "SendDataButton",
 
   components: {
     SuccessDialog,
@@ -81,6 +81,7 @@ export default Vue.extend({
       return errorMsg.join("\n");
     },
     async sendData() {
+      this.$router.push("/", () => {});
       if (this.$store.getters.getTimer != 0) {
         this.waitingForAPIdialog = true;
         this.$store.commit("updateTimerTarget", TIMER_TARGET.SEND);
@@ -96,7 +97,10 @@ export default Vue.extend({
               ipcRenderer.send(ERROR_DIALOG, this.errorResponse(responceXML));
             } else {
               this.successDialog = true;
-              this.$store.commit("setPayments", this.payments.filter((payment) => !payment.valid));
+              this.$store.commit(
+                "setPayments",
+                this.payments.filter((payment) => !payment.valid)
+              );
             }
           })
           .catch((e) => {

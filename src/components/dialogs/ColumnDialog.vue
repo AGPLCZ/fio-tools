@@ -4,7 +4,7 @@
       :value="value"
       @input="$emit('input')"
       persistent
-      max-width="650px"
+      :max-width="dialogSize"
     >
       <v-card>
         <v-card-title>
@@ -39,11 +39,11 @@
             Default
           </v-btn>
           <v-spacer></v-spacer>
-          <div v-if="type==COLUMN_DIALOG.DEFAULT">
+          <div v-if="type == COLUMN_DIALOG.DEFAULT">
             <v-btn color="primary" text @click.native="save"> Continue </v-btn>
           </div>
 
-          <div v-if="type==COLUMN_DIALOG.SETTINGS">
+          <div v-if="type == COLUMN_DIALOG.SETTINGS">
             <v-btn color="primary" text @click.native="$emit('input')">
               Close
             </v-btn>
@@ -59,6 +59,7 @@
 import Vue from "vue";
 import { PAYMENT_PROPS } from "../../utils/data/collections";
 import { COLUMN_DIALOG } from "../../utils/data/enums";
+import { BIG_DIALOG_SIZE } from "../../utils/data/constants";
 import draggable from "vuedraggable";
 
 export default Vue.extend({
@@ -79,11 +80,12 @@ export default Vue.extend({
 
   computed: {
     isDefault() {
-      return JSON.stringify(this.columnOrder)==JSON.stringify(PAYMENT_PROPS);
+      return JSON.stringify(this.columnOrder) == JSON.stringify(PAYMENT_PROPS);
     },
   },
 
   data: () => ({
+    dialogSize: BIG_DIALOG_SIZE,
     drag: false,
     columnOrder: [],
   }),

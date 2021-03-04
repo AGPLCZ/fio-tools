@@ -112,8 +112,8 @@ export default new Vuex.Store({
       return sendData(state);
     },
 
-    async downloadData({ commit, state }, url) {
-      return downloadData(state, commit, url);
+    async downloadData({ state }, url) {
+      return downloadData(state, url);
     },
 
     async getUser({ commit }, url) {

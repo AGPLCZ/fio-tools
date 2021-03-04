@@ -2,7 +2,7 @@
   <div>
     <LoadingDialog v-model="loadingDialog" msg="Validating token" />
 
-    <v-dialog :value="value" @input="$emit('input')" persistent max-width="650">
+    <v-dialog :value="value" @input="$emit('input')" persistent :max-width="dialogSize">
       <v-card v-if="!loadingDialog">
         <v-card-title>
           <span class="headline">Set your API token</span>
@@ -63,6 +63,7 @@ import {
 } from "../../utils/data/constants";
 import LoadingDialog from "../dialogs/LoadingDialog";
 import { LOGIN_DIALOG } from "../../utils/data/enums";
+import { BIG_DIALOG_SIZE } from "../../utils/data/constants";
 
 export default Vue.extend({
   name: "LoginDialog",
@@ -81,6 +82,7 @@ export default Vue.extend({
   },
 
   data: () => ({
+    dialogSize: BIG_DIALOG_SIZE,
     token: "",
     loadingDialog: false,
     errorMsg: "",
