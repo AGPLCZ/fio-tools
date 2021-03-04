@@ -36,19 +36,10 @@ export default {
   name: "DatePicker",
 
   props: {
-    value: {
-      type: String,
-      required: true,
-    },
+    value: String,
     msg: String,
-    minDate: {
-      default: "",
-      type: String,
-    },
-    maxDate: {
-      default: "",
-      type: String,
-    },
+    minDate:String,
+    maxDate:String,
   },
 
   data: () => ({
