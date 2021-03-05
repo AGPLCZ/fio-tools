@@ -4,13 +4,16 @@ import router from './router'
 import store from './store'
 import vuetify from './plugins/vuetify';
 import enums from 'vue-enums';
+import i18n from './i18n'
 
-Vue.config.productionTip = false
+Vue.config.productionTip = false;
 Vue.use(enums);
 
 new Vue({
   router,
   store,
+  i18n,
   vuetify,
+  
   render: h => h(App)
 }).$mount('#app')

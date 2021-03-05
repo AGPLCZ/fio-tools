@@ -7,9 +7,12 @@
     />
     <LoadingTimerDialog
       v-model="waitingForAPIdialog"
-      msg="Data will download"
+      :msg="$t('downloadDialog.loadingTimerDialog')"
     />
-    <LoadingDialog v-model="loadingDialog" msg="Downloading data" />
+    <LoadingDialog
+      v-model="loadingDialog"
+      :msg="$t('downloadDialog.loadingDialog')"
+    />
     <v-dialog
       :value="value"
       @input="$emit('input')"
@@ -18,7 +21,7 @@
     >
       <v-card>
         <v-card-title>
-          <span class="headline">Set filters</span>
+          <span class="headline">{{ $t("downloadDialog.title") }}</span>
         </v-card-title>
         <v-card-text>
           <v-form ref="form" v-model="valid">
@@ -28,7 +31,7 @@
                   <DatePicker
                     v-model="dateFrom"
                     :maxDate="dateTo"
-                    msg="Payments from"
+                    :msg="$t('downloadDialog.dateFrom')"
                   />
                 </v-col>
 
@@ -36,7 +39,7 @@
                   <DatePicker
                     v-model="dateTo"
                     :minDate="dateFrom"
-                    msg="Payments to"
+                    :msg="$t('downloadDialog.dateTo')"
                   />
                 </v-col>
               </v-row>
@@ -44,7 +47,7 @@
                 <v-text-field
                   v-model="account"
                   :rules="[() => !errors.account || errors.account]"
-                  label="Account"
+                  :label="$t('downloadDialog.account')"
                 ></v-text-field>
               </v-row>
 
@@ -53,7 +56,7 @@
                   v-model="vs"
                   :rules="[() => !errors.vs || errors.vs]"
                   :counter="vsMaxSize"
-                  label="Variable symbol prefix"
+                  :label="$t('downloadDialog.vs')"
                 ></v-text-field>
               </v-row>
             </v-container>
@@ -62,10 +65,10 @@
         <v-card-actions>
           <v-spacer></v-spacer>
           <v-btn color="primary" text @click.native="$emit('input')">
-            Close
+            {{ $t("downloadDialog.close") }}
           </v-btn>
           <v-btn color="primary" text @click.native="downloadData">
-            Download
+            {{ $t("downloadDialog.download") }}
           </v-btn>
         </v-card-actions>
       </v-card>

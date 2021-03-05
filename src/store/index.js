@@ -13,7 +13,7 @@ export default new Vuex.Store({
     user: JSON.parse(localStorage.getItem("user")),
     payments: [],
     selectedPayments: [],
-    columnOrder: JSON.parse(localStorage.getItem("columnOrder")),
+    columnOrder: JSON.parse(localStorage.getItem("columnOrder")) ?? {},
     columnCheck: JSON.parse(localStorage.getItem("columnCheck")),
     saveHeader: JSON.parse(localStorage.getItem("saveHeader")),
     timer: 0,

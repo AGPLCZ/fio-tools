@@ -1,0 +1,145 @@
+{
+  "settings": {
+    "title": "Nastavení",
+    "user": {
+      "title": "Uživatelské nastavení",
+      "token": {
+        "title": "API token",
+        "subtitle": "Nastavit FIO bank api token"
+      }
+    },
+    "general": {
+      "title": "Obecné nastavení",
+      "columnOrder": {
+        "title": "Nastavení sloupců",
+        "subtitle": "Nastavit pořadí sloupců pro načítané soubory"
+      },
+      "languages": {
+        "title": "Jazyky",
+        "items": {
+          "en": "Angličtina",
+          "cs": "Čeština"
+        }
+      },
+      "columnBefore": {
+        "title": "Nastavení sloupců před načtení dat",
+        "subtitle": "Před každým načtením souboru se program zeptá na pořadí sloupců"
+      },
+      "saveHeader": {
+        "title": "Uložit soubor s hlavičkou",
+        "subtitle": "Před uložením souboru přidá hlavičku"
+      }
+    }
+  },
+  "payment": {
+    "title": {
+      "add": "Přidat pladbu",
+      "edit": "Upravit pladbu",
+      "editSelected": "Upravit označené"
+    },
+    "form": {
+      "account": "Účet",
+      "amount": "Částka",
+      "ks": "Konstantní symbol",
+      "vs": "Variabilní symbol",
+      "ss": "Symbolický symbol",
+      "messageFrom": "Zpráva pro tebe",
+      "messageTo": "Zpráva pro příjemce",
+      "currency": "Měna",
+      "type": "Typ pladby"
+    },
+    "types": {
+      "standard": "Standardní",
+      "prior": "Prioritní",
+      "direct": "Příkaz k inkasu"
+    },
+    "submitButton": "Uložit"
+  },
+  "table": {
+    "header": {
+      "account": "Účet",
+      "amount": "Částka",
+      "ks": "Konstantní symbol",
+      "vs": "Variabilní symbol",
+      "ss": "Symbolický symbol"
+    }
+  },
+  "home": {
+    "filter": {
+      "search": "Vyhledávání",
+      "all": "Všechna data",
+      "invalid": "Neplatná data"
+    },
+    "editButton": {
+      "toolTip": "Upravit vybrané platby"
+    },
+    "deleteButton": {
+      "toolTip": "Smazat vybrané platby"
+    },
+    "addButton": {
+      "name": "Nová pladba",
+      "toolTip": "Přidat novou pladbu"
+    }
+  },
+  "navigationDrawer": {
+    "loadButton": {
+      "name": "Načíst data"
+    },
+    "sendButton": {
+      "name": "Odeslat data",
+      "loadingTimerDialog": "Data se odešlou za",
+      "loadingDialog": "Odesílání dat"
+    },
+    "saveButton": {
+      "name": "Uložit data"
+    },
+    "downloadButton": {
+      "name": "Stáhnout data"
+    },
+    "settings": "Nastavení"
+  },
+  "successDialog": {
+    "send": {
+      "title": "Odeslaní bylo úspěšné",
+      "text": "Platby můžete dokončit",
+      "link": "tady"
+    },
+    "save": {
+      "title": "Ukládání bylo úspěšné",
+      "text": "Vaše platby byly úspěšně uloženy"
+    },
+    "download": {
+      "title": "Stažení bylo úspěšné",
+      "text": "Všech {number} pladeb bylo úspěšně staženo",
+      "none": "Žádná pladba nebyla nalezena"
+    }
+  },
+  "loginDialog": {
+    "loadingDialog": "Validace tokenu",
+    "title": "Nastavení API token",
+    "text": "Pro více informací klikněte",
+    "link": "sem",
+    "close": "Zavřít",
+    "save": "Uložit",
+    "validate": "Validovat",
+    "errorMsg": "Váš token je neplatný nebo vaše připojení k internetu selhalo"
+  },
+  "downloadDialog": {
+    "loadingTimerDialog": "Data se stáhnou za",
+    "loadingDialog": "Stahování dat",
+    "title": "Stáhnout data",
+    "dateFrom": "Pladby od",
+    "dateTo": "Pladby do",
+    "account": "Účet",
+    "vs": "Předpona variabilního symbolu",
+    "close": "Zavřít",
+    "download": "Stáhnout"
+  },
+  "columnDialog": {
+    "title": "Nastavení pořadí sloupců",
+    "default": "Default",
+    "continue": "Pokračovat",
+    "close": "Zavřít",
+    "save": "Uložit"
+  }
+}

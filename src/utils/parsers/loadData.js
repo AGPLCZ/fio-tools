@@ -1,6 +1,5 @@
 import Validator from "../validators/Validator";
-import { KS_SIZE, VS_MIN_SIZE, SS_SIZE } from "../data/constants";
-import { PAYMENT_TYPE } from "../data/collections";
+import { KS_SIZE, VS_MIN_SIZE, SS_SIZE, DEFAULT_PAYMENT_TYPE } from "../data/constants";
 
 function addZeroes(num, len) {
   return !isNaN(num) && num.length && num.length < len
@@ -40,7 +39,7 @@ export default function (data, options, state) {
     if (options.header && number == 0) return;
     var item = getItem(row, state, options);
     item.errors = Validator.validate(item);
-    item.type = PAYMENT_TYPE[0].value;
+    item.type = DEFAULT_PAYMENT_TYPE;
     item.currency = state.user.currency;
     payments.push(item);
   });

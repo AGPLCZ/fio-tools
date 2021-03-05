@@ -1,10 +1,16 @@
 <template>
   <div class="payment">
-    <Toolbar v-if="options == FORM_OPTION.ADD" title="Add payment" />
-    <Toolbar v-if="options == FORM_OPTION.EDIT" title="Edit payment" />
+    <Toolbar
+      v-if="options == FORM_OPTION.ADD"
+      :title="$t('payment.title.add')"
+    />
+    <Toolbar
+      v-if="options == FORM_OPTION.EDIT"
+      :title="$t('payment.title.edit')"
+    />
     <Toolbar
       v-if="options == FORM_OPTION.EDIT_SELECTED"
-      title="Edit payments"
+      :title="$t('payment.title.editSelected')"
     />
 
     <v-form ref="form" v-model="valid">
@@ -13,7 +19,7 @@
           <v-text-field
             :disabled="options == FORM_OPTION.EDIT_SELECTED"
             v-model="payment.account"
-            label="Account"
+            :label="$t('payment.form.account')"
             :rules="[() => !errors.account || errors.account]"
           ></v-text-field>
         </v-row>
@@ -21,7 +27,7 @@
         <v-row class="pa-3">
           <v-text-field
             v-model="payment.amount"
-            label="Amount"
+            :label="$t('payment.form.amount')"
             :rules="[() => !errors.amount || errors.amount]"
           ></v-text-field>
         </v-row>
@@ -30,7 +36,7 @@
           <v-col>
             <v-text-field
               v-model="payment.ks"
-              label="Constant symbol"
+              :label="$t('payment.form.ks')"
               :rules="[() => !errors.ks || errors.ks]"
               :counter="ksMaxSize"
             ></v-text-field>
@@ -38,7 +44,7 @@
           <v-col>
             <v-text-field
               v-model="payment.vs"
-              label="Variable symbol"
+              :label="$t('payment.form.vs')"
               :rules="[() => !errors.vs || errors.vs]"
               :counter="vsMaxSize"
             ></v-text-field>
@@ -46,7 +52,7 @@
           <v-col>
             <v-text-field
               v-model="payment.ss"
-              label="Symbolic symbol"
+              :label="$t('payment.form.ss')"
               :rules="[() => !errors.ss || errors.ss]"
               :counter="ssMaxSize"
             ></v-text-field>
@@ -57,13 +63,13 @@
           <v-col>
             <v-text-field
               v-model="payment.messageFrom"
-              label="Message to you"
+              :label="$t('payment.form.messageFrom')"
             ></v-text-field>
           </v-col>
           <v-col>
             <v-text-field
               v-model="payment.messageTo"
-              label="Message to receiver"
+              :label="$t('payment.form.messageTo')"
             ></v-text-field>
           </v-col>
         </v-row>
@@ -73,7 +79,7 @@
             <v-autocomplete
               v-model="payment.currency"
               :items="currencies"
-              label="Currencies"
+              :label="$t('payment.form.currency')"
             ></v-autocomplete>
           </v-col>
           <v-col>
@@ -82,7 +88,7 @@
               :items="types"
               item-text="text"
               item-value="value"
-              label="PaymentType"
+              :label="$t('payment.form.type')"
             ></v-autocomplete>
           </v-col>
         </v-row>
@@ -94,7 +100,7 @@
             class="mr-4"
             @click="addPayment"
           >
-            Add payment
+            {{ $t("payment.submitButton") }}
           </v-btn>
           <v-btn
             v-if="options == FORM_OPTION.EDIT"
@@ -102,7 +108,7 @@
             class="mr-4"
             @click="editPayment"
           >
-            Edit payment
+            {{ $t("payment.submitButton") }}
           </v-btn>
 
           <v-btn
@@ -111,7 +117,7 @@
             class="mr-4"
             @click="editSelected"
           >
-            Edit selected
+            {{ $t("payment.submitButton") }}
           </v-btn>
         </v-row>
       </v-container>
@@ -123,11 +129,7 @@
 import Vue from "vue";
 import Toolbar from "../components/Toolbar.vue";
 import Validator from "../utils/validators/Validator";
-import {
-  PAYMENT_PROPS,
-  CURRENCIES,
-  PAYMENT_TYPE,
-} from "../utils/data/collections";
+import { PAYMENT_PROPS, CURRENCIES } from "../utils/data/collections";
 import { KS_SIZE, VS_MAX_SIZE, SS_SIZE } from "../utils/data/constants";
 import { FORM_OPTION } from "../utils/data/enums";
 
@@ -138,17 +140,22 @@ export default Vue.extend({
     Toolbar,
   },
 
-  data: () => ({
-    valid: true,
-    payment: {},
-    errors: {},
-    ksMaxSize: KS_SIZE,
-    vsMaxSize: VS_MAX_SIZE,
-    ssMaxSize: SS_SIZE,
-    currencies: CURRENCIES,
-    types: PAYMENT_TYPE,
-  }),
-
+  data() {
+    return {
+      valid: true,
+      payment: {},
+      errors: {},
+      ksMaxSize: KS_SIZE,
+      vsMaxSize: VS_MAX_SIZE,
+      ssMaxSize: SS_SIZE,
+      currencies: CURRENCIES,
+      types: [
+        { value: "431001", text: this.$i18n.t("payment.types.standard") },
+        { value: "431005", text: this.$i18n.t("payment.types.prior") },
+        { value: "431022", text: this.$i18n.t("payment.types.direct") },
+      ],
+    };
+  },
   enums: {
     FORM_OPTION,
   },
@@ -182,11 +189,11 @@ export default Vue.extend({
     setPaymentEmpty() {
       this.payment = {};
       for (var index = 0; index < PAYMENT_PROPS.length; index++) {
-        this.payment[PAYMENT_PROPS[index].value] = "";
+        this.payment[PAYMENT_PROPS[index]] = "";
       }
       if (this.options == FORM_OPTION.ADD) {
         this.payment.currency = this.$store.getters.getUser.currency;
-        this.payment.type = PAYMENT_TYPE[0].value;
+        this.payment.type = this.types.value;
       }
     },
 

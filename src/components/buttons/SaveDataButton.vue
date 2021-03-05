@@ -8,7 +8,7 @@
       @click="saveDialog"
       :disabled="payments.length == 0"
     >
-      Save data
+      {{ $t("navigationDrawer.saveButton.name") }}
     </v-btn>
   </div>
 </template>

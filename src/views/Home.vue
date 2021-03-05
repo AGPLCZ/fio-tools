@@ -5,7 +5,7 @@
         v-model="search"
         width="25%"
         append-icon="mdi-magnify"
-        label="Search"
+        :label="$t('home.filter.search')"
         single-line
         hide-details
       ></v-text-field>
@@ -18,7 +18,7 @@
         @click="setInvalid"
         :disabled="payments.length == 0"
       >
-        All Data
+        {{ $t("home.filter.all") }}
       </v-chip>
 
       <v-chip
@@ -29,7 +29,7 @@
         @click="setInvalid"
         :disabled="payments.length == 0"
       >
-        Invalid Data
+        {{ $t("home.filter.invalid") }}
       </v-chip>
 
       <v-spacer></v-spacer>
@@ -48,7 +48,7 @@
             <v-icon> mdi-pencil </v-icon>
           </v-btn>
         </template>
-        <span>Edit selected payments</span>
+        <span>{{ $t("home.editButton.toolTip") }}</span>
       </v-tooltip>
 
       <v-tooltip bottom>
@@ -66,7 +66,7 @@
             <v-icon> mdi-delete </v-icon>
           </v-btn>
         </template>
-        <span>Delete selected payments</span>
+        <span>{{ $t("home.deleteButton.toolTip") }}s</span>
       </v-tooltip>
 
       <v-tooltip bottom>
@@ -79,10 +79,10 @@
             class="mb-2"
             @click="addPayment"
           >
-            New Item
+            {{ $t("home.addButton.name") }}
           </v-btn>
         </template>
-        <span>Insert new payment</span>
+        <span>{{ $t("home.addButton.toolTip") }}</span>
       </v-tooltip>
     </v-toolbar>
     <PaymentsTable :search="search" :valid="valid" />

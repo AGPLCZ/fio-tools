@@ -2,7 +2,7 @@
   <v-dialog :value="value" @input="$emit('input')" :max-width="dialogSize">
     <v-card color="primary" dark>
       <v-card-text class="text-center">
-        {{ msg }} in {{ timer }}
+        {{ msg }} {{ timer }}
         <v-progress-linear
           indeterminate
           color="white"

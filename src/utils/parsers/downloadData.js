@@ -1,4 +1,5 @@
-import { PAYMENT_PROPS, PAYMENT_TYPE } from "../data/collections";
+import { DEFAULT_PAYMENT_TYPE } from "../data/constants";
+import { PAYMENT_PROPS } from "../data/collections";
 import Validator from "../validators/Validator";
 
 function getValue(object) {
@@ -15,7 +16,7 @@ export function getItem(state, transaction) {
     item[PAYMENT_PROPS[5].value] = getValue(transaction.column16);
     item[PAYMENT_PROPS[6].value] = getValue(transaction.column7);
     item.currency = getValue(transaction.column14);
-    item.type = PAYMENT_TYPE[0].value;
+    item.type = DEFAULT_PAYMENT_TYPE;
     item.errors = Validator.validate(item);
     return item;
 

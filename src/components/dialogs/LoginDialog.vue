@@ -1,11 +1,16 @@
 <template>
   <div>
-    <LoadingDialog v-model="loadingDialog" msg="Validating token" />
+    <LoadingDialog v-model="loadingDialog" :msg="$t('loginDialog.loadingDialog')" />
 
-    <v-dialog :value="value" @input="$emit('input')" persistent :max-width="dialogSize">
+    <v-dialog
+      :value="value"
+      @input="$emit('input')"
+      persistent
+      :max-width="dialogSize"
+    >
       <v-card v-if="!loadingDialog">
         <v-card-title>
-          <span class="headline">Set your API token</span>
+          <span>{{ $t("loginDialog.title") }}</span>
         </v-card-title>
         <v-card-text>
           <v-text-field
@@ -29,22 +34,26 @@
           ></v-text-field>
 
           <p style="padding-right: 5px">
-            For more information click
-            <span class="link" @click="moreInfo">here</span>
+            {{ $t("loginDialog.text") }}
+            <span class="link" @click="moreInfo">{{
+              $t("loginDialog.link")
+            }}</span>
           </p>
         </v-card-text>
-        <v-card-actions v-if="type==LOGIN_DIALOG.SETTINGS">
+        <v-card-actions v-if="type == LOGIN_DIALOG.SETTINGS">
           <v-spacer></v-spacer>
           <v-btn color="primary" text @click.native="closeDialog">
-            Close
+            {{ $t("loginDialog.close") }}
           </v-btn>
-          <v-btn color="primary" text @click.native="saveToken"> Save </v-btn>
+          <v-btn color="primary" text @click.native="saveToken">
+            {{ $t("loginDialog.save") }}
+          </v-btn>
         </v-card-actions>
 
-        <v-card-actions v-if="type==LOGIN_DIALOG.DEFAULT">
+        <v-card-actions v-if="type == LOGIN_DIALOG.DEFAULT">
           <v-spacer></v-spacer>
           <v-btn color="primary" text @click.native="saveToken">
-            Validate
+            {{ $t("loginDialog.validate") }}
           </v-btn>
         </v-card-actions>
       </v-card>
@@ -59,7 +68,6 @@ import {
   FIO_INFO_URL,
   FIO_API_PREFIX,
   TOKEN_MAX_SIZE,
-  TOKEN_ERROR_MSG,
 } from "../../utils/data/constants";
 import LoadingDialog from "../dialogs/LoadingDialog";
 import { LOGIN_DIALOG } from "../../utils/data/enums";
@@ -135,7 +143,7 @@ export default Vue.extend({
           })
           .catch((e) => {
             console.log(e);
-            this.errorMsg = TOKEN_ERROR_MSG;
+            this.errorMsg = this.$i18n.t("loginDialog.errorMsg");
           })
           .finally(() => {
             this.loadingDialog = false;

@@ -1,8 +1,8 @@
 <template>
   <div>
     <SuccessDialog v-model="successDialog" :type="SUCCESS_DIALOG.SEND" />
-    <LoadingTimerDialog v-model="waitingForAPIdialog" msg="Data will send" />
-    <LoadingDialog v-model="loadingDialog" msg="Sending data" />
+    <LoadingTimerDialog v-model="waitingForAPIdialog" :msg="$t('navigationDrawer.sendButton.loadingTimerDialog')" />
+    <LoadingDialog v-model="loadingDialog" :msg="$t('navigationDrawer.sendButton.loadingDialog')"/>
     <v-btn
       block
       class="mt-1"
@@ -10,7 +10,7 @@
       :disabled="paymentsValid.length == 0"
       @click="sendData"
     >
-      Send data
+      {{ $t("navigationDrawer.sendButton.name") }}
     </v-btn>
   </div>
 </template>

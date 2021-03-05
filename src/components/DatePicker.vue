@@ -21,6 +21,7 @@
     <v-date-picker
       :min="minDate"
       :max="maxDate"
+      :locale="$i18n.locale"
       show-adjacent-months
       color="primary"
       v-model="localDate"
@@ -32,7 +33,9 @@
 
 
 <script>
-export default {
+import Vue from "vue";
+
+export default Vue.extend({
   name: "DatePicker",
 
   props: {
@@ -75,5 +78,5 @@ export default {
       return `${day}.${month}.${year}`;
     },
   },
-};
+});
 </script>

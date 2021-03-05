@@ -3,7 +3,7 @@
     <ColumnDialog v-model="columnDialog" :type="COLUMN_DIALOG.DEFAULT" />
 
     <v-btn block color="primary" class="mt-1" @click="clicked">
-      Load data
+      {{ $t("navigationDrawer.loadButton.name") }}
     </v-btn>
   </div>
 </template>

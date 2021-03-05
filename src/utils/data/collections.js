@@ -232,11 +232,7 @@ export const CURRENCIES = [
   "XPT",
   "XAG",
 ];
-export const PAYMENT_TYPE = [
-  { value: "431001", text: "Standard" },
-  { value: "431005", text: "Prior" },
-  { value: "431022", text: "Direct debit order" },
-];
+
 export const PAYMENT_PROPS = [
   { value: "account", text: "Account" },
   { value: "amount", text: "Amount" },

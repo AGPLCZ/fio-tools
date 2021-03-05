@@ -8,7 +8,7 @@
     >
       <v-card>
         <v-card-title>
-          <span class="headline">Set your column layout</span>
+          <span class="headline">{{ $t("columnDialog.title") }}</span>
         </v-card-title>
         <v-card-text>
           <draggable
@@ -36,18 +36,22 @@
             text
             @click.native="toDefault"
           >
-            Default
+            {{ $t("columnDialog.default") }}
           </v-btn>
           <v-spacer></v-spacer>
           <div v-if="type == COLUMN_DIALOG.DEFAULT">
-            <v-btn color="primary" text @click.native="save"> Continue </v-btn>
+            <v-btn color="primary" text @click.native="save">
+              {{ $t("columnDialog.continue") }}
+            </v-btn>
           </div>
 
           <div v-if="type == COLUMN_DIALOG.SETTINGS">
             <v-btn color="primary" text @click.native="$emit('input')">
-              Close
+              {{ $t("columnDialog.close") }}
             </v-btn>
-            <v-btn color="primary" text @click.native="save"> Save </v-btn>
+            <v-btn color="primary" text @click.native="save">
+              {{ $t("columnDialog.save") }}
+            </v-btn>
           </div>
         </v-card-actions>
       </v-card>
@@ -74,24 +78,24 @@ export default Vue.extend({
     COLUMN_DIALOG,
   },
 
-  components: {
-    draggable,
-  },
-
-  computed: {
-    isDefault() {
-      return JSON.stringify(this.columnOrder) == JSON.stringify(PAYMENT_PROPS);
-    },
-  },
-
   data: () => ({
     dialogSize: BIG_DIALOG_SIZE,
     drag: false,
     columnOrder: [],
   }),
 
+  components: {
+    draggable,
+  },
+
   mounted() {
     this.columnOrder = this.$store.getters.getColumnOrder;
+  },
+
+  computed: {
+    isDefault() {
+      return JSON.stringify(this.columnOrder) == JSON.stringify(PAYMENT_PROPS);
+    },
   },
 
   methods: {

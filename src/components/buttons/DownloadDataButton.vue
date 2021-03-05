@@ -2,7 +2,7 @@
   <div>
     <DownloadDialog v-model="downloadDialog" />
     <v-btn block outlined class="mt-1" color="primary" @click="clicked">
-      Download data
+      {{ $t("navigationDrawer.downloadButton.name") }}
     </v-btn>
   </div>
 </template>

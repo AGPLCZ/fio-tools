@@ -33,7 +33,9 @@
           </v-list-item-icon>
 
           <v-list-item-content>
-            <v-list-item-title>Settings</v-list-item-title>
+            <v-list-item-title>{{
+              $t("navigationDrawer.settings")
+            }}</v-list-item-title>
           </v-list-item-content>
         </v-list-item>
       </v-list>
@@ -55,18 +57,14 @@ export default Vue.extend({
     LoadDataButton,
     SendDataButton,
     SaveDataButton,
-    DownloadDataButton
+    DownloadDataButton,
   },
-
-  data: () => ({}),
 
   computed: {
     user() {
       return this.$store.getters.getUser;
     },
   },
-
-  methods: {},
 });
 </script>
 

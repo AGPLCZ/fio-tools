@@ -1,0 +1,145 @@
+{
+  "settings": {
+    "title": "Settings",
+    "user": {
+      "title": "User Controls",
+      "token": {
+        "title": "API token",
+        "subtitle": "Set FIO bank api token"
+      }
+    },
+    "general": {
+      "title": "General",
+      "columnOrder": {
+        "title": "Column settings",
+        "subtitle": "Set column order for loaded files"
+      },
+      "languages": {
+        "title": "Languages",
+        "items": {
+          "en": "English",
+          "cs": "Czech"
+        }
+      },
+      "columnBefore": {
+        "title": "Set layout before data load",
+        "subtitle": "Show Column Dialog order dialog every time file is being loaded"
+      },
+      "saveHeader": {
+        "title": "Save file with header",
+        "subtitle": "Add header to file on save"
+      }
+    }
+  },
+  "payment": {
+    "title": {
+      "add": "Add payment",
+      "edit": "Edit payment",
+      "editSelected": "Edit selected"
+    },
+    "form": {
+      "account": "Account",
+      "amount": "Amount",
+      "ks": "Constant symbol",
+      "vs": "Variable symbol",
+      "ss": "Symbolic symbol",
+      "messageFrom": "Message to you",
+      "messageTo": "Message to receiver",
+      "currency": "Currency",
+      "type": "Payment type"
+    },
+    "types": {
+      "standard": "Standard",
+      "prior": "Prior",
+      "direct": "Direct debit order"
+    },
+    "submitButton": "Save"
+  },
+  "table": {
+    "header": {
+      "account": "Account",
+      "amount": "Amount",
+      "ks": "Constant symbol",
+      "vs": "Variable symbol",
+      "ss": "Symbolic symbol"
+    }
+  },
+  "home": {
+    "filter": {
+      "search": "Search",
+      "all": "All Data",
+      "invalid": "Invalid Data"
+    },
+    "editButton": {
+      "toolTip": "Edit selected payments"
+    },
+    "deleteButton": {
+      "toolTip": "Delete selected payments"
+    },
+    "addButton": {
+      "name": "New Payment",
+      "toolTip": "Insert new payment"
+    }
+  },
+  "navigationDrawer": {
+    "loadButton": {
+      "name": "Load data"
+    },
+    "sendButton": {
+      "name": "Send data",
+      "loadingTimerDialog": "Data will send in",
+      "loadingDialog": "Sending data"
+    },
+    "saveButton": {
+      "name": "Save data"
+    },
+    "downloadButton": {
+      "name": "Download data"
+    },
+    "settings": "Settings"
+  },
+  "successDialog": {
+    "send": {
+      "title": "Upload successful",
+      "text": "You can complete your payments",
+      "link": "here"
+    },
+    "save": {
+      "title": "Export successful",
+      "text": "Your payments has been successfully saved"
+    },
+    "download": {
+      "title": "Import successful",
+      "text": "All {number} payments has been successfully downloaded",
+      "none": "No Payment found"
+    }
+  },
+  "loginDialog": {
+    "loadingDialog": "Validating token",
+    "title": "Set your API token",
+    "text": "For more information click",
+    "link": "here",
+    "close": "Close",
+    "save": "Save",
+    "validate": "Validate",
+    "errorMsg": "Your token is invalid or your internet connection failed"
+  },
+  "downloadDialog": {
+    "loadingTimerDialog": "Data will download in",
+    "loadingDialog": "Downloading data",
+    "title": "Download data",
+    "dateFrom": "Payments from",
+    "dateTo": "Payments to",
+    "account": "Account",
+    "vs": "Variable symbol prefix",
+    "close": "Close",
+    "download": "Download"
+  },
+  "columnDialog": {
+    "title": "Set your column layout",
+    "default": "Default",
+    "continue": "Continue",
+    "close": "Close",
+    "save": "Save"
+  }
+}

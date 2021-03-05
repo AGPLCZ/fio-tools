@@ -5,6 +5,7 @@
     :headers="headers"
     :items="items"
     :search="search"
+    search-label="HSHSH"
     show-select
     hide-default-footer
     disable-pagination
@@ -12,6 +13,7 @@
     :class="{ 'row-pointer': payments.length }"
     @click:row="viewDetail"
   >
+
     <template v-slot:[`header.data-table-select`]="{ props, on }">
       <v-simple-checkbox
         color="primary"
@@ -87,19 +89,21 @@ export default {
     valid: Boolean,
   },
 
-  data: () => ({
-    headers: [
-      { text: "Account", value: "account" },
-      { text: "Constant symbol", value: "ks" },
-      { text: "Variable symbol", value: "vs" },
-      { text: "Specific symbol", value: "ss" },
-      {
-        text: "Amount",
-        value: "amount",
-        dataType: "Currency",
-      },
-    ],
-  }),
+  data() {
+    return {
+      headers: [
+        { text: this.$i18n.t("table.header.account"), value: "account" },
+        { text: this.$i18n.t("table.header.ks"), value: "ks" },
+        { text: this.$i18n.t("table.header.vs"), value: "vs" },
+        { text: this.$i18n.t("table.header.ss"), value: "ss" },
+        {
+          text: this.$i18n.t("table.header.amount"),
+          value: "amount",
+          dataType: "Currency",
+        },
+      ],
+    };
+  },
 
   computed: {
     payments() {
@@ -121,6 +125,7 @@ export default {
       },
     },
   },
+
   methods: {
     formatCurrency(amount) {
       return amount.toLocaleString("en-US", {

@@ -4,7 +4,12 @@ module.exports = {
   ],
   pluginOptions: {
     electronBuilder: {
-      nodeIntegration: true,
+      nodeIntegration: true
     },
+    i18n: {
+      locale: 'en',
+      localeDir: 'locales',
+      enableInSFC: false
+    }
   }
 }
