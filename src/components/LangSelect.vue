@@ -15,8 +15,14 @@ export default Vue.extend({
   data() {
     return {
       langs: [
-        { value: "en", text: this.$i18n.t("settings.general.languages.items.en") },
-        { value: "cs", text: this.$i18n.t("settings.general.languages.items.cs") },
+        {
+          value: "en",
+          text: this.$i18n.t("settings.general.languages.items.en"),
+        },
+        {
+          value: "cs",
+          text: this.$i18n.t("settings.general.languages.items.cs"),
+        },
       ],
       currentLang: this.$i18n.locale,
     };
@@ -32,8 +38,14 @@ export default Vue.extend({
       localStorage.setItem("lang", newLang);
       this.$i18n.locale = newLang;
       this.langs = [
-        { value: "en", text: this.$i18n.t("settings.general.languages.items.en") },
-        { value: "cs", text: this.$i18n.t("settings.general.languages.items.cs") },
+        {
+          value: "en",
+          text: this.$i18n.t("settings.general.languages.items.en"),
+        },
+        {
+          value: "cs",
+          text: this.$i18n.t("settings.general.languages.items.cs"),
+        },
       ];
     },
   },

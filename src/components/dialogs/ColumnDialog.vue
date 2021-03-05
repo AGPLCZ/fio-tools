@@ -98,6 +98,27 @@ export default Vue.extend({
     },
   },
 
+  watch: {
+    "$i18n.locale"() {
+      this.columnOrder = [
+        { value: "account", text: this.$i18n.t("columnDialog.order.account") },
+        { value: "amount", text: this.$i18n.t("columnDialog.order.amount") },
+        { value: "ks", text: this.$i18n.t("columnDialog.order.ks") },
+        { value: "vs", text: this.$i18n.t("columnDialog.order.vs") },
+        { value: "ss", text: this.$i18n.t("columnDialog.order.ss") },
+        {
+          value: "messageTo",
+          text: this.$i18n.t("columnDialog.order.messageTo"),
+        },
+        {
+          value: "messageFrom",
+          text: this.$i18n.t("columnDialog.order.messageFrom"),
+        },
+      ];
+      this.$store.commit("updateColumnOrder", this.columnOrder);
+    },
+  },
+
   methods: {
     save() {
       this.$store.commit("updateColumnOrder", this.columnOrder);

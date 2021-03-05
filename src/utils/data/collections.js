@@ -1,3 +1,5 @@
+import i18n from "../../i18n";
+
 export const BANK_CODES = [
   "0100",
   "0300",
@@ -234,11 +236,11 @@ export const CURRENCIES = [
 ];
 
 export const PAYMENT_PROPS = [
-  { value: "account", text: "Account" },
-  { value: "amount", text: "Amount" },
-  { value: "ks", text: "Constant symbol" },
-  { value: "vs", text: "Variable symbol" },
-  { value: "ss", text: "Symbolic symbol" },
-  { value: "messageTo", text: "Message to" },
-  { value: "messageFrom", text: "Message from" },
+  { value: "account", text: i18n.t("columnDialog.order.account") },
+  { value: "amount", text: i18n.t("columnDialog.order.amount") },
+  { value: "ks", text: i18n.t("columnDialog.order.ks") },
+  { value: "vs", text: i18n.t("columnDialog.order.vs") },
+  { value: "ss", text: i18n.t("columnDialog.order.ss") },
+  { value: "messageTo", text: i18n.t("columnDialog.order.messageTo") },
+  { value: "messageFrom", text: i18n.t("columnDialog.order.messageFrom") },
 ];

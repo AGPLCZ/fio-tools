@@ -136,6 +136,15 @@
     "download": "Stáhnout"
   },
   "columnDialog": {
+    "order":{
+      "account": "Účet",
+      "amount": "Částka",
+      "ks": "Konstantní symbol",
+      "vs": "Variabilní symbol",
+      "ss": "Symbolický symbol",
+      "messageFrom": "Zpráva od",
+      "messageTo": "Zpráva pro"
+    },
     "title": "Nastavení pořadí sloupců",
     "default": "Default",
     "continue": "Pokračovat",
