@@ -13,6 +13,9 @@
     :class="{ 'row-pointer': payments.length }"
     @click:row="viewDetail"
   >
+    <template v-slot:no-data>
+      {{$t("table.noData")}}
+    </template>
 
     <template v-slot:[`header.data-table-select`]="{ props, on }">
       <v-simple-checkbox
