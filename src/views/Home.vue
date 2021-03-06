@@ -66,7 +66,7 @@
             <v-icon> mdi-delete </v-icon>
           </v-btn>
         </template>
-        <span>{{ $t("home.deleteButton.toolTip") }}s</span>
+        <span>{{ $t("home.deleteButton.toolTip") }}</span>
       </v-tooltip>
 
       <v-tooltip bottom>
