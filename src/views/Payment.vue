@@ -61,6 +61,7 @@
 
         <v-row>
           <v-col>
+            <!-- CZ payments supports only CZK currency -->
             <v-autocomplete
               disabled
               v-model="payment.currency"
