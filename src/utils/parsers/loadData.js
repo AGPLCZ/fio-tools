@@ -1,16 +1,33 @@
 import Validator from "../validators/Validator";
 import { KS_SIZE, VS_MIN_SIZE, SS_SIZE, DEFAULT_PAYMENT_TYPE } from "../data/constants";
 
-function addZeroes(num, len) {
-  return !isNaN(num) && num.length && num.length < len
-    ? "0".repeat(len - num.length) + num
-    : num;
+/**
+ * Append zeroes to number that could have been lost in excel
+ * @param {number} number 
+ * @param {given length} len 
+ * @returns number with appended zeroes in the front
+ */
+function addZeroes(number, len) {
+  return !isNaN(number) && number.length && number.length < len
+    ? "0".repeat(len - number.length) + number
+    : number;
 }
 
+/**
+ * @param {item of table} item 
+ * @returns parse item to string
+ */
 function toString(item) {
   return item == undefined || item == "undefined" ? "" : "" + item;
 }
 
+/**
+ * Parse given row, Add zeroes to symbols format account based on parse options
+ * @param {given row of table} row 
+ * @param {store state} state 
+ * @param {parse options} options 
+ * @returns payment item
+ */
 export function getItem(row, state, options) {
   var item = { id: ++state.id };
   var columnIndex = 0;
@@ -30,18 +47,25 @@ export function getItem(row, state, options) {
     item[state.columnOrder[columnIndex].value] = tmp;
     columnIndex++;
   }
+  item.errors = Validator.validate(item);
+  item.type = DEFAULT_PAYMENT_TYPE;
+  item.currency = state.user.currency;
   return item;
 }
 
+/**
+ * Create payment item from every row in data
+ * If options.header skip first row
+ * @param {2d array of excel sheet} data 
+ * @param {json of parse options} options 
+ * @param {store state} state 
+ * @returns array of payment items
+ */
 export default function (data, options, state) {
   var payments = [];
   data.forEach((row, number) => {
     if (options.header && number == 0) return;
-    var item = getItem(row, state, options);
-    item.errors = Validator.validate(item);
-    item.type = DEFAULT_PAYMENT_TYPE;
-    item.currency = state.user.currency;
-    payments.push(item);
+    payments.push(getItem(row, state, options));
   });
   return payments;
 }

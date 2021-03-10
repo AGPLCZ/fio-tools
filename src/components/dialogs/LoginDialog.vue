@@ -121,14 +121,26 @@ export default Vue.extend({
   },
 
   methods: {
+    /**
+     * Set token based on localStorage
+     */
     updateToken() {
       this.token = localStorage.getItem("token");
     },
 
+    /**
+     * Open external link
+     */
     moreInfo() {
       shell.openExternal(FIO_INFO_URL);
     },
 
+    /**
+     * loading dialog while waiting for responce from API
+     * if token has changed or is not empty calls Get request 
+     * update token, start API timer and close dialog
+     * in case of error set error msg
+     */
     async saveToken() {
       if (!this.token || this.token != localStorage.getItem("token")) {
         this.loadingDialog = true;
@@ -136,13 +148,10 @@ export default Vue.extend({
           .dispatch("getUser", this.urlAPI)
           .then(() => {
             localStorage.setItem("token", this.token);
-            this.errorMsg = "";
             this.$store.commit("apiCooldownReset", 30);
-
-            this.$emit("input");
+            this.closeDialog();
           })
-          .catch((e) => {
-            console.log(e);
+          .catch(() => {
             this.errorMsg = this.$i18n.t("loginDialog.errorMsg");
           })
           .finally(() => {
@@ -153,6 +162,9 @@ export default Vue.extend({
       }
     },
 
+    /**
+    * Close dialog, erase errorMsg, update token to last valid value
+    */
     closeDialog() {
       this.$emit("input");
       this.errorMsg = "";

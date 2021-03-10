@@ -170,12 +170,18 @@ export default Vue.extend({
     },
   },
 
+  /**
+  * Inicilize paymnet based on given option
+  */
   mounted() {
     if (this.options == FORM_OPTION.EDIT) this.setPayment();
     else this.setPaymentEmpty();
   },
 
   methods: {
+    /**
+     * Set payment to copy of payment with id give as router param and errors to payment.errors
+     */
     setPayment() {
       this.payment = Object.assign(
         {},
@@ -186,17 +192,23 @@ export default Vue.extend({
       this.errors = this.payment.errors;
     },
 
+    /**
+     * Set payment to empty payment with all property
+     */
     setPaymentEmpty() {
       this.payment = {};
       for (var index = 0; index < PAYMENT_PROPS.length; index++) {
-        this.payment[PAYMENT_PROPS[index]] = "";
+        this.payment[PAYMENT_PROPS[index].value] = "";
       }
       if (this.options == FORM_OPTION.ADD) {
         this.payment.currency = this.$store.getters.getUser.currency;
-        this.payment.type = this.types.value;
+        this.payment.type = this.types[0].value;
       }
     },
 
+    /**
+     * Validate payment, update errors, try to validate form if succedded add payment to store and route back
+     */
     addPayment() {
       this.errors = Validator.validate(this.payment);
       this.payment.errors = this.errors;
@@ -206,6 +218,9 @@ export default Vue.extend({
       }
     },
 
+    /**
+     * Validate payment, update errors, try to validate form if succedded update payment in store and route back
+     */
     editPayment() {
       this.errors = Validator.validate(this.payment);
       this.payment.errors = this.errors;
@@ -215,6 +230,10 @@ export default Vue.extend({
       }
     },
 
+    /**
+     * ValidateSelected(only some properties) payment, update errors, try to validate form 
+     * if succedded update selected payments in store and route back
+     */
     editSelected() {
       this.errors = Validator.validateSelected(this.payment);
       this.payment.errors = this.errors;
@@ -226,5 +245,3 @@ export default Vue.extend({
   },
 });
 </script>
-
-<style>

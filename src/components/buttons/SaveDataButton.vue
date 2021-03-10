@@ -42,12 +42,20 @@ export default Vue.extend({
     SUCCESS_DIALOG,
   },
 
+  /**
+   * Event listener if file save was succesfull
+   * Show succesDialog
+   */
   created() {
     ipcRenderer.on(SAVE_FILE, () => {
       this.successDialog = true;
     });
   },
   methods: {
+    /**
+     * Route back to the home page
+     * Call ipcMain event to save file with created workbook
+     */
     saveDialog() {
       this.$router.push("/", () => {});
       ipcRenderer.send(

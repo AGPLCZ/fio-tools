@@ -83,6 +83,9 @@ export default Vue.extend({
   mounted() {},
 
   methods: {
+    /**
+     * Open external link
+     */
     moreInfo() {
       shell.openExternal(FIO_PAYMENT_URL);
     },

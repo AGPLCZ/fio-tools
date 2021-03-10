@@ -38,8 +38,13 @@ async function createWindow() {
     win.loadURL("app://./index.html");
   }
 }
+ 
+/**
+ * ipcMain communicates with ipcReceiver(located in vue files) 
+ * ipcMain.on = listener, event.reply send event beck to ipcReceiver.on
+ */
 
-// Handle file get dialog
+// Handle file load dialog
 ipcMain.on(LOAD_DIALOG, (event) => {
   dialog
     .showOpenDialog({
@@ -79,8 +84,6 @@ ipcMain.on(ERROR_DIALOG, (e, value) => {
   };
   dialog.showMessageBox(null, options);
 });
-
-
 
 // Quit when all windows are closed.
 app.on("window-all-closed", () => {

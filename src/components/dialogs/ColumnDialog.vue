@@ -99,6 +99,9 @@ export default Vue.extend({
   },
 
   watch: {
+    /**
+     * Reload column order to update language of variables in columnOrder and update it in
+     */
     "$i18n.locale"() {
       this.columnOrder = [
         { value: "account", text: this.$i18n.t("columnDialog.order.account") },
@@ -120,13 +123,23 @@ export default Vue.extend({
   },
 
   methods: {
+    /**
+     * Update columnOrder in store and close dialog
+     */
     save() {
       this.$store.commit("updateColumnOrder", this.columnOrder);
       this.$emit("input");
     },
 
+    /**
+     * Reset columOrder to default order
+     */
     toDefault() {
-      this.columnOrder = PAYMENT_PROPS;
+      var newValue = [];
+      PAYMENT_PROPS.forEach(column => {
+        newValue.push(this.columnOrder.find(col => col.value == column.value));
+      });
+      this.columnOrder = newValue;
     },
   },
 });

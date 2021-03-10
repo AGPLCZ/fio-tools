@@ -116,6 +116,9 @@ export default Vue.extend({
   },
 
   watch: {
+     /**
+     * Reset valid to true(show all data)
+     */
     payments: {
       deep: true,
       handler() {
@@ -125,23 +128,35 @@ export default Vue.extend({
   },
 
   methods: {
+    /**
+     * Switch valid value
+     */
     setInvalid() {
       this.valid = !this.valid;
     },
 
+    /**
+    * Route to payment window witch empty props
+    */
     addPayment() {
       this.$router.push("/payments");
     },
 
+    /**
+    * Route to payment window witch infinity as props
+    */
     editSelected() {
       this.$router.push("/payments/" + Infinity);
     },
 
+    /**
+    * Remove each selected payment and reset selected payments to []
+    */
     deleteSelected() {
       this.selected.forEach((item) => {
         this.$store.commit("removePayment", item.id);
       });
-      this.$store.commit("updateSelected", []);
+      this.$store.commit("setSelected", []);
     },
   },
 });

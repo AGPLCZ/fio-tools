@@ -53,6 +53,9 @@ export default Vue.extend({
   },
 
   watch: {
+    /**
+    * If timer ends and timerTarget is DOWNLOAD proceed to sendData
+    */
     waitingForAPIdialog(newValue, oldValue) {
       if (
         newValue == undefined &&
@@ -65,6 +68,12 @@ export default Vue.extend({
   },
 
   methods: {
+    /**
+     * Destructure xml object and creates array of error messages in format
+     * payment acount : message
+     * @param {responce from API in xml format} responceXML
+     * @returns array of error messages
+     */
     errorResponse(responceXML) {
       var errorMsg = [];
       const details = responceXML.getElementsByTagName("detail");
@@ -80,6 +89,16 @@ export default Vue.extend({
       }
       return errorMsg.join("\n");
     },
+
+    /**
+     * Route back to the home page
+     * if timer is running change target to SEND and show loadingTimerDialog
+     * loading dialog while waiting for responce from API
+     * else looks if responce contains "status" error if yes show error dialog with structured error messages 
+     *      otherwise show succesDialog and remove all valid data from payments in store
+     * in case of error show errorDialog
+     * close loading dialog and start timer
+     */
     async sendData() {
       this.$router.push("/", () => {});
       if (this.$store.getters.getTimer != 0) {

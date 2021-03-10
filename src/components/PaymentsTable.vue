@@ -55,7 +55,7 @@
     <template v-slot:[`item.amount`]="{ item }">
       <div class="text-right">
         <div v-if="!isAmountInvalid(item.errors)">
-          {{ formatCurrency(parseInt(item.amount)) }}
+          {{ formatCurrency(parseInt(item.amount), item) }}
         </div>
         <div v-else :class="{ 'error--text': isAmountInvalid(item.errors) }">
           {{ item.amount }}
@@ -124,23 +124,36 @@ export default {
         return this.$store.getters.getSelected;
       },
       set(value) {
-        return this.$store.commit("updateSelected", value);
+        return this.$store.commit("setSelected", value);
       },
     },
   },
 
   methods: {
-    formatCurrency(amount) {
+    /**
+    * Format amount based on currency
+    * @param {given amount} amount 
+    * @param {payment item} payment 
+    */
+    formatCurrency(amount, payment) {
       return amount.toLocaleString("en-US", {
         style: "currency",
-        currency: this.$store.getters.getUser.currency,
+        currency: payment.currency,
       });
     },
 
+    /**
+    * Route to payment window witch payment id as props
+    * @param {payment item} payment 
+    */
     viewDetail(payment) {
       this.$router.push("/payments/" + payment.id);
     },
 
+    /**
+    * Check if errors with this property has some message in it
+    * @param {property of errors} property 
+    */
     isInvalid(errors, property) {
       return errors[property] != "";
     },
@@ -168,7 +181,7 @@ export default {
 };
 </script>
 
-<style lang="css" scoped>
+<style scoped>
 .row-pointer >>> tbody tr :hover {
   cursor: pointer;
 }

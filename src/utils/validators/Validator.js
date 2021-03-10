@@ -8,46 +8,75 @@ export default class Validator {
     }
   }
 
-  static validateAccount(item, filter = false) {
-    return AccountValidator.validate(item, filter)
+/**
+ * Check if account is in valid format
+ * @param {account string} account 
+ * @param {true if it is used in filter window default false} filter 
+ * @returns specific error message
+ */
+  static validateAccount(account, filter = false) {
+    return AccountValidator.validate(account, filter)
   }
 
-  static validateNumber(item, maxLen) {
-    if (isNaN(item))
+  /**
+   * Check if it is number and if it is long enough
+   * @param {number} number 
+   * @param {maximum length} maxLen 
+   * @returns specific error message
+   */
+  static validateNumber(number, maxLen) {
+    if (isNaN(number)){
       return "Invalid number format";
-    if (item.length > maxLen)
+    }
+    if (number.length > maxLen)
       return "Number is to long, max length is " + maxLen;
     return "";
   }
 
-  static validateAmount(item) {
-    if (item.length == 0 || item == "0")
+  /**
+   * Check if it is not empty and then if it is valid number
+   * @param {amount number} amount 
+   * @returns specific error message
+   */
+  static validateAmount(amount) {
+    if (amount.length == 0 || amount == "0")
       return "Amount is required";
-    return this.validateNumber(item, AMOUNT_MAX_SIZE)
+    return this.validateNumber(amount, AMOUNT_MAX_SIZE)
   }
 
-  static validateSelected(item) {
+  /**
+   * Create json of error messages with params used with selection
+   * @param {payment as json} payment
+   * @returns json object of specific error message
+   */
+  static validateSelected(payment) {
     const errorMsgs = {
-      amount: this.validateNumber(item.amount, AMOUNT_MAX_SIZE),
-      ks: this.validateNumber(item.ks, KS_SIZE),
-      vs: this.validateNumber(item.vs, VS_MAX_SIZE),
-      ss: this.validateNumber(item.ss, SS_SIZE),
+      amount: this.validateNumber(payment.amount, AMOUNT_MAX_SIZE),
+      ks: this.validateNumber(payment.ks, KS_SIZE),
+      vs: this.validateNumber(payment.vs, VS_MAX_SIZE),
+      ss: this.validateNumber(payment.ss, SS_SIZE),
     };
     return errorMsgs;
   }
 
-  static validate(item) {
-    item.valid = true;
+  /**
+   * Create json of error messages with all params, set param valid based on "errorMsg"
+   * if all empty then tru otherwise false
+   * @param {payment as json} payment
+   * @returns json object of specific error message
+   */
+  static validate(payment) {
+    payment.valid = true;
     const errorMsgs = {
-      account: this.validateAccount(item.account),
-      amount: this.validateAmount(item.amount),
-      ks: this.validateNumber(item.ks, KS_SIZE),
-      vs: this.validateNumber(item.vs, VS_MAX_SIZE),
-      ss: this.validateNumber(item.ss, SS_SIZE),
+      account: this.validateAccount(payment.account),
+      amount: this.validateAmount(payment.amount),
+      ks: this.validateNumber(payment.ks, KS_SIZE),
+      vs: this.validateNumber(payment.vs, VS_MAX_SIZE),
+      ss: this.validateNumber(payment.ss, SS_SIZE),
     };
     for (let value of Object.values(errorMsgs)) {
       if (value != "") {
-        item.valid = false;
+        payment.valid = false;
         break;
       }
     }

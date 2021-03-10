@@ -2,10 +2,20 @@ import { DEFAULT_PAYMENT_TYPE } from "../data/constants";
 import { PAYMENT_PROPS } from "../data/collections";
 import Validator from "../validators/Validator";
 
+/**
+ * @param {column object} object 
+ * @returns null if object null object value if not
+ */
 function getValue(object) {
     return object == null ? null : object.value;
 }
 
+/**
+ * Build payment item from FIO API data format
+ * @param {store state} state 
+ * @param {transaction in format from API} transaction 
+ * @returns payment item
+ */
 export function getItem(state, transaction) {
     var item = { id: ++state.id };
     item[PAYMENT_PROPS[0].value] = getValue(transaction.column2) + "/" + getValue(transaction.column3);
@@ -22,6 +32,12 @@ export function getItem(state, transaction) {
 
 }
 
+/**
+ * Parse each transaction from FIO API format to payment item format
+ * @param {store state} state 
+ * @param {array of transaction in format from API} transaction 
+ * @returns array of payment items
+ */
 export default function (state, transactions) {
     var payments = [];
     transactions.forEach((transaction) => {

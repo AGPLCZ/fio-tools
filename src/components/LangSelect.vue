@@ -28,12 +28,10 @@ export default Vue.extend({
     };
   },
 
-  mounted() {
-    if (localStorage.currentLang)
-      this.currentLang = localStorage.getItem("lang");
-  },
-
   watch: {
+    /**
+    * Update lang in store, locale and reloads langs with new translation
+    */
     currentLang(newLang) {
       localStorage.setItem("lang", newLang);
       this.$i18n.locale = newLang;

@@ -39,6 +39,7 @@ export default Vue.extend({
   name: "DatePicker",
 
   props: {
+    // props for params send as v-model
     value: String,
     msg: String,
     minDate:String,
@@ -49,6 +50,7 @@ export default Vue.extend({
     menu: false,
     localDate: "",
   }),
+
 
   mounted() {
     this.localDate = this.value;
@@ -67,10 +69,18 @@ export default Vue.extend({
   },
 
   methods: {
+    /**
+     * Close menu and update input to parrent component
+     */
     change() {
       this.menu = false;
       this.$emit("input", this.localDate);
     },
+
+    /**
+    * Fomat date to specific format
+    * @param {string date} date 
+    */
     formatDate(date) {
       if (!date) return null;
 

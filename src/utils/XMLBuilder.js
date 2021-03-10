@@ -5,6 +5,11 @@ export default class XMLBuilder {
     }
   }
 
+  /**
+   * Create import element with necessary attributes
+   * @param {xml object} doc 
+   * @returns import element of xml
+   */
   static getImportElem(doc) {
     var importElem = doc.createElement("Import");
     importElem.setAttribute(
@@ -18,12 +23,26 @@ export default class XMLBuilder {
     return importElem;
   }
 
+  /**
+   * Create new element as child of "target" with name "name" and value "value"
+   * @param {xml object} doc 
+   * @param {parent element} target 
+   * @param {element name} name 
+   * @param {value of new element} value 
+   */
   static add(doc, target, name, value) {
     var elem = doc.createElement(name);
     elem.appendChild(doc.createTextNode(value));
     target.appendChild(elem);
   }
 
+  /**
+   * @param {xml object} doc 
+   * @param {payment item} payment 
+   * @param {source account} account 
+   * @param {todays date} today 
+   * @returns DomesticTransaction element with all necessary parameters and values
+   */
   static createItemCZ(doc, payment, account, today) {
     var accountSplitted = payment.account.split("/");
     var domesticElem = doc.createElement("DomesticTransaction");
@@ -42,10 +61,15 @@ export default class XMLBuilder {
     return domesticElem;
   }
 
+  /**
+   * @param {xml object} doc 
+   * @param {payments array of payment items} payments 
+   * @param {source account} account 
+   * @returns Orders element with payments as children
+   */
   static addItems(doc, payments, account) {
     const today = new Date().toISOString().slice(0, 10);
     var ordersElem = doc.createElement("Orders");
-    //TODO sort based on types
     payments.forEach((payment) => {
       if (payment.valid)
         ordersElem.appendChild(this.createItemCZ(doc, payment, account, today));
@@ -53,6 +77,11 @@ export default class XMLBuilder {
     return ordersElem;
   }
 
+  /**
+   * @param {payments array of payment items} payments 
+   * @param {source account} account 
+   * @returns payments as structured XML object as string
+   */
   static build(payments, account) {
     var doc = document.implementation.createDocument("", "", null);
     var importElem = this.getImportElem(doc);

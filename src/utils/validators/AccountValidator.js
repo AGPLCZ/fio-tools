@@ -9,11 +9,15 @@ export default class AccountValidator {
   }
 
 
+  /**
+   * Validate number based on regex and then based on algorith via
+   * https://www.rtsoft.cz/jak-validovat-cislo-uctu-platne-v-cr/
+   * @param {number as string} n 
+   * @returns specific error message
+   */
   static accountNumber(n) {
     var number = n.replace("-", "");
-    if (number.length == 0)
-      return "Your account number can not be empty";
-    if (isNaN(number) || !/^(\d{1,6}-)?\d{1,10}$/.test(n))
+    if (!/^(\d{1,6}-)?\d{1,10}$/.test(n))
       return "Invalid number format"
     var digits = Array.from(number, Number);
     digits = Array(ACCOUNT_MAX_SIZE - digits.length).fill(0).concat(digits).reverse();
@@ -24,10 +28,21 @@ export default class AccountValidator {
     return result % 11 == 0 ? "" : "Invalid account number";
   }
 
-  static accountBank(n) {
-    return BANK_CODES.includes(n) ? "" : "Invalid bank code";
+  /**
+  * Check if BANK_CODES includes "bank"
+  * @param {bank code} bank 
+  * @returns specific error message
+  */
+  static accountBank(bank) {
+    return BANK_CODES.includes(bank) ? "" : "Invalid bank code";
   }
 
+  /**
+   * Check account number and its bank code, return first error message that is found
+   * @param {account as string} account 
+   * @param {if true account is not required} filter 
+   * @returns specific error message
+   */
   static validate(account, filter) {
     if (account.length == 0)
       return filter ? "" : "Account is required";

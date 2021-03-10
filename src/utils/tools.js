@@ -4,6 +4,12 @@ import { FIO_API_PREFIX } from "./data/constants";
 import axios from "axios";
 import XLSX from "xlsx";
 
+/**
+ * Create Blob with payments in xml format because the API accepts file as param
+ * and blob behaves as file in this situation
+ * @param {store state} state 
+ * @returns Form data necessary for Post request
+ */
 function getFormData(state) {
   var blob = new Blob(
     [XMLBuilder.build(state.payments, state.user.accountId)],
@@ -17,6 +23,11 @@ function getFormData(state) {
   return formData;
 }
 
+/**
+ * Send given payment to API. POST request.
+ * @param {store state} state 
+ * @returns request respond as xml object
+ */
 export async function sendData(state) {
   return await axios.post(FIO_API_PREFIX + "/import/", getFormData(state))
     .then((response) => {
@@ -25,6 +36,12 @@ export async function sendData(state) {
 
 }
 
+/**
+ * Get data from API and then parse them to "payment" format
+ * @param {store state} state 
+ * @param {API url} url 
+ * @returns payments as array of json objects
+ */
 export async function downloadData(state, url) {
   return await axios
     .get(url)
@@ -33,6 +50,13 @@ export async function downloadData(state, url) {
     });
 }
 
+/**
+ * Get data from API with 3 sec timeout in case of invalid "url"(token)
+ * if successful update user data in store
+ * @param {store commit} commit 
+ * @param {API url} url 
+ * @returns empty
+ */
 export async function getUser(commit, url) {
   return await axios
     .get(url, { timeout: 3000 })
@@ -42,6 +66,11 @@ export async function getUser(commit, url) {
     });
 }
 
+/**
+ * Parse sheet format to 2d array
+ * @param {filepath} path 
+ * @returns 2d array as table
+ */
 export function loadFile(path) {
   const file = XLSX.readFile(path);
   return XLSX.utils.sheet_to_json(file.Sheets[file.SheetNames[0]], {
@@ -49,11 +78,21 @@ export function loadFile(path) {
   });
 }
 
+/**
+ * Set with of column based on the longest element in it
+ * @param {data as 2d array} arrayOfArray 
+ * @returns get maximum character of each column
+ */
 function fitToColumn(arrayOfArray) {
-  // get maximum character of each column
   return arrayOfArray[0].map((a, i) => ({ wch: Math.max(...arrayOfArray.map(a2 => a2[i].toString().length)) }));
 }
 
+/**
+ * @param {payments as array of payment items} payments 
+ * @param {order of columns in which it the 2d array should be build} columnOrder 
+ * @param {if it should have header or not} saveHeader 
+ * @returns 2d array of payments based on "columnOrder" and "saveHeader" params
+ */
 function createArrayOfArray(payments, columnOrder, saveHeader) {
   const data = [];
   if (saveHeader) {
@@ -73,6 +112,12 @@ function createArrayOfArray(payments, columnOrder, saveHeader) {
   return data;
 }
 
+/**
+ * @param {payments as array of payment items} payments 
+ * @param {order of columns in which it the 2d array should be build} columnOrder 
+ * @param {if it should have header or not} saveHeader 
+ * @returns sheets book with all given payments based on "columnOrder" and "saveHeader" params
+ */
 export function createWorkbook(payments, columnOrder, saveHeader) {
   const data = createArrayOfArray(payments, columnOrder, saveHeader);
   const book = XLSX.utils.book_new();
@@ -82,11 +127,15 @@ export function createWorkbook(payments, columnOrder, saveHeader) {
   return book;
 }
 
-export function timer(counter, state) {
+/**
+ * Timer subtract 1 every second from state.timer
+ * @param {store state} state 
+ */
+export function timer(state) {
   if (state.timer > 0) {
     setTimeout(() => {
       state.timer--;
-      timer(counter, state);
+      timer(state);
     }, 1000);
   }
 }

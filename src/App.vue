@@ -1,8 +1,8 @@
 <template>
   <v-app>
-    <LoginDialog v-model="dialog" :type="LOGIN_DIALOG.DEFAULT" />
+    <LoginDialog v-model="loginDialog" :type="LOGIN_DIALOG.DEFAULT" />
 
-    <v-main :class="{ 'blur-content': dialog }">
+    <v-main :class="{ 'blur-content': loginDialog }">
       <NavigationDrawer />
 
       <v-container fluid fill-height>
@@ -27,16 +27,20 @@ export default Vue.extend({
   components: { NavigationDrawer, LoginDialog },
 
   data: () => ({
-    dialog: true,
+    loginDialog: true,
   }),
 
   enums: {
     LOGIN_DIALOG,
   },
 
+  /**
+  * If token is not in localStorage show login loginDialog
+  * if columnOrder is not set set default value
+  */
   mounted() {
     // localStorage.clear();
-    this.dialog = localStorage.getItem("token") == null;
+    this.loginDialog = localStorage.getItem("token") == null;
     if (localStorage.getItem("columnOrder") == null)
       localStorage.setItem("columnOrder", JSON.stringify(PAYMENT_PROPS));
   },

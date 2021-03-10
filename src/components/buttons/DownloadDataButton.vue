@@ -23,6 +23,9 @@ export default Vue.extend({
   }),
 
   methods: {
+    /**
+     * Open downloadDialog
+     */
     clicked() {
       this.$router.push("/", () => {});
       this.downloadDialog = true;

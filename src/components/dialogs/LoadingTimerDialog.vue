@@ -36,6 +36,9 @@ export default Vue.extend({
   },
 
   watch: {
+    /**
+    * If timer ends close this dialog
+    */
     timer() {
       if (this.timer == 0) this.$emit("input");
     },

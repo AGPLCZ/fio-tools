@@ -147,11 +147,18 @@ export default Vue.extend({
   },
 
   watch: {
+    /**
+     * If dialog is open then initialize params
+     */
     value(newValue) {
       if (newValue) {
         this.initialize();
       }
     },
+     
+     /**
+     * If timer ends and timerTarget is DOWNLOAD proceed to downloadData
+     */
     waitingForAPIdialog(newValue, oldValue) {
       if (
         newValue == undefined &&
@@ -163,11 +170,17 @@ export default Vue.extend({
     },
   },
 
+  /**
+  * Initialize params
+  */
   mounted() {
     this.initialize();
   },
 
   methods: {
+    /**
+     * Set all params to default values
+     */
     initialize() {
       this.dateFrom = new Date().toISOString().substr(0, 10);
       this.dateTo = new Date().toISOString().substr(0, 10);
@@ -178,6 +191,12 @@ export default Vue.extend({
         vs: "",
       };
     },
+
+    /**
+     * If account then filer payments based on acount
+     * then If variable symbol filter payment based on vs prefix
+     * @param {array of payment items} payments 
+     */
     filter(payments) {
       if (this.account != "")
         payments = payments.filter(
@@ -188,6 +207,14 @@ export default Vue.extend({
       return payments;
     },
 
+    /**
+     * Validates account and variable symbol, tryes to validate form If succeded check timer 
+     * if timer is running change target to DOWNLOAD and show loadingTimerDialog
+     * loading dialog while waiting for responce from API
+     * else filter given payments, update it to store and shows succes dialog
+     * in case of error show errorDialog
+     * close all open dialogs and start timer
+     */
     async downloadData() {
       this.errors.account = Validator.validateAccount(this.account, true);
       this.errors.vs = Validator.validateNumber(this.vs, this.vsMaxSize);

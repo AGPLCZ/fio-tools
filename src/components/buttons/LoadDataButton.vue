@@ -37,11 +37,18 @@ export default Vue.extend({
   },
 
   watch: {
+    /**
+     * If columnDialog was just closed open load file dialog
+     */
     columnDialog(newValue, oldValue) {
       if (newValue == undefined && oldValue) this.openDialog();
     },
   },
 
+  /**
+   * Event listener if file get was succesfull
+   * Loads payments via addPayments actions
+   */
   created() {
     ipcRenderer.on(GET_FILE, (event, arg) => {
       this.$store.commit("addPayments", arg);
@@ -49,11 +56,19 @@ export default Vue.extend({
   },
 
   methods: {
+    /**
+     * Route back to the home page
+     * Call ipcMain event to load file
+     */
     openDialog() {
-      ipcRenderer.send(LOAD_DIALOG);
       this.$router.push("/", () => {});
+      ipcRenderer.send(LOAD_DIALOG);
     },
 
+    /**
+    * If columnCheck show column dialog
+    * else open load file dialog
+    */
     clicked() {
       if (!this.columnCheck) this.openDialog();
       else this.columnDialog = true;
