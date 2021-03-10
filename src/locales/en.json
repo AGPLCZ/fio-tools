@@ -137,7 +137,7 @@
     "download": "Download"
   },
   "columnDialog": {
-    "order":{
+    "order": {
       "account": "Account",
       "amount": "Amount",
       "ks": "Constant symbol",
@@ -151,5 +151,22 @@
     "continue": "Continue",
     "close": "Close",
     "save": "Save"
+  },
+  "validator": {
+    "number": {
+      "invalid": "Invalid number format",
+      "long": "Number is to long, max length is "
+    },
+    "amount": {
+      "required": "Amount is required"
+    },
+    "account": {
+      "invalidNumber": "Invalid number format",
+      "invalidAccount": "Invalid account number",
+      "invalidCode": "Invalid bank code",
+      "required": "Account is required",
+      "hasSlash": "Your account is missing '/'",
+      "toManySlash": "Your account has to many '/' in it"
+    }
   }
 }

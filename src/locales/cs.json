@@ -151,5 +151,22 @@
     "continue": "Pokračovat",
     "close": "Zavřít",
     "save": "Uložit"
+  },
+  "validator":{
+    "number":{
+      "invalid": "Neplatný formát čísla",
+      "long": "Číslo je moc dlouhé, maximální délka je"
+    },
+    "amount": {
+      "required": "Částka je povinná"
+    },
+    "account": {
+      "invalidNumber": "Neplatný formát čísla",
+      "invalidAccount": "Neplatné číslo účtu",
+      "invalidCode": "Neplatný kód banky",
+      "required": "Číslo účtu je povinné",
+      "hasSlash": "Ve vašem účtu chybí znak '/'",
+      "toManySlash": "Váš účet obsahuje příliž mnoho znaků '/'"
+    }
   }
 }
