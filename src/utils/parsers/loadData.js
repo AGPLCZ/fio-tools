@@ -1,5 +1,6 @@
 import Validator from "../validators/Validator";
 import { KS_SIZE, VS_MIN_SIZE, SS_SIZE, DEFAULT_PAYMENT_TYPE } from "../data/constants";
+import { getDate } from "../tools";
 
 /**
  * Append zeroes to number that could have been lost in excel
@@ -47,9 +48,10 @@ export function getItem(row, state, options) {
     item[state.columnOrder[columnIndex].value] = tmp;
     columnIndex++;
   }
-  item.errors = Validator.validate(item);
   item.type = DEFAULT_PAYMENT_TYPE;
   item.currency = state.user.currency;
+  item.date = getDate();
+  item.errors = Validator.validate(item);
   return item;
 }
 

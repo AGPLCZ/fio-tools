@@ -72,6 +72,7 @@ import {
 import LoadingDialog from "../dialogs/LoadingDialog";
 import { LOGIN_DIALOG } from "../../utils/data/enums";
 import { BIG_DIALOG_SIZE } from "../../utils/data/constants";
+import { getDate } from "../../utils/tools";
 
 export default Vue.extend({
   name: "LoginDialog",
@@ -103,7 +104,7 @@ export default Vue.extend({
 
   computed: {
     urlAPI() {
-      const date = new Date().toISOString().slice(0, 10);
+      const date = getDate();
       return (
         FIO_API_PREFIX +
         "/" +

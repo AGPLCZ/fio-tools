@@ -139,3 +139,20 @@ export function timer(state) {
     }, 1000);
   }
 }
+
+/**
+ * If it is past 23:50 set date to tomorrow
+ * @returns date with specific format
+ */
+export function getDate() {
+  var date = new Date();
+  var maxDate = new Date();
+  maxDate.setHours(23, 50);
+  if ((date > maxDate) && date.getDate() == maxDate.getDate()) {
+    date.setDate(date.getDate() + 1);
+    return date.toISOString().slice(0, 10);
+  }
+  // toISOString ignores timezone 
+  date.setHours(date.getHours() + 1);
+  return date.toISOString().slice(0, 10);
+}

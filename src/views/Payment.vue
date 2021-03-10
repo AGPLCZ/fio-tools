@@ -61,6 +61,32 @@
 
         <v-row>
           <v-col>
+            <v-autocomplete
+              v-model="payment.currency"
+              :items="currencies"
+              :label="$t('payment.form.currency')"
+            ></v-autocomplete>
+          </v-col>
+          <v-col>
+            <v-autocomplete
+              v-model="type"
+              :items="types"
+              item-text="text"
+              item-value="value"
+              :label="$t('payment.form.type')"
+            ></v-autocomplete>
+          </v-col>
+          <v-col>
+            <DatePicker
+              v-model="payment.date"
+              :minDate="minDate"
+              :msg="$t('downloadDialog.dateFrom')"
+            />
+          </v-col>
+        </v-row>
+
+        <v-row>
+          <v-col>
             <v-text-field
               v-model="payment.messageFrom"
               :label="$t('payment.form.messageFrom')"
@@ -71,25 +97,6 @@
               v-model="payment.messageTo"
               :label="$t('payment.form.messageTo')"
             ></v-text-field>
-          </v-col>
-        </v-row>
-
-        <v-row>
-          <v-col>
-            <v-autocomplete
-              v-model="payment.currency"
-              :items="currencies"
-              :label="$t('payment.form.currency')"
-            ></v-autocomplete>
-          </v-col>
-          <v-col>
-            <v-autocomplete
-              v-model="payment.type"
-              :items="types"
-              item-text="text"
-              item-value="value"
-              :label="$t('payment.form.type')"
-            ></v-autocomplete>
           </v-col>
         </v-row>
 
@@ -127,10 +134,12 @@
 
 <script>
 import Vue from "vue";
-import Toolbar from "../components/Toolbar.vue";
+import Toolbar from "../components/Toolbar";
+import DatePicker from "../components/DatePicker";
 import Validator from "../utils/validators/Validator";
 import { PAYMENT_PROPS, CURRENCIES } from "../utils/data/collections";
 import { KS_SIZE, VS_MAX_SIZE, SS_SIZE } from "../utils/data/constants";
+import {getDate} from "../utils/tools";
 import { FORM_OPTION } from "../utils/data/enums";
 
 export default Vue.extend({
@@ -138,6 +147,7 @@ export default Vue.extend({
 
   components: {
     Toolbar,
+    DatePicker,
   },
 
   data() {
@@ -150,10 +160,12 @@ export default Vue.extend({
       ssMaxSize: SS_SIZE,
       currencies: CURRENCIES,
       types: [
-        { value: "431001", text: this.$i18n.t("payment.types.standard") },
-        { value: "431005", text: this.$i18n.t("payment.types.prior") },
-        { value: "431022", text: this.$i18n.t("payment.types.direct") },
+        { value: 431001, text: this.$i18n.t("payment.types.standard") },
+        { value: 431005, text: this.$i18n.t("payment.types.prior") },
+        { value: 431022, text: this.$i18n.t("payment.types.direct") },
       ],
+      type: "",
+      minDate: ""
     };
   },
   enums: {
@@ -170,10 +182,34 @@ export default Vue.extend({
     },
   },
 
+  watch: {
+    /**
+     * change date and min date based on type via fio bank standarts
+     */
+    type() {
+      var date= new Date();
+      var maxDate = new Date();
+      maxDate.setHours(23, 50);
+      if ((this.type == 431005 && this.payment.date == date && date.getHours() >= 14) ||
+           this.type == 431022 && this.payment.date == date ||
+           date > maxDate){
+        date.setDate(date.getDate() + 1);
+        date = date.toISOString().slice(0, 10);
+        this.payment.date = date;
+        this.minDate = date;
+      }
+      else if (this.type == 431001){
+        this.payment.date = getDate();
+        this.minDate = getDate();
+      }
+    },
+  },
+
   /**
-  * Inicilize paymnet based on given option
-  */
+   * Inicilize paymnet based on given option
+   */
   mounted() {
+    this.minDate = getDate();
     if (this.options == FORM_OPTION.EDIT) this.setPayment();
     else this.setPaymentEmpty();
   },
@@ -189,6 +225,7 @@ export default Vue.extend({
           (payment) => payment.id == this.$route.params.id
         )
       );
+      this.type = this.payment.type;
       this.errors = this.payment.errors;
     },
 
@@ -202,7 +239,8 @@ export default Vue.extend({
       }
       if (this.options == FORM_OPTION.ADD) {
         this.payment.currency = this.$store.getters.getUser.currency;
-        this.payment.type = this.types[0].value;
+        this.type = this.types[0].value;
+        this.payment.date = this.minDate = getDate();
       }
     },
 
@@ -210,6 +248,7 @@ export default Vue.extend({
      * Validate payment, update errors, try to validate form if succedded add payment to store and route back
      */
     addPayment() {
+      this.payment.type = this.type;
       this.errors = Validator.validate(this.payment);
       this.payment.errors = this.errors;
       if (this.$refs.form.validate()) {
@@ -222,6 +261,7 @@ export default Vue.extend({
      * Validate payment, update errors, try to validate form if succedded update payment in store and route back
      */
     editPayment() {
+      this.payment.type = this.type;
       this.errors = Validator.validate(this.payment);
       this.payment.errors = this.errors;
       if (this.$refs.form.validate()) {
@@ -231,10 +271,11 @@ export default Vue.extend({
     },
 
     /**
-     * ValidateSelected(only some properties) payment, update errors, try to validate form 
+     * ValidateSelected(only some properties) payment, update errors, try to validate form
      * if succedded update selected payments in store and route back
      */
     editSelected() {
+      this.payment.type = this.type;
       this.errors = Validator.validateSelected(this.payment);
       this.payment.errors = this.errors;
       if (this.$refs.form.validate()) {

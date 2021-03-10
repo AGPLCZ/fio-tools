@@ -27,7 +27,7 @@
           <v-form ref="form" v-model="valid">
             <v-container>
               <v-row>
-                <v-col cols="6">
+                <v-col>
                   <DatePicker
                     v-model="dateFrom"
                     :maxDate="dateTo"
@@ -35,7 +35,7 @@
                   />
                 </v-col>
 
-                <v-col cols="6">
+                <v-col>
                   <DatePicker
                     v-model="dateTo"
                     :minDate="dateFrom"
@@ -91,6 +91,7 @@ import SuccessDialog from "./SuccessDialog";
 import LoadingTimerDialog from "./LoadingTimerDialog";
 import LoadingDialog from "./LoadingDialog";
 import DatePicker from "../DatePicker";
+import { getDate } from "../../utils/tools";
 
 export default Vue.extend({
   name: "LoginDialog",
@@ -182,8 +183,8 @@ export default Vue.extend({
      * Set all params to default values
      */
     initialize() {
-      this.dateFrom = new Date().toISOString().substr(0, 10);
-      this.dateTo = new Date().toISOString().substr(0, 10);
+      this.dateFrom = getDate();
+      this.dateTo = getDate();
       this.account = "";
       this.vs = "";
       this.errors = {

@@ -40,10 +40,9 @@ export default class XMLBuilder {
    * @param {xml object} doc 
    * @param {payment item} payment 
    * @param {source account} account 
-   * @param {todays date} today 
    * @returns DomesticTransaction element with all necessary parameters and values
    */
-  static createItemCZ(doc, payment, account, today) {
+  static createItemCZ(doc, payment, account) {
     var accountSplitted = payment.account.split("/");
     var domesticElem = doc.createElement("DomesticTransaction");
     this.add(doc, domesticElem, "accountFrom", account);
@@ -54,7 +53,7 @@ export default class XMLBuilder {
     this.add(doc, domesticElem, "ks", payment.ks);
     this.add(doc, domesticElem, "vs", payment.vs);
     this.add(doc, domesticElem, "ss", payment.ss);
-    this.add(doc, domesticElem, "date", today);
+    this.add(doc, domesticElem, "date", payment.date);
     this.add(doc, domesticElem, "messageForRecipient", payment.messageTo);
     this.add(doc, domesticElem, "comment", payment.messageFrom);
     this.add(doc, domesticElem, "paymentType", payment.type);
@@ -68,11 +67,10 @@ export default class XMLBuilder {
    * @returns Orders element with payments as children
    */
   static addItems(doc, payments, account) {
-    const today = new Date().toISOString().slice(0, 10);
     var ordersElem = doc.createElement("Orders");
     payments.forEach((payment) => {
       if (payment.valid)
-        ordersElem.appendChild(this.createItemCZ(doc, payment, account, today));
+        ordersElem.appendChild(this.createItemCZ(doc, payment, account));
     });
     return ordersElem;
   }
