@@ -62,6 +62,7 @@
         <v-row>
           <v-col>
             <v-autocomplete
+              disabled
               v-model="payment.currency"
               :items="currencies"
               :label="$t('payment.form.currency')"
