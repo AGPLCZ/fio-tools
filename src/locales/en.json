@@ -47,11 +47,12 @@
       "messageTo": "Message to receiver",
       "currency": "Currency",
       "type": "Payment type",
+      "typeToolTip": "<ul><li><b>Standard</b></br>payments with today's due date can be made until 23:50</li><li><b>Priority</b></br>payments with today's due date can be made until 13:50 (from 12:00 with a fee)</li><li><b>Direct debit</b></br>due date must not be today's date</li></ul> ",
       "date": "Due Date"
     },
     "types": {
       "standard": "Standard",
-      "prior": "Prior",
+      "prior": "Priority",
       "direct": "Direct debit order"
     },
     "submitButton": "Save"

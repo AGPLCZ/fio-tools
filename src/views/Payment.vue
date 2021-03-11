@@ -76,7 +76,16 @@
               item-text="text"
               item-value="value"
               :label="$t('payment.form.type')"
-            ></v-autocomplete>
+            >
+              <template v-slot:prepend>
+                <v-tooltip bottom>
+                  <template v-slot:activator="{ on }">
+                    <v-icon v-on="on">mdi-information-outline</v-icon>
+                  </template>
+                  <span v-html="$t('payment.form.typeToolTip')"></span>
+                </v-tooltip>
+              </template>
+            </v-autocomplete>
           </v-col>
           <v-col>
             <DatePicker
@@ -141,7 +150,7 @@ import DatePicker from "../components/DatePicker";
 import Validator from "../utils/validators/Validator";
 import { PAYMENT_PROPS, CURRENCIES } from "../utils/data/collections";
 import { KS_SIZE, VS_MAX_SIZE, SS_SIZE } from "../utils/data/constants";
-import {getDate} from "../utils/tools";
+import { getDate } from "../utils/tools";
 import { FORM_OPTION } from "../utils/data/enums";
 
 export default Vue.extend({
@@ -167,7 +176,7 @@ export default Vue.extend({
         { value: 431022, text: this.$i18n.t("payment.types.direct") },
       ],
       type: "",
-      minDate: ""
+      minDate: "",
     };
   },
   enums: {
@@ -194,15 +203,19 @@ export default Vue.extend({
       var maxPriorDate = new Date();
       maxDate.setHours(23, 50);
       maxPriorDate.setHours(13, 50);
-      if ((this.type == 431005 && date >= maxPriorDate) ||
-           this.type == 431022 ||
-           date > maxDate){
+      if (
+        (this.type == 431005 && date >= maxPriorDate) ||
+        this.type == 431022 ||
+        date > maxDate
+      ) {
         date.setDate(date.getDate() + 1);
         date = getDate(date);
         this.payment.date = date;
         this.minDate = date;
-      }
-      else if ((this.type == 431001) || (this.type == 431005 && date < maxPriorDate)){
+      } else if (
+        this.type == 431001 ||
+        (this.type == 431005 && date < maxPriorDate)
+      ) {
         var todayFormat = getDate();
         this.payment.date = todayFormat;
         this.minDate = todayFormat;

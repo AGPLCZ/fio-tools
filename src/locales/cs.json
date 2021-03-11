@@ -47,6 +47,7 @@
       "messageTo": "Zpráva pro příjemce",
       "currency": "Měna",
       "type": "Typ pladby",
+      "typeToolTip": "<ul><li><b>Standardní</b></br>pladby s dnešním datem splatnosti lze realizovat do 23:50</li><li><b>Prioritní</b></br>pladby s dnešním datem splatnosti lze realizovat do 13:50 (od 12:00 s poplatkem)</li><li><b>Příkaz k inkasu</b></br>datum splatnosti nesmí být dnešní datum</li></ul>",
       "date": "Datum splatnosti"
     },
     "types": {
