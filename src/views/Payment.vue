@@ -14,7 +14,7 @@
     />
 
     <v-form ref="form" v-model="valid">
-      <v-container>
+      <v-container fluid>
         <v-row class="pa-3">
           <v-text-field
             :disabled="options == FORM_OPTION.EDIT_SELECTED"
