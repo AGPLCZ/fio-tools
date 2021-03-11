@@ -186,14 +186,15 @@ export default Vue.extend({
 
   watch: {
     /**
-     * change date and min date based on type via fio bank standarts
+     * Change date and min date based on type via fio bank standarts
      */
     type() {
-      var date= new Date();
-      var todayFormat = getDate();
+      var date = new Date();
       var maxDate = new Date();
+      var maxPriorDate = new Date();
       maxDate.setHours(23, 50);
-      if ((this.type == 431005 && date.getHours() >= 12) ||
+      maxPriorDate.setHours(13, 50);
+      if ((this.type == 431005 && date >= maxPriorDate) ||
            this.type == 431022 ||
            date > maxDate){
         date.setDate(date.getDate() + 1);
@@ -201,7 +202,8 @@ export default Vue.extend({
         this.payment.date = date;
         this.minDate = date;
       }
-      else if ((this.type == 431001) || (this.type == 431005 && date.getHours() < 12)){
+      else if ((this.type == 431001) || (this.type == 431005 && date < maxPriorDate)){
+        var todayFormat = getDate();
         this.payment.date = todayFormat;
         this.minDate = todayFormat;
       }
