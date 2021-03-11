@@ -142,10 +142,10 @@ export function timer(state) {
 
 /**
  * If it is past 23:50 set date to tomorrow
+ * @param {date to parse} date 
  * @returns date with specific format
  */
-export function getDate() {
-  var date = new Date();
+export function getDate(date = new Date()) {
   var maxDate = new Date();
   maxDate.setHours(23, 50);
   if ((date > maxDate) && date.getDate() == maxDate.getDate()) {

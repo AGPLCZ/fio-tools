@@ -190,19 +190,20 @@ export default Vue.extend({
      */
     type() {
       var date= new Date();
+      var todayFormat = getDate();
       var maxDate = new Date();
       maxDate.setHours(23, 50);
-      if ((this.type == 431005 && this.payment.date == date && date.getHours() >= 14) ||
-           this.type == 431022 && this.payment.date == date ||
+      if ((this.type == 431005 && date.getHours() >= 12) ||
+           this.type == 431022 ||
            date > maxDate){
         date.setDate(date.getDate() + 1);
-        date = date.toISOString().slice(0, 10);
+        date = getDate(date);
         this.payment.date = date;
         this.minDate = date;
       }
-      else if (this.type == 431001){
-        this.payment.date = getDate();
-        this.minDate = getDate();
+      else if ((this.type == 431001) || (this.type == 431005 && date.getHours() < 12)){
+        this.payment.date = todayFormat;
+        this.minDate = todayFormat;
       }
     },
   },
