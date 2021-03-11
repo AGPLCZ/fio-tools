@@ -208,7 +208,7 @@ export default Vue.extend({
   },
 
   /**
-   * Inicilize paymnet based on given option
+   * Initialize paymnet based on given option
    */
   mounted() {
     this.minDate = getDate();
