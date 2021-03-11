@@ -82,7 +82,7 @@
             <DatePicker
               v-model="payment.date"
               :minDate="minDate"
-              :msg="$t('downloadDialog.dateFrom')"
+              :msg="$t('payment.form.date')"
             />
           </v-col>
         </v-row>

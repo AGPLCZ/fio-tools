@@ -46,7 +46,8 @@
       "messageFrom": "Message to you",
       "messageTo": "Message to receiver",
       "currency": "Currency",
-      "type": "Payment type"
+      "type": "Payment type",
+      "date": "Due Date"
     },
     "types": {
       "standard": "Standard",

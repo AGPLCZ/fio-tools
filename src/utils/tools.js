@@ -19,7 +19,7 @@ function getFormData(state) {
   formData.append("type", "xml");
   formData.append("token", localStorage.getItem("token"));
   formData.append("file", blob, "data.xml");
-  formData.append("lng", "en");
+  formData.append("lng", localStorage.getItem("lang"));
   return formData;
 }
 

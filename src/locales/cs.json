@@ -46,7 +46,8 @@
       "messageFrom": "Zpráva pro tebe",
       "messageTo": "Zpráva pro příjemce",
       "currency": "Měna",
-      "type": "Typ pladby"
+      "type": "Typ pladby",
+      "date": "Datum splatnosti"
     },
     "types": {
       "standard": "Standardní",
