@@ -100,7 +100,7 @@
       "name": "From bank"
     },
     "googleButton": {
-      "name": "From google sheets"
+      "name": "From Google sheets"
     },
     "sendButton": {
       "name": "Send data",
