@@ -131,7 +131,7 @@ export default Vue.extend({
             }
           })
           .catch((e) => {
-            ipcRenderer.send(ERROR_DIALOG, e);
+            ipcRenderer.send(ERROR_DIALOG, e, this.$i18n.t("electron.error"));
           })
           .finally(() => {
             this.loadingDialog = false;

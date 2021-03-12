@@ -1,24 +1,24 @@
 import Validator from "./validators/Validator";
-import { getItem } from "./parsers/fileParse";
+import { getItem } from "./parsers/arrayParse";
 
 /**
  * Check all account and tries to validate then if more than half of the validations
  * fails assume that user uses payment and bank id in different column
- * @param {payments as 2d array} data 
+ * @param {payments as 2d array} array2d 
  * @param {store state} state 
  * @returns true if account format is one cell false if it is in two cells
  */
-function getAccountType(data, state) {
-  var x = 0;
-  data.forEach((row) => {
+function getAccountType(array2d, state) {
+  var tmp = 0;
+  array2d.forEach((row) => {
     for (var index = 0; index < state.columnOrder.length; index++) {
       if (state.columnOrder[index].value == "account") {
         row[index] = "" + row[index];
-        x = Validator.validateAccount(row[index]) != "" ? x + 1 : x - 1;
+        tmp = Validator.validateAccount(row[index]) != "" ? tmp + 1 : tmp - 1;
       }
     }
   });
-  return x > 0;
+  return tmp > 0;
 }
 
 /**
@@ -37,13 +37,13 @@ function hasHeader(firstRow, state, options) {
 }
 
 /**
- * @param {payments as 2d array} data 
+ * @param {payments as 2d array} array2d 
  * @param {store state} state 
  * @returns options object with account and header option
  */
-export default function (data, state) {
+export default function (array2d, state) {
   var options = {};
-  options.account = getAccountType(data, state);
-  options.header = hasHeader(data[0], state, options);
+  options.account = getAccountType(array2d, state);
+  options.header = hasHeader(array2d[0], state, options);
   return options;
 }

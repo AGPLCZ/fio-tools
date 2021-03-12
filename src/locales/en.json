@@ -1,4 +1,9 @@
 {
+  "electron": {
+    "error": "Error message: \n",
+    "errorLoad": "Failed to load file",
+    "errorSave": "Failed to save file"
+  },
   "settings": {
     "title": "Settings",
     "user": {
@@ -94,6 +99,9 @@
     "apiButton": {
       "name": "From bank"
     },
+    "googleButton": {
+      "name": "From google sheets"
+    },
     "sendButton": {
       "name": "Send data",
       "loadingTimerDialog": "Data will send in",
@@ -116,7 +124,7 @@
     },
     "download": {
       "title": "Import successful",
-      "text": "All {number} payments has been successfully downloaded",
+      "text": "{number} payments has been successfully downloaded",
       "none": "No Payment found"
     }
   },
@@ -130,7 +138,7 @@
     "validate": "Validate",
     "errorMsg": "Your token is invalid or your internet connection failed"
   },
-  "downloadDialog": {
+  "apiDialog": {
     "loadingTimerDialog": "Data will download in",
     "loadingDialog": "Downloading data",
     "title": "Download data",
@@ -138,6 +146,17 @@
     "dateTo": "Payments to",
     "account": "Account",
     "vs": "Variable symbol prefix",
+    "close": "Close",
+    "download": "Download"
+  },
+  "googleDialog": {
+    "loadingDialog": "Downloading data",
+    "title": "Download data",
+    "url": {
+      "name": "Google sheet url",
+      "message": "Invalid url"
+    },
+    "error": "Please check if your file is public (file => publish to web)",
     "close": "Close",
     "download": "Download"
   },

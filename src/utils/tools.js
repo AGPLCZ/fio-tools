@@ -1,5 +1,6 @@
 import XMLBuilder from "./XMLBuilder";
 import apiParse from "./parsers/apiParse";
+import googleParse from "./parsers/googleParse";
 import { FIO_API_PREFIX } from "./data/constants";
 import axios from "axios";
 import XLSX from "xlsx";
@@ -42,11 +43,21 @@ export async function sendData(state) {
  * @param {API url} url 
  * @returns payments as array of json objects
  */
-export async function downloadData(state, url) {
+export async function getDataBank(state, url) {
   return await axios
     .get(url)
     .then((response) => {
       return apiParse(state, response.data.accountStatement.transactionList.transaction);
+    });
+}
+
+export async function getDataGoogle(state, url) {
+  return await axios
+    .get(url)
+    .then((response) => {
+      if (response.data.feed != undefined)
+        return googleParse(state, response.data.feed.entry);
+      return null;
     });
 }
 
@@ -65,6 +76,7 @@ export async function getUser(commit, url) {
       return;
     });
 }
+
 
 /**
  * Parse sheet format to 2d array

@@ -66,7 +66,8 @@ export default Vue.extend({
           this.payments,
           this.$store.getters.getColumnOrder,
           this.$store.getters.getSaveHeader
-        )
+        ),
+        this.$i18n.t("electron.errorSave")
       );
     },
   },

@@ -8,7 +8,7 @@
     >
       <v-card>
         <v-card-title>
-          <span class="headline">{{ $t("columnDialog.title") }}</span>
+          <span>{{ $t("columnDialog.title") }}</span>
         </v-card-title>
         <v-card-text>
           <draggable

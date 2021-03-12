@@ -1,4 +1,9 @@
 {
+  "electron": {
+    "error": "Chybová zpráva: \n",
+    "errorLoad": "Nepodařilo se načíst soubor",
+    "errorSave": "Nepodařilo se uložit soubor"
+  },
   "settings": {
     "title": "Nastavení",
     "user": {
@@ -94,6 +99,9 @@
     "apiButton": {
       "name": "Z banky"
     },
+    "googleButton": {
+      "name": "Z google tabulek"
+    },
     "sendButton": {
       "name": "Odeslat data",
       "loadingTimerDialog": "Data se odešlou za",
@@ -108,7 +116,7 @@
     "send": {
       "title": "Odeslaní bylo úspěšné",
       "text": "Platby můžete dokončit",
-      "link": "tady"
+      "link": "zde"
     },
     "save": {
       "title": "Ukládání bylo úspěšné",
@@ -116,7 +124,7 @@
     },
     "download": {
       "title": "Načtení bylo úspěšné",
-      "text": "Všech {number} pladeb bylo úspěšně staženo",
+      "text": "{number} pladeb bylo úspěšně staženo",
       "none": "Žádná pladba nebyla nalezena"
     }
   },
@@ -130,7 +138,7 @@
     "validate": "Validovat",
     "errorMsg": "Váš token je neplatný nebo vaše připojení k internetu selhalo"
   },
-  "downloadDialog": {
+  "apiDialog": {
     "loadingTimerDialog": "Data se stáhnou za",
     "loadingDialog": "Stahování dat",
     "title": "Stáhnout data",
@@ -141,8 +149,19 @@
     "close": "Zavřít",
     "download": "Stáhnout"
   },
+  "googleDialog": {
+    "loadingDialog": "Stahování dat",
+    "title": "Stáhnout data",
+    "url": {
+      "name": "Tabulky Google url",
+      "message": "Neplatná url"
+    },
+    "error": "Prosím zkontrolujte zda je váš soubor veřejný (soubor => publikovat na web)",
+    "close": "Zavřít",
+    "download": "Stáhnout"
+  },
   "columnDialog": {
-    "order":{
+    "order": {
       "account": "Účet",
       "amount": "Částka",
       "ks": "Konstantní symbol",
@@ -157,8 +176,8 @@
     "close": "Zavřít",
     "save": "Uložit"
   },
-  "validator":{
-    "number":{
+  "validator": {
+    "number": {
       "invalid": "Neplatný formát čísla",
       "long": "Číslo je moc dlouhé, maximální délka je"
     },

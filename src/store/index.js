@@ -1,9 +1,9 @@
 import Vue from "vue";
 import Vuex from "vuex";
 import Validator from "../utils/validators/Validator";
-import fileParse from "../utils/parsers/fileParse";
+import arrayParse from "../utils/parsers/arrayParse";
 import getOptions from "../utils/options";
-import { sendData, downloadData, getUser, loadFile, timer } from "../utils/tools";
+import { sendData, getDataBank, getDataGoogle, getUser, loadFile, timer } from "../utils/tools";
 
 Vue.use(Vuex);
 
@@ -39,9 +39,9 @@ export default new Vuex.Store({
      * @param {filepath} path 
      */
     addPayments(state, path) {
-      var data = loadFile(path);
-      var options = getOptions(data, state);
-      state.payments = fileParse(data, options, state).concat(state.payments);
+      var array2d = loadFile(path);
+      var options = getOptions(array2d, state);
+      state.payments = arrayParse(array2d, options, state).concat(state.payments);
     },
 
     /**
@@ -175,8 +175,12 @@ export default new Vuex.Store({
       return sendData(state);
     },
 
-    async downloadData({ state }, url) {
-      return downloadData(state, url);
+    async getDataBank({ state }, url) {
+      return getDataBank(state, url);
+    },
+
+    async getDataGoogle({ state }, url) {
+      return getDataGoogle(state, url);
     },
 
     async getUser({ commit }, url) {

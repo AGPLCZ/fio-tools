@@ -7,11 +7,11 @@
     />
     <LoadingTimerDialog
       v-model="waitingForAPIdialog"
-      :msg="$t('downloadDialog.loadingTimerDialog')"
+      :msg="$t('apiDialog.loadingTimerDialog')"
     />
     <LoadingDialog
       v-model="loadingDialog"
-      :msg="$t('downloadDialog.loadingDialog')"
+      :msg="$t('apiDialog.loadingDialog')"
     />
     <v-dialog
       :value="value"
@@ -21,7 +21,7 @@
     >
       <v-card>
         <v-card-title>
-          <span class="headline">{{ $t("downloadDialog.title") }}</span>
+          <span class="headline">{{ $t("apiDialog.title") }}</span>
         </v-card-title>
         <v-card-text>
           <v-form ref="form" v-model="valid">
@@ -31,7 +31,7 @@
                   <DatePicker
                     v-model="dateFrom"
                     :maxDate="dateTo"
-                    :msg="$t('downloadDialog.dateFrom')"
+                    :msg="$t('apiDialog.dateFrom')"
                   />
                 </v-col>
 
@@ -39,7 +39,7 @@
                   <DatePicker
                     v-model="dateTo"
                     :minDate="dateFrom"
-                    :msg="$t('downloadDialog.dateTo')"
+                    :msg="$t('apiDialog.dateTo')"
                   />
                 </v-col>
               </v-row>
@@ -47,7 +47,7 @@
                 <v-text-field
                   v-model="account"
                   :rules="[() => !errors.account || errors.account]"
-                  :label="$t('downloadDialog.account')"
+                  :label="$t('apiDialog.account')"
                 ></v-text-field>
               </v-row>
 
@@ -56,7 +56,7 @@
                   v-model="vs"
                   :rules="[() => !errors.vs || errors.vs]"
                   :counter="vsMaxSize"
-                  :label="$t('downloadDialog.vs')"
+                  :label="$t('apiDialog.vs')"
                 ></v-text-field>
               </v-row>
             </v-container>
@@ -65,10 +65,10 @@
         <v-card-actions>
           <v-spacer></v-spacer>
           <v-btn color="primary" text @click.native="$emit('input')">
-            {{ $t("downloadDialog.close") }}
+            {{ $t("apiDialog.close") }}
           </v-btn>
           <v-btn color="primary" text @click.native="downloadData">
-            {{ $t("downloadDialog.download") }}
+            {{ $t("apiDialog.download") }}
           </v-btn>
         </v-card-actions>
       </v-card>
@@ -209,10 +209,10 @@ export default Vue.extend({
     },
 
     /**
-     * Validates account and variable symbol, tryes to validate form If succeded check timer 
+     * Validates account and variable symbol, tries to validate form If succeded check timer 
      * if timer is running change target to DOWNLOAD and show loadingTimerDialog
      * loading dialog while waiting for responce from API
-     * else filter given payments, update it to store and shows succes dialog
+     * else filter given payments, update it to store and shows success dialog
      * in case of error show errorDialog
      * close all open dialogs and start timer
      */
@@ -226,15 +226,15 @@ export default Vue.extend({
         } else {
           this.loadingDialog = true;
           await this.$store
-            .dispatch("downloadData", this.urlAPI)
-            .then((responce) => {
-              var payments = this.filter(responce);
+            .dispatch("getDataBank", this.urlAPI)
+            .then((response) => {
+              var payments = this.filter(response);
               this.$store.commit("setPayments", payments.concat(this.payments));
               this.successNumber = payments.length;
               this.successDialog = true;
             })
             .catch((e) => {
-              ipcRenderer.send(ERROR_DIALOG, e);
+              ipcRenderer.send(ERROR_DIALOG, e, this.$i18n.t("electron.error"));
             })
             .finally(() => {
               this.loadingDialog = false;

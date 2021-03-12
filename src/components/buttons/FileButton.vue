@@ -82,7 +82,7 @@ export default Vue.extend({
      */
     openDialog() {
       this.$router.push("/", () => {});
-      ipcRenderer.send(LOAD_DIALOG);
+      ipcRenderer.send(LOAD_DIALOG, this.$i18n.t("electron.errorLoad"));
     },
 
     /**

@@ -27,6 +27,7 @@
         </template>
         <FileButton />
         <ApiButton />
+        <GoogleButton />
       </v-list-group>
       <SendDataButton />
       <SaveDataButton />
@@ -53,9 +54,11 @@
 <script>
 import Vue from "vue";
 import FileButton from "./buttons/FileButton";
+import ApiButton from "./buttons/ApiButton";
+import GoogleButton from "./buttons/GoogleButton";
 import SendDataButton from "./buttons/SendDataButton";
 import SaveDataButton from "./buttons/SaveDataButton";
-import ApiButton from "./buttons/ApiButton";
+
 
 export default Vue.extend({
   name: "NavigationDrawer",
@@ -63,6 +66,7 @@ export default Vue.extend({
   components: {
     FileButton,
     ApiButton,
+    GoogleButton,
     SendDataButton,
     SaveDataButton,
   },

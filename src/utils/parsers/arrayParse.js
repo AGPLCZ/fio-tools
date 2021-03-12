@@ -58,14 +58,14 @@ export function getItem(row, state, options) {
 /**
  * Create payment item from every row in data
  * If options.header skip first row
- * @param {2d array of excel sheet} data 
+ * @param {2d array of excel sheet} array2d
  * @param {json of parse options} options 
  * @param {store state} state 
  * @returns array of payment items
  */
-export default function (data, options, state) {
+export default function (array2d, options, state) {
   var payments = [];
-  data.forEach((row, number) => {
+  array2d.forEach((row, number) => {
     if (options.header && number == 0) return;
     payments.push(getItem(row, state, options));
   });

@@ -45,7 +45,7 @@ async function createWindow() {
  */
 
 // Handle file load dialog
-ipcMain.on(LOAD_DIALOG, (event) => {
+ipcMain.on(LOAD_DIALOG, (event, errorMessage) => {
   dialog
     .showOpenDialog({
       defaultPath: app.getPath("desktop"),
@@ -55,12 +55,12 @@ ipcMain.on(LOAD_DIALOG, (event) => {
       if (!result.canceled) event.reply(GET_FILE, result.filePaths[0]);
     })
     .catch((err) => {
-      dialog.showErrorBox("Failed to load file", err);
+      dialog.showErrorBox(errorMessage, err);
     });
 });
 
 // Handle file save dialog
-ipcMain.on(SAVE_DIALOG, (event, book) => {
+ipcMain.on(SAVE_DIALOG, (event, book, errorMessage) => {
   dialog
     .showSaveDialog({
       filters: [{ name: "Excel Workbook", extensions: ["xlsx"] }, { name: "CVS UTF-8 (Comma delimited)", extensions: ["csv"] }, { name: "Excel 97-2003 Workbook", extensions: ["xls"] }],
@@ -72,15 +72,15 @@ ipcMain.on(SAVE_DIALOG, (event, book) => {
       }
     })
     .catch((err) => {
-      dialog.showErrorBox("Failed to save file", err);
+      dialog.showErrorBox(errorMessage, err);
     });
 });
 
 // Handle error dialog
-ipcMain.on(ERROR_DIALOG, (e, value) => {
+ipcMain.on(ERROR_DIALOG, (e, value, errorMessage) => {
   const options = {
     type: "error",
-    message: "Error message: \n" + value,
+    message: errorMessage + value,
   };
   dialog.showMessageBox(null, options);
 });
