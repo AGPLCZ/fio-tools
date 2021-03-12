@@ -1,10 +1,17 @@
 <template>
   <div>
     <ColumnDialog v-model="columnDialog" :type="COLUMN_DIALOG.DEFAULT" />
+    <v-list-item link @click="clicked" class="pl-10">
+      <v-list-item-icon>
+        <v-icon>mdi-file-excel</v-icon>
+      </v-list-item-icon>
 
-    <v-btn block color="primary" class="mt-1" @click="clicked">
-      {{ $t("navigationDrawer.loadButton.name") }}
-    </v-btn>
+      <v-list-item-content>
+        <v-list-item-title>{{
+          $t("navigationDrawer.fileButton.name")
+        }}</v-list-item-title>
+      </v-list-item-content>
+    </v-list-item>
   </div>
 </template>
 
@@ -13,10 +20,10 @@ import Vue from "vue";
 import { ipcRenderer } from "electron";
 import { GET_FILE, LOAD_DIALOG } from "../../utils/data/constants";
 import { COLUMN_DIALOG } from "../../utils/data/enums";
-import ColumnDialog from "..//dialogs/ColumnDialog.vue";
+import ColumnDialog from "../dialogs/ColumnDialog.vue";
 
 export default Vue.extend({
-  name: "LoadDataButton",
+  name: "FileButton",
 
   components: {
     ColumnDialog,
@@ -66,9 +73,9 @@ export default Vue.extend({
     },
 
     /**
-    * If columnCheck show column dialog
-    * else open load file dialog
-    */
+     * If columnCheck show column dialog
+     * else open load file dialog
+     */
     clicked() {
       if (!this.columnCheck) this.openDialog();
       else this.columnDialog = true;

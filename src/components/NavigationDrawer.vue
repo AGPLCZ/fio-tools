@@ -18,12 +18,19 @@
 
     <v-divider></v-divider>
 
-    <div class="pa-2">
-      <LoadDataButton />
+    <v-list dense>
+      <v-list-group prepend-icon="mdi-download">
+        <template v-slot:activator>
+          <v-list-item-title>{{
+            $t("navigationDrawer.loadButton.name")
+          }}</v-list-item-title>
+        </template>
+        <FileButton />
+        <ApiButton />
+      </v-list-group>
       <SendDataButton />
       <SaveDataButton />
-      <DownloadDataButton />
-    </div>
+    </v-list>
 
     <template v-slot:append>
       <v-list dense>
@@ -45,19 +52,19 @@
 
 <script>
 import Vue from "vue";
-import LoadDataButton from "./buttons/LoadDataButton";
+import FileButton from "./buttons/FileButton";
 import SendDataButton from "./buttons/SendDataButton";
 import SaveDataButton from "./buttons/SaveDataButton";
-import DownloadDataButton from "./buttons/DownloadDataButton";
+import ApiButton from "./buttons/ApiButton";
 
 export default Vue.extend({
   name: "NavigationDrawer",
 
   components: {
-    LoadDataButton,
+    FileButton,
+    ApiButton,
     SendDataButton,
     SaveDataButton,
-    DownloadDataButton,
   },
 
   computed: {

@@ -88,6 +88,12 @@
     "loadButton": {
       "name": "Load data"
     },
+    "fileButton": {
+      "name": "From file"
+    },
+    "apiButton": {
+      "name": "From bank"
+    },
     "sendButton": {
       "name": "Send data",
       "loadingTimerDialog": "Data will send in",
@@ -95,9 +101,6 @@
     },
     "saveButton": {
       "name": "Save data"
-    },
-    "downloadButton": {
-      "name": "Download data"
     },
     "settings": "Settings"
   },

@@ -1,7 +1,7 @@
 import Vue from "vue";
 import Vuex from "vuex";
 import Validator from "../utils/validators/Validator";
-import parseLoadData from "../utils/parsers/loadData";
+import fileParse from "../utils/parsers/fileParse";
 import getOptions from "../utils/options";
 import { sendData, downloadData, getUser, loadFile, timer } from "../utils/tools";
 
@@ -41,7 +41,7 @@ export default new Vuex.Store({
     addPayments(state, path) {
       var data = loadFile(path);
       var options = getOptions(data, state);
-      state.payments = parseLoadData(data, options, state).concat(state.payments);
+      state.payments = fileParse(data, options, state).concat(state.payments);
     },
 
     /**

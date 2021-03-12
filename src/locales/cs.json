@@ -88,6 +88,12 @@
     "loadButton": {
       "name": "Načíst data"
     },
+    "fileButton": {
+      "name": "Z souboru"
+    },
+    "apiButton": {
+      "name": "Z banky"
+    },
     "sendButton": {
       "name": "Odeslat data",
       "loadingTimerDialog": "Data se odešlou za",
@@ -95,9 +101,6 @@
     },
     "saveButton": {
       "name": "Uložit data"
-    },
-    "downloadButton": {
-      "name": "Stáhnout data"
     },
     "settings": "Nastavení"
   },

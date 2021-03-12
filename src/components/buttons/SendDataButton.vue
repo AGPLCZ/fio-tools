@@ -1,17 +1,25 @@
 <template>
   <div>
     <SuccessDialog v-model="successDialog" :type="SUCCESS_DIALOG.SEND" />
-    <LoadingTimerDialog v-model="waitingForAPIdialog" :msg="$t('navigationDrawer.sendButton.loadingTimerDialog')" />
-    <LoadingDialog v-model="loadingDialog" :msg="$t('navigationDrawer.sendButton.loadingDialog')"/>
-    <v-btn
-      block
-      class="mt-1"
-      color="primary"
-      :disabled="paymentsValid.length == 0"
-      @click="sendData"
-    >
-      {{ $t("navigationDrawer.sendButton.name") }}
-    </v-btn>
+    <LoadingTimerDialog
+      v-model="waitingForAPIdialog"
+      :msg="$t('navigationDrawer.sendButton.loadingTimerDialog')"
+    />
+    <LoadingDialog
+      v-model="loadingDialog"
+      :msg="$t('navigationDrawer.sendButton.loadingDialog')"
+    />
+    <v-list-item link :disabled="paymentsValid.length == 0" @click="sendData">
+      <v-list-item-icon>
+        <v-icon>mdi-upload</v-icon>
+      </v-list-item-icon>
+
+      <v-list-item-content>
+        <v-list-item-title>{{
+          $t("navigationDrawer.sendButton.name")
+        }}</v-list-item-title>
+      </v-list-item-content>
+    </v-list-item>
   </div>
 </template>
 
@@ -54,8 +62,8 @@ export default Vue.extend({
 
   watch: {
     /**
-    * If timer ends and timerTarget is DOWNLOAD proceed to sendData
-    */
+     * If timer ends and timerTarget is DOWNLOAD proceed to sendData
+     */
     waitingForAPIdialog(newValue, oldValue) {
       if (
         newValue == undefined &&
@@ -94,7 +102,7 @@ export default Vue.extend({
      * Route back to the home page
      * if timer is running change target to SEND and show loadingTimerDialog
      * loading dialog while waiting for responce from API
-     * else looks if responce contains "status" error if yes show error dialog with structured error messages 
+     * else looks if responce contains "status" error if yes show error dialog with structured error messages
      *      otherwise show succesDialog and remove all valid data from payments in store
      * in case of error show errorDialog
      * close loading dialog and start timer

@@ -1,5 +1,5 @@
 import Validator from "./validators/Validator";
-import { getItem } from "./parsers/loadData";
+import { getItem } from "./parsers/fileParse";
 
 /**
  * Check all account and tries to validate then if more than half of the validations

@@ -1,5 +1,5 @@
 import XMLBuilder from "./XMLBuilder";
-import parseDownloadData from "./parsers/downloadData";
+import apiParse from "./parsers/apiParse";
 import { FIO_API_PREFIX } from "./data/constants";
 import axios from "axios";
 import XLSX from "xlsx";
@@ -46,7 +46,7 @@ export async function downloadData(state, url) {
   return await axios
     .get(url)
     .then((response) => {
-      return parseDownloadData(state, response.data.accountStatement.transactionList.transaction);
+      return apiParse(state, response.data.accountStatement.transactionList.transaction);
     });
 }
 

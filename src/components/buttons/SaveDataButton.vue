@@ -1,15 +1,17 @@
 <template>
   <div>
     <SuccessDialog v-model="successDialog" :type="SUCCESS_DIALOG.SAVE" />
-    <v-btn
-      block
-      color="primary"
-      class="mt-1"
-      @click="saveDialog"
-      :disabled="payments.length == 0"
-    >
-      {{ $t("navigationDrawer.saveButton.name") }}
-    </v-btn>
+    <v-list-item link @click="saveDialog" :disabled="payments.length == 0">
+      <v-list-item-icon>
+        <v-icon>mdi-content-save</v-icon>
+      </v-list-item-icon>
+
+      <v-list-item-content>
+        <v-list-item-title>{{
+          $t("navigationDrawer.saveButton.name")
+        }}</v-list-item-title>
+      </v-list-item-content>
+    </v-list-item>
   </div>
 </template>
 
