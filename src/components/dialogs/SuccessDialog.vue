@@ -35,7 +35,7 @@
       </v-card-actions>
     </v-card>
 
-    <v-card v-if="type == SUCCESS_DIALOG.DOWNLOAD">
+    <v-card v-if="type == SUCCESS_DIALOG.LOAD">
       <v-card-title primary-title class="justify-center">
         {{ $t("successDialog.download.title") }}
       </v-card-title>

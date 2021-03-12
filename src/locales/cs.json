@@ -115,7 +115,7 @@
       "text": "Vaše platby byly úspěšně uloženy"
     },
     "download": {
-      "title": "Stažení bylo úspěšné",
+      "title": "Načtení bylo úspěšné",
       "text": "Všech {number} pladeb bylo úspěšně staženo",
       "none": "Žádná pladba nebyla nalezena"
     }

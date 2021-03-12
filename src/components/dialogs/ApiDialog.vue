@@ -2,7 +2,7 @@
   <div>
     <SuccessDialog
       v-model="successDialog"
-      :type="SUCCESS_DIALOG.DOWNLOAD"
+      :type="SUCCESS_DIALOG.LOAD"
       :number="successNumber"
     />
     <LoadingTimerDialog

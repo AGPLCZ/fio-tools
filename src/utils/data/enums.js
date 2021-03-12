@@ -17,7 +17,7 @@ export const COLUMN_DIALOG = {
 export const SUCCESS_DIALOG = {
   SEND: 0,
   SAVE: 1,
-  DOWNLOAD: 2
+  LOAD: 2
 };
 
 export const TIMER_TARGET = {

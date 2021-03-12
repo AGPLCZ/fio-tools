@@ -1,6 +1,6 @@
 <template>
   <div>
-    <DownloadDialog v-model="downloadDialog" />
+    <ApiDialog v-model="apiDialog" />
     <v-list-item link @click="clicked" class="pl-10">
       <v-list-item-icon>
         <v-icon>mdi-bank</v-icon>
@@ -17,26 +17,26 @@
 
 <script>
 import Vue from "vue";
-import DownloadDialog from "../dialogs/DownloadDialog";
+import ApiDialog from "../dialogs/ApiDialog";
 
 export default Vue.extend({
   name: "ApiButton",
 
   components: {
-    DownloadDialog,
+    ApiDialog,
   },
 
   data: () => ({
-    downloadDialog: false,
+    apiDialog: false,
   }),
 
   methods: {
     /**
-     * Open downloadDialog
+     * Open apiDialog
      */
     clicked() {
       this.$router.push("/", () => {});
-      this.downloadDialog = true;
+      this.apiDialog = true;
     },
   },
 });
