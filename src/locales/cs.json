@@ -154,9 +154,9 @@
     "title": "Stáhnout data",
     "url": {
       "name": "Tabulky Google url",
-      "message": "Neplatná url"
+      "message": "Neplatná url",
+      "toolTip": "Viditelnost odkazu musí být nastavena na: <b>Všichni uživatelé, kteří vlastní odkaz</b>"
     },
-    "error": "Prosím zkontrolujte zda je váš soubor veřejný (soubor => publikovat na web)",
     "close": "Zavřít",
     "download": "Stáhnout"
   },

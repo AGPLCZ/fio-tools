@@ -11,8 +11,8 @@ export const FIO_PAYMENT_URL =
   "https://ib.fio.cz/ib/wicket/bookmarkable/cz.fio.ib2.prehledy.web.k_podpisu.KPodpisuPage?3";
 export const FIO_API_PREFIX = "https://www.fio.cz/ib_api/rest";
 export const GOOGLE_URL_PREFIX = "https://docs.google.com/spreadsheets/d/";
-export const GOOGLE_API_PREFIX = "https://spreadsheets.google.com/feeds/cells/";
-export const GOOGLE_API_POSTFIX = "/od6/public/basic?alt=json";
+export const GOOGLE_API_PREFIX = "https://sheets.googleapis.com/v4/spreadsheets/";
+export const GOOGLE_API_POSTFIX = "&includeGridData=true";
 export const TOKEN_MAX_SIZE = 64;
 export const DEFAULT_PAYMENT_TYPE = 431001;
 export const ACCOUNT_MAX_SIZE = 16;

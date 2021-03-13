@@ -154,9 +154,9 @@
     "title": "Download data",
     "url": {
       "name": "Google sheet url",
-      "message": "Invalid url"
+      "message": "Invalid url",
+      "toolTip": "Link visibility must be set to: <b>All users who own the link</b>"
     },
-    "error": "Please check if your file is public (file => publish to web)",
     "close": "Close",
     "download": "Download"
   },

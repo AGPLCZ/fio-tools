@@ -51,13 +51,17 @@ export async function getDataBank(state, url) {
     });
 }
 
+/**
+ * Get data from Google sheet API and then parse them to "payment" format
+ * @param {store state} state 
+ * @param {API url} url 
+ * @returns payments as array of json objects
+ */
 export async function getDataGoogle(state, url) {
   return await axios
     .get(url)
     .then((response) => {
-      if (response.data.feed != undefined)
-        return googleParse(state, response.data.feed.entry);
-      return null;
+      return googleParse(state, response.data.sheets[0].data[0].rowData);
     });
 }
 

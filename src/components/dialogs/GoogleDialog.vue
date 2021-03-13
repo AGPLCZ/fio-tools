@@ -19,6 +19,7 @@
         <v-card-title>
           <span class="headline">{{ $t("googleDialog.title") }}</span>
         </v-card-title>
+
         <v-card-text>
           <v-form ref="form" v-model="valid">
             <v-text-field
@@ -26,7 +27,16 @@
               :rules="[() => urlValid || $t('googleDialog.url.message')]"
               :label="$t('googleDialog.url.name')"
               color="primary"
-            ></v-text-field>
+            >
+              <template v-slot:prepend>
+                <v-tooltip bottom>
+                  <template v-slot:activator="{ on }">
+                    <v-icon v-on="on">mdi-information-outline</v-icon>
+                  </template>
+                  <span v-html="$t('googleDialog.url.toolTip')"></span>
+                </v-tooltip>
+              </template>
+            </v-text-field>
           </v-form>
         </v-card-text>
         <v-card-actions>
@@ -100,7 +110,13 @@ export default Vue.extend({
       return res.substring(0, res.indexOf("/"));
     },
     urlAPI() {
-      return GOOGLE_API_PREFIX + this.sheetId + GOOGLE_API_POSTFIX;
+      return (
+        GOOGLE_API_PREFIX +
+        this.sheetId +
+        "/?key=" +
+        window.process.env.GOOGLE_API_KEY +
+        GOOGLE_API_POSTFIX
+      );
     },
   },
 
@@ -127,12 +143,6 @@ export default Vue.extend({
               this.successNumber = response.length;
               this.$emit("input");
               this.successDialog = true;
-            } else {
-              ipcRenderer.send(
-                ERROR_DIALOG,
-                this.$i18n.t("googleDialog.error"),
-                this.$i18n.t("electron.error")
-              );
             }
           })
           .catch((e) => {
