@@ -13,13 +13,15 @@ protocol.registerSchemesAsPrivileged([
   { scheme: "app", privileges: { secure: true, standard: true } },
 ]);
 
+let win;
 async function createWindow() {
   // Create the browser window.
-  const win = new BrowserWindow({
+  win = new BrowserWindow({
     width: 1200,
     height: 650,
     minWidth: 1200,
     minHeight: 670,
+    show: false,
     webPreferences: {
       // Use pluginOptions.nodeIntegration, leave this alone
       // See nklayman.github.io/vue-cli-plugin-electron-builder/guide/security.html#node-integration for more info
@@ -39,7 +41,7 @@ async function createWindow() {
     win.loadURL("app://./index.html");
   }
 }
- 
+
 /**
  * ipcMain communicates with ipcReceiver(located in vue files) 
  * ipcMain.on = listener, event.reply send event beck to ipcReceiver.on
@@ -95,10 +97,20 @@ app.on("window-all-closed", () => {
   }
 });
 
+// wait for app to be ready and then 500ms for vue to render the app
+function showWindow() {
+  createWindow();
+  win.once('ready-to-show', () => {
+    setTimeout(() => {
+      win.show();
+    }, 500);
+  });
+}
+
 app.on("activate", () => {
   // On macOS it's common to re-create a window in the app when the
   // dock icon is clicked and there are no other windows open.
-  if (BrowserWindow.getAllWindows().length === 0) createWindow();
+  if (BrowserWindow.getAllWindows().length === 0) showWindow();
 });
 
 // This method will be called when Electron has finished
@@ -113,7 +125,7 @@ app.on("ready", async () => {
       console.error("Vue Devtools failed to install:", e.toString());
     }
   }
-  createWindow();
+  showWindow();
 });
 
 // Exit cleanly on request from parent process in development mode.
