@@ -19,8 +19,6 @@ async function createWindow() {
   win = new BrowserWindow({
     width: 1200,
     height: 650,
-    minWidth: 1200,
-    minHeight: 670,
     show: false,
     webPreferences: {
       // Use pluginOptions.nodeIntegration, leave this alone
@@ -30,6 +28,8 @@ async function createWindow() {
     },
   });
   win.removeMenu();
+  // set min size same as default size
+  win.setMinimumSize(win.getSize()[0], win.getSize()[1]);
 
   if (process.env.WEBPACK_DEV_SERVER_URL) {
     // Load the url of the dev server if in development mode
