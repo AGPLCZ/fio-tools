@@ -124,7 +124,7 @@
     },
     "download": {
       "title": "Načtení bylo úspěšné",
-      "text": "{number} pladeb bylo úspěšně staženo",
+      "text": "{n} pladba byla úspěšně stažena | {n} pladeb bylo úspěšně staženo",
       "none": "Žádná pladba nebyla nalezena"
     }
   },

@@ -124,7 +124,7 @@
     },
     "download": {
       "title": "Import successful",
-      "text": "{number} payments has been successfully downloaded",
+      "text": "{n} payment has been successfully downloaded | {n} payments has been successfully downloaded",
       "none": "No Payment found"
     }
   },

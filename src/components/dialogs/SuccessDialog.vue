@@ -41,7 +41,7 @@
       </v-card-title>
       <v-card-text style="margin-top: -10px" class="text-center">
         <p v-if="number > 0" style="padding-right: 5px">
-          {{ $t("successDialog.download.text", { number: number }) }}
+          {{ $tc("successDialog.download.text", number ) }}
         </p>
 
         <p v-else style="padding-right: 5px">
