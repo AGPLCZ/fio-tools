@@ -19,8 +19,3 @@ export const SUCCESS_DIALOG = {
   SAVE: 1,
   LOAD: 2
 };
-
-export const TIMER_TARGET = {
-  SEND: 0,
-  DOWNLOAD: 1,
-};

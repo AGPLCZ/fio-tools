@@ -4,6 +4,7 @@
     <LoadingTimerDialog
       v-model="waitingForAPIdialog"
       :msg="$t('navigationDrawer.sendButton.loadingTimerDialog')"
+      :fn="sendData"
     />
     <LoadingDialog
       v-model="loadingDialog"
@@ -27,7 +28,7 @@
 import Vue from "vue";
 import { ipcRenderer } from "electron";
 import { ERROR_DIALOG } from "../../utils/data/constants";
-import { SUCCESS_DIALOG, TIMER_TARGET } from "../../utils/data/enums";
+import { SUCCESS_DIALOG } from "../../utils/data/enums";
 import SuccessDialog from "../dialogs/SuccessDialog";
 import LoadingTimerDialog from "../dialogs/LoadingTimerDialog";
 import LoadingDialog from "../dialogs/LoadingDialog";
@@ -57,21 +58,6 @@ export default Vue.extend({
     },
     paymentsValid() {
       return this.payments.filter((payment) => payment.valid);
-    },
-  },
-
-  watch: {
-    /**
-     * If timer ends and timerTarget is DOWNLOAD proceed to sendData
-     */
-    waitingForAPIdialog(newValue, oldValue) {
-      if (
-        newValue == undefined &&
-        oldValue &&
-        this.$store.getters.getTimer == 0 &&
-        this.$store.getters.getTimerTarget == TIMER_TARGET.SEND
-      )
-        this.sendData();
     },
   },
 
@@ -111,7 +97,6 @@ export default Vue.extend({
       this.$router.push("/", () => {});
       if (this.$store.getters.getTimer != 0) {
         this.waitingForAPIdialog = true;
-        this.$store.commit("updateTimerTarget", TIMER_TARGET.SEND);
       } else {
         this.loadingDialog = true;
         await this.$store

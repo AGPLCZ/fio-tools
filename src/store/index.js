@@ -22,8 +22,6 @@ export default new Vuex.Store({
     saveHeader: JSON.parse(localStorage.getItem("saveHeader")),
     // timer value
     timer: 0,
-    // action that should happen after times up
-    timerTarget: ""
   },
   mutations: {
     /**
@@ -139,14 +137,6 @@ export default new Vuex.Store({
     },
 
     /**
-     * Set timerTarget
-     * @param {action that should happen after timer ends} target 
-     */
-    updateTimerTarget(state, target) {
-      state.timerTarget = target;
-    },
-
-    /**
      * If timer isn't running start countdown
      * @param {time for the timer} time 
      */
@@ -196,9 +186,6 @@ export default new Vuex.Store({
     },
     getTimer(state) {
       return state.timer;
-    },
-    getTimerTarget(state) {
-      return state.timerTarget;
     },
     getUser(state) {
       return state.user;

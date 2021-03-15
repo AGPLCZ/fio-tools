@@ -23,6 +23,7 @@ export default Vue.extend({
   props: {
     value: Boolean,
     msg: String,
+    fn: Function,
   },
 
   data: () => ({
@@ -40,7 +41,10 @@ export default Vue.extend({
     * If timer ends close this dialog
     */
     timer() {
-      if (this.timer == 0) this.$emit("input");
+      if (this.timer == 0 && this.value) {
+        this.fn();
+        this.$emit("input");
+      }
     },
   },
 });

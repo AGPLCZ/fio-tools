@@ -8,6 +8,7 @@
     <LoadingTimerDialog
       v-model="waitingForAPIdialog"
       :msg="$t('apiDialog.loadingTimerDialog')"
+      :fn="downloadData"
     />
     <LoadingDialog
       v-model="loadingDialog"
@@ -85,7 +86,7 @@ import {
   BIG_DIALOG_SIZE,
   VS_MAX_SIZE,
 } from "../../utils/data/constants";
-import { SUCCESS_DIALOG, TIMER_TARGET } from "../../utils/data/enums";
+import { SUCCESS_DIALOG } from "../../utils/data/enums";
 import Validator from "../../utils/validators/Validator";
 import SuccessDialog from "./SuccessDialog";
 import LoadingTimerDialog from "./LoadingTimerDialog";
@@ -156,24 +157,11 @@ export default Vue.extend({
         this.initialize();
       }
     },
-     
-     /**
-     * If timer ends and timerTarget is DOWNLOAD proceed to downloadData
-     */
-    waitingForAPIdialog(newValue, oldValue) {
-      if (
-        newValue == undefined &&
-        oldValue &&
-        this.$store.getters.getTimer == 0 &&
-        this.$store.getters.getTimerTarget == TIMER_TARGET.DOWNLOAD
-      )
-        this.downloadData();
-    },
   },
 
   /**
-  * Initialize params
-  */
+   * Initialize params
+   */
   mounted() {
     this.initialize();
   },
@@ -196,7 +184,7 @@ export default Vue.extend({
     /**
      * If account then filer payments based on acount
      * then If variable symbol filter payment based on vs prefix
-     * @param {array of payment items} payments 
+     * @param {array of payment items} payments
      */
     filter(payments) {
       if (this.account != "")
@@ -209,7 +197,7 @@ export default Vue.extend({
     },
 
     /**
-     * Validates account and variable symbol, tries to validate form If succeded check timer 
+     * Validates account and variable symbol, tries to validate form If succeded check timer
      * if timer is running change target to DOWNLOAD and show loadingTimerDialog
      * loading dialog while waiting for responce from API
      * else filter given payments, update it to store and shows success dialog
@@ -222,7 +210,6 @@ export default Vue.extend({
       if (this.$refs.form.validate()) {
         if (this.$store.getters.getTimer != 0) {
           this.waitingForAPIdialog = true;
-          this.$store.commit("updateTimerTarget", TIMER_TARGET.DOWNLOAD);
         } else {
           this.loadingDialog = true;
           await this.$store
