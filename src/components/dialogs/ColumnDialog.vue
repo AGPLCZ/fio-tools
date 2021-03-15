@@ -40,7 +40,7 @@
           </v-btn>
           <v-spacer></v-spacer>
           <div v-if="type == COLUMN_DIALOG.DEFAULT">
-            <v-btn color="primary" text @click.native="save">
+            <v-btn color="primary" text @click.native="continueBtn">
               {{ $t("columnDialog.continue") }}
             </v-btn>
           </div>
@@ -49,7 +49,7 @@
             <v-btn color="primary" text @click.native="$emit('input')">
               {{ $t("columnDialog.close") }}
             </v-btn>
-            <v-btn color="primary" text @click.native="save">
+            <v-btn color="primary" text @click.native="saveBtn">
               {{ $t("columnDialog.save") }}
             </v-btn>
           </div>
@@ -72,6 +72,7 @@ export default Vue.extend({
   props: {
     value: Boolean,
     type: COLUMN_DIALOG,
+    fn: Function,
   },
 
   enums: {
@@ -126,9 +127,17 @@ export default Vue.extend({
     /**
      * Update columnOrder in store and close dialog
      */
-    save() {
+    saveBtn() {
       this.$store.commit("updateColumnOrder", this.columnOrder);
       this.$emit("input");
+    },
+
+    /**
+     * Calls saveBtn function and parent function
+     */
+    continueBtn() {
+      this.saveBtn();
+      this.fn();
     },
 
     /**

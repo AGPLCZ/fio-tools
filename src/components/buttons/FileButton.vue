@@ -1,6 +1,6 @@
 <template>
   <div>
-    <ColumnDialog v-model="columnDialog" :type="COLUMN_DIALOG.DEFAULT" />
+    <ColumnDialog v-model="columnDialog" :type="COLUMN_DIALOG.DEFAULT" :fn="openDialog"/>
     <SuccessDialog
       v-model="successDialog"
       :type="SUCCESS_DIALOG.LOAD"
@@ -50,15 +50,6 @@ export default Vue.extend({
   computed: {
     columnCheck() {
       return this.$store.getters.getColumnCheck;
-    },
-  },
-
-  watch: {
-    /**
-     * If columnDialog was just closed open load file dialog
-     */
-    columnDialog(newValue, oldValue) {
-      if (newValue == undefined && oldValue) this.openDialog();
     },
   },
 
