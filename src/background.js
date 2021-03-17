@@ -6,7 +6,7 @@ import installExtension, { VUEJS_DEVTOOLS } from "electron-devtools-installer";
 import { GET_FILE, SAVE_FILE, LOAD_DIALOG, SAVE_DIALOG, ERROR_DIALOG } from "./utils/data/constants";
 import XLSX from "xlsx";
 const isDevelopment = process.env.NODE_ENV !== "production";
-process.env.GOOGLE_API_KEY = 'AIzaSyAQyK9IBeQxSIpBOecmFIRQCxIOyfiTtSE'
+process.env.GOOGLE_API_KEY = process.env.VUE_APP_GOOGLE_API_KEY;
 
 // Scheme must be registered before the app is ready
 protocol.registerSchemesAsPrivileged([

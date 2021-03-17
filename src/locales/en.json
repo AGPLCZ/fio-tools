@@ -166,7 +166,7 @@
       "amount": "Amount",
       "ks": "Constant symbol",
       "vs": "Variable symbol",
-      "ss": "Symbolic symbol",
+      "ss": "Specific symbol",
       "messageFrom": "Message from",
       "messageTo": "Message to"
     },
