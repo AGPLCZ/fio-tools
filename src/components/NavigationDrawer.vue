@@ -35,6 +35,18 @@
 
     <template v-slot:append>
       <v-list dense>
+        <v-list-item route to="/about">
+          <v-list-item-icon>
+            <v-icon>mdi-information-outline</v-icon>
+          </v-list-item-icon>
+
+          <v-list-item-content>
+            <v-list-item-title>{{
+              $t("navigationDrawer.about")
+            }}</v-list-item-title>
+          </v-list-item-content>
+        </v-list-item>
+
         <v-list-item route to="/settings">
           <v-list-item-icon>
             <v-icon>mdi-cog</v-icon>

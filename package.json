@@ -1,6 +1,6 @@
 {
-  "name": "FIO",
-  "productName": "FIO Tool",
+  "name": "FioTool",
+  "productName": "FioTool",
   "version": "0.1.0",
   "private": true,
   "description": "Electron app, using FIO bank api to create payments",
