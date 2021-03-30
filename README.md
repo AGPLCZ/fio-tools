@@ -9,7 +9,7 @@ Application used for communication with Fio bank's internet banking. 30 seconds 
     * Variable symbol prefix
 
   * **From file, from Google sheets**<br/>
-  Data from spreadsheets will be read according to the set 'columns order' (via settings). Data validation and error notification will take place. Communication with Google API require [API key](https://console.cloud.google.com/apis/credentials?_ga=2.56704042.1251666659.1617108871-1950575441.1601391503&angularJsUrl=%2Fprojectselector%2Fapis%2Fcredentials%3F_ga%3D2.56704042.1251666659.1617108871-1950575441.1601391503%26supportedpurview%3Dproject%26folder%3Dtrue%26organizationId%3Dtrue&project=fio-tool&folder=&organizationId=&supportedpurview=project). Create .env file with this content.
+  Data from spreadsheets will be read according to the set 'columns order' (via settings). Data validation and error notification will take place. Communication with Google API require [API key](https://console.cloud.google.com/apis/credentials?_ga=2.56704042.1251666659.1617108871-1950575441.1601391503&angularJsUrl=%2Fprojectselector%2Fapis%2Fcredentials%3F_ga%3D2.56704042.1251666659.1617108871-1950575441.1601391503%26supportedpurview%3Dproject%26folder%3Dtrue%26organizationId%3Dtrue&project=fio-tool&folder=&organizationId=&supportedpurview=project). Create .env file in root directory with this content.
     ```
     VUE_APP_GOOGLE_API_KEY = 'API key insert here'
     ```
