@@ -23,4 +23,4 @@ Saves data to a file. Ability to add file headers (via settings).
 **author:** Matěj Novotný<br/>
 **version:** 0.1.0<br/>
 **license:** MIT<br/>
-**repository:** [Github](https://github.com/lopapex/czs_app)<br/>
+**repository:** [Github](https://github.com/lopapex/FIO-Tool)<br/>
