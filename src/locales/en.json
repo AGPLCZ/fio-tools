@@ -7,7 +7,7 @@
   "about": {
     "title": "About app",
     "text": "Application used for communication with Fio bank's internet banking. 30 seconds must elapse between each request to Fio banka<h4> Functions: </h4> <ul> <li> <h4> Load data </h4> <ul> <li> <h4> From bank </h4> Download all sent payments from the bank account according to the specified time interval. <br /> Filter downloaded data by: <ul> <li> Account number </li> <li> Variable symbol prefix </li> </ul> </li> <li> <h4> From file, from Google sheets </h4> Data from spreadsheets will be read according to the set 'columns order' (via settings) Data validation and error notification will take place. </li> </ul> </li> <li> <h4> Send data </h4> Sends all valid data and deletes them from the tables . </li> <li> <h4> Save data </h4> Saves data to a file. Ability to add file headers (via settings) </li> </ul>",
-    "info": "<b>author:</b> Matěj Novotný<br /><b>version:</b> {version}<br />",
+    "info": "<b>author:</b> Matěj Novotný<br /><b>version:</b> {version}<br /><b>license:</b> MIT<br />",
     "repo": "repository:"
   },
   "settings": {
