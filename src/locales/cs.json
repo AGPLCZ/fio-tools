@@ -6,7 +6,7 @@
   },
   "about": {
     "title": "O aplikaci",
-    "text": "Aplikace slouží pro komunikaci s internetovým bankovnictním Fio banky.Mezi každým požadavkem na Fio banku musí uběhnout 30 sekund<h4>Funkce:</h4><ul><li><h4>Načíst data</h4><ul><li><h4>Z banky</h4>Podle zadaného časového ůseku stáhne všechny odeslané pladby zbankovního účtu.<br />Filtrace stažených dat podle:<ul><li>Číslo účtu</li><li>Předpona variabilního systému</li></ul></li><li><h4>Z souboru, z Google tabulek</h4>Data z tabulky se načtou podle nastaveného 'pořadí sloupů' (viz nastavení). Proběhne validace dat a upozornění na případné chyby.</li></ul></li><li><h4>Odeslat data</h4> Odešle všechna validní data a smaže je z tabulky.</li><li><h4>Uložit data</h4>Uloží data do souboru. Možnost přidání hlavičky souboru(viznastavení)</li></ul>",
+    "text": "Aplikace slouží pro komunikaci s internetovým bankovnictním Fio banky.Mezi každým požadavkem na Fio banku musí uběhnout 30 sekund.<h4>Funkce:</h4><ul><li><h4>Načíst data</h4><ul><li><h4>Z banky</h4>Podle zadaného časového ůseku stáhne všechny odeslané pladby zbankovního účtu.<br />Filtrace stažených dat podle:<ul><li>Číslo účtu</li><li>Předpona variabilního systému</li></ul></li><li><h4>Z souboru, z Google tabulek</h4>Data z tabulky se načtou podle nastaveného 'pořadí sloupů' (viz nastavení). Proběhne validace dat a upozornění na případné chyby.</li></ul></li><li><h4>Odeslat data</h4> Odešle všechna validní data a smaže je z tabulky.</li><li><h4>Uložit data</h4>Uloží data do souboru. Možnost přidání hlavičky souboru (viz nastavení).</li></ul>",
     "info": "<b>autor:</b> Matěj Novotný<br /><b>verze:</b> {version}<br /><b>licence:</b> MIT<br />",
     "repo": "repořitář:"
   },
