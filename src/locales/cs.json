@@ -6,7 +6,7 @@
   },
   "about": {
     "title": "O aplikaci",
-    "text": "Aplikace slouží pro komunikaci s internetovým bankovnictním Fio banky.Mezi každým požadavkem na Fio banku musí uběhnout 30 sekund.<h4>Funkce:</h4><ul><li><h4>Načíst data</h4><ul><li><h4>Z banky</h4>Podle zadaného časového ůseku stáhne všechny odeslané pladby zbankovního účtu.<br />Filtrace stažených dat podle:<ul><li>Číslo účtu</li><li>Předpona variabilního systému</li></ul></li><li><h4>Z souboru, z Google tabulek</h4>Data z tabulky se načtou podle nastaveného 'pořadí sloupů' (viz nastavení). Proběhne validace dat a upozornění na případné chyby.</li></ul></li><li><h4>Odeslat data</h4> Odešle všechna validní data a smaže je z tabulky.</li><li><h4>Uložit data</h4>Uloží data do souboru. Možnost přidání hlavičky souboru (viz nastavení).</li></ul>",
+    "text": "Aplikace slouží pro komunikaci s internetovým bankovnictním Fio banky.Mezi každým požadavkem na Fio banku musí uběhnout 30 sekund.<h4>Funkce:</h4><ul><li><h4>Načíst data</h4><ul><li><h4>Z banky</h4>Podle zadaného časového ůseku stáhne všechny odeslané platby zbankovního účtu.<br />Filtrace stažených dat podle:<ul><li>Číslo účtu</li><li>Předpona variabilního systému</li></ul></li><li><h4>Z souboru, z Google tabulek</h4>Data z tabulky se načtou podle nastaveného 'pořadí sloupů' (viz nastavení). Proběhne validace dat a upozornění na případné chyby.</li></ul></li><li><h4>Odeslat data</h4> Odešle všechna validní data a smaže je z tabulky.</li><li><h4>Uložit data</h4>Uloží data do souboru. Možnost přidání hlavičky souboru (viz nastavení).</li></ul>",
     "info": "<b>autor:</b> Matěj Novotný<br /><b>verze:</b> {version}<br /><b>licence:</b> MIT<br />",
     "repo": "repořitář:"
   },
@@ -44,8 +44,8 @@
   },
   "payment": {
     "title": {
-      "add": "Přidat pladbu",
-      "edit": "Upravit pladbu",
+      "add": "Přidat platbu",
+      "edit": "Upravit platbu",
       "editSelected": "Upravit označené"
     },
     "form": {
@@ -57,8 +57,8 @@
       "messageFrom": "Zpráva pro tebe",
       "messageTo": "Zpráva pro příjemce",
       "currency": "Měna",
-      "type": "Typ pladby",
-      "typeToolTip": "<ul><li><b>Standardní</b></br>pladby s dnešním datem splatnosti lze realizovat do 23:50</li><li><b>Prioritní</b></br>pladby s dnešním datem splatnosti lze realizovat do 13:50 (od 12:00 s poplatkem)</li><li><b>Příkaz k inkasu</b></br>datum splatnosti nesmí být dnešní datum</li></ul>",
+      "type": "Typ platby",
+      "typeToolTip": "<ul><li><b>Standardní</b></br>platby s dnešním datem splatnosti lze realizovat do 23:50</li><li><b>Prioritní</b></br>platby s dnešním datem splatnosti lze realizovat do 13:50 (od 12:00 s poplatkem)</li><li><b>Příkaz k inkasu</b></br>datum splatnosti nesmí být dnešní datum</li></ul>",
       "date": "Datum splatnosti"
     },
     "types": {
@@ -91,8 +91,8 @@
       "toolTip": "Smazat vybrané platby"
     },
     "addButton": {
-      "name": "Nová pladba",
-      "toolTip": "Přidat novou pladbu"
+      "name": "Nová platba",
+      "toolTip": "Přidat novou platbu"
     }
   },
   "navigationDrawer": {
@@ -131,8 +131,8 @@
     },
     "download": {
       "title": "Načtení bylo úspěšné",
-      "text": "{n} pladba byla úspěšně stažena | {n} pladeb bylo úspěšně staženo",
-      "none": "Žádná pladba nebyla nalezena"
+      "text": "{n} platba byla úspěšně stažena | {n} plateb bylo úspěšně staženo",
+      "none": "Žádná platba nebyla nalezena"
     }
   },
   "loginDialog": {
@@ -149,8 +149,8 @@
     "loadingTimerDialog": "Data se stáhnou za",
     "loadingDialog": "Stahování dat",
     "title": "Stáhnout data",
-    "dateFrom": "Pladby od",
-    "dateTo": "Pladby do",
+    "dateFrom": "platby od",
+    "dateTo": "platby do",
     "account": "Účet",
     "vs": "Předpona variabilního symbolu",
     "close": "Zavřít",
