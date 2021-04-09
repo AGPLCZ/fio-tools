@@ -47,7 +47,7 @@
               <v-row class="pl-4 pr-4">
                 <v-text-field
                   v-model="account"
-                  :rules="[() => !errors.account || errors.account]"
+                  :rules="[() => !errors.account || $t(errors.account)]"
                   :label="$t('apiDialog.account')"
                 ></v-text-field>
               </v-row>
@@ -55,7 +55,7 @@
               <v-row class="pl-4 pr-4">
                 <v-text-field
                   v-model="vs"
-                  :rules="[() => !errors.vs || errors.vs]"
+                  :rules="[() => !errors.vs || $t(errors.vs)]"
                   :counter="vsMaxSize"
                   :label="$t('apiDialog.vs')"
                 ></v-text-field>

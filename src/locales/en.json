@@ -186,7 +186,7 @@
   "validator": {
     "number": {
       "invalid": "Invalid number format",
-      "long": "Number is to long, max length is "
+      "long": "Number is to long"
     },
     "amount": {
       "required": "Amount is required"

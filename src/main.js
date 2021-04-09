@@ -9,7 +9,7 @@ import i18n from './i18n'
 Vue.config.productionTip = false;
 Vue.use(enums);
 
-new Vue({
+export default new Vue({
   router,
   store,
   i18n,

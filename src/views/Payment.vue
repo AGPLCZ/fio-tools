@@ -20,7 +20,7 @@
             :disabled="options == FORM_OPTION.EDIT_SELECTED"
             v-model="payment.account"
             :label="$t('payment.form.account')"
-            :rules="[() => !errors.account || errors.account]"
+            :rules="[() => !errors.account || $t(errors.account)]"
           ></v-text-field>
         </v-row>
 
@@ -28,7 +28,7 @@
           <v-text-field
             v-model="payment.amount"
             :label="$t('payment.form.amount')"
-            :rules="[() => !errors.amount || errors.amount]"
+            :rules="[() => !errors.amount || $t(errors.amount)]"
           ></v-text-field>
         </v-row>
 
@@ -37,7 +37,7 @@
             <v-text-field
               v-model="payment.ks"
               :label="$t('payment.form.ks')"
-              :rules="[() => !errors.ks || errors.ks]"
+              :rules="[() => !errors.ks || $t(errors.ks)]"
               :counter="ksMaxSize"
             ></v-text-field>
           </v-col>
@@ -45,7 +45,7 @@
             <v-text-field
               v-model="payment.vs"
               :label="$t('payment.form.vs')"
-              :rules="[() => !errors.vs || errors.vs]"
+              :rules="[() => !errors.vs || $t(errors.vs)]"
               :counter="vsMaxSize"
             ></v-text-field>
           </v-col>
@@ -53,7 +53,7 @@
             <v-text-field
               v-model="payment.ss"
               :label="$t('payment.form.ss')"
-              :rules="[() => !errors.ss || errors.ss]"
+              :rules="[() => !errors.ss || $t(errors.ss)]"
               :counter="ssMaxSize"
             ></v-text-field>
           </v-col>

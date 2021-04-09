@@ -1,5 +1,6 @@
 <template>
   <v-select
+    ref="jedi"
     :items="langs"
     v-model="currentLang"
     :label="$t('settings.general.languages.title')"
@@ -14,7 +15,13 @@ export default Vue.extend({
   name: "LangSelect",
   data() {
     return {
-      langs: [
+      currentLang: this.$i18n.locale,
+    };
+  },
+
+  computed: {
+    langs() {
+      return [
         {
           value: "en",
           text: this.$i18n.t("settings.general.languages.items.en"),
@@ -23,9 +30,8 @@ export default Vue.extend({
           value: "cs",
           text: this.$i18n.t("settings.general.languages.items.cs"),
         },
-      ],
-      currentLang: this.$i18n.locale,
-    };
+      ]
+    },
   },
 
   watch: {
@@ -35,16 +41,6 @@ export default Vue.extend({
     currentLang(newLang) {
       localStorage.setItem("lang", newLang);
       this.$i18n.locale = newLang;
-      this.langs = [
-        {
-          value: "en",
-          text: this.$i18n.t("settings.general.languages.items.en"),
-        },
-        {
-          value: "cs",
-          text: this.$i18n.t("settings.general.languages.items.cs"),
-        },
-      ];
     },
   },
 });

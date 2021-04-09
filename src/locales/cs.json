@@ -186,7 +186,7 @@
   "validator": {
     "number": {
       "invalid": "Neplatný formát čísla",
-      "long": "Číslo je moc dlouhé, maximální délka je"
+      "long": "Číslo je moc dlouhé"
     },
     "amount": {
       "required": "Částka je povinná"

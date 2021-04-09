@@ -1,6 +1,5 @@
 import AccountValidator from "./AccountValidator";
 import { AMOUNT_MAX_SIZE, KS_SIZE, VS_MAX_SIZE, SS_SIZE } from "../data/constants";
-import i18n from "../../i18n";
 
 export default class Validator {
   constructor() {
@@ -27,10 +26,10 @@ export default class Validator {
    */
   static validateNumber(number, maxLen) {
     if (isNaN(number)){
-      return i18n.t("validator.number.invalid");
+      return "validator.number.invalid";
     }
     if (number.length > maxLen)
-      return i18n.t("validator.number.long"); + maxLen;
+      return "validator.number.long";
     return "";
   }
 
@@ -41,7 +40,7 @@ export default class Validator {
    */
   static validateAmount(amount) {
     if (amount.length == 0 || amount == "0")
-      return i18n.t("validator.amount.required");
+      return "validator.amount.required";
     return this.validateNumber(amount, AMOUNT_MAX_SIZE)
   }
 
