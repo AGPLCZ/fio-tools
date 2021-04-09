@@ -1,5 +1,3 @@
-import i18n from "../../i18n";
-
 export const BANK_CODES = [
   "0100",
   "0300",
@@ -237,13 +235,25 @@ export const CURRENCIES = [
   "CZK"
 ];
 
-
+// text is stored as i18n variable name
 export const PAYMENT_PROPS = [
-  { value: "account", text: i18n.t("columnDialog.order.account") },
-  { value: "amount", text: i18n.t("columnDialog.order.amount") },
-  { value: "ks", text: i18n.t("columnDialog.order.ks") },
-  { value: "vs", text: i18n.t("columnDialog.order.vs") },
-  { value: "ss", text: i18n.t("columnDialog.order.ss") },
-  { value: "messageTo", text: i18n.t("columnDialog.order.messageTo") },
-  { value: "messageFrom", text: i18n.t("columnDialog.order.messageFrom") },
+  { value: "account", text: "columnDialog.order.account" },
+  { value: "amount", text: "columnDialog.order.amount" },
+  { value: "ks", text: "columnDialog.order.ks" },
+  { value: "vs", text: "columnDialog.order.vs" },
+  { value: "ss", text: "columnDialog.order.ss" },
+  { value: "messageTo", text: "columnDialog.order.messageTo" },
+  { value: "messageFrom", text: "columnDialog.order.messageFrom" },
+];
+
+// text is stored as i18n variable name
+export const LANGUAGES = [
+  {
+    value: "en",
+    text: "settings.general.languages.items.en",
+  },
+  {
+    value: "cs",
+    text: "settings.general.languages.items.cs",
+  },
 ];

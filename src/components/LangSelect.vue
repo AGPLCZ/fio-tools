@@ -1,7 +1,7 @@
 <template>
   <v-select
-    ref="jedi"
     :items="langs"
+    :item-text="item => $t(item.text)"
     v-model="currentLang"
     :label="$t('settings.general.languages.title')"
     dense
@@ -10,28 +10,15 @@
 
 <script>
 import Vue from "vue";
+import { LANGUAGES } from "../utils/data/collections";
 
 export default Vue.extend({
   name: "LangSelect",
   data() {
     return {
+      langs: LANGUAGES,
       currentLang: this.$i18n.locale,
     };
-  },
-
-  computed: {
-    langs() {
-      return [
-        {
-          value: "en",
-          text: this.$i18n.t("settings.general.languages.items.en"),
-        },
-        {
-          value: "cs",
-          text: this.$i18n.t("settings.general.languages.items.cs"),
-        },
-      ]
-    },
   },
 
   watch: {

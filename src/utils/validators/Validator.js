@@ -1,6 +1,7 @@
 import AccountValidator from "./AccountValidator";
 import { AMOUNT_MAX_SIZE, KS_SIZE, VS_MAX_SIZE, SS_SIZE } from "../data/constants";
 
+// errors are stored as i18n variable name
 export default class Validator {
   constructor() {
     if (this instanceof Validator) {

@@ -24,7 +24,7 @@
               :key="element.value"
             >
               <v-card class="pa-2 text-center elevation-1" height="60px">
-                {{ element.text }}
+                {{ $t(element.text) }}
               </v-card>
             </div>
           </draggable>
@@ -96,30 +96,6 @@ export default Vue.extend({
   computed: {
     isDefault() {
       return JSON.stringify(this.columnOrder) == JSON.stringify(PAYMENT_PROPS);
-    },
-  },
-
-  watch: {
-    /**
-     * Reload column order to update language of variables in columnOrder and update it in
-     */
-    "$i18n.locale"() {
-      this.columnOrder = [
-        { value: "account", text: this.$i18n.t("columnDialog.order.account") },
-        { value: "amount", text: this.$i18n.t("columnDialog.order.amount") },
-        { value: "ks", text: this.$i18n.t("columnDialog.order.ks") },
-        { value: "vs", text: this.$i18n.t("columnDialog.order.vs") },
-        { value: "ss", text: this.$i18n.t("columnDialog.order.ss") },
-        {
-          value: "messageTo",
-          text: this.$i18n.t("columnDialog.order.messageTo"),
-        },
-        {
-          value: "messageFrom",
-          text: this.$i18n.t("columnDialog.order.messageFrom"),
-        },
-      ];
-      this.$store.commit("updateColumnOrder", this.columnOrder);
     },
   },
 

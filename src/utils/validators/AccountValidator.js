@@ -1,6 +1,7 @@
 import { BANK_CODES } from "../data/collections";
 import { ACCOUNT_MAX_SIZE } from "../data/constants";
 
+// errors are stored as i18n variable name
 export default class AccountValidator {
   constructor() {
     if (this instanceof AccountValidator) {
