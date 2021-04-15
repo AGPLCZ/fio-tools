@@ -146,7 +146,8 @@ export default Vue.extend({
     * Route to payment window witch infinity as props
     */
     editSelected() {
-      this.$router.push("/payments/" + Infinity);
+      if (this.selected.length > 1) this.$router.push("/payments/" + Infinity);
+      else this.$router.push("/payments/" + this.selected[0].id);
     },
 
     /**
