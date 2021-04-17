@@ -1,5 +1,5 @@
 import Validator from "../validators/Validator";
-import { KS_SIZE, VS_MIN_SIZE, SS_SIZE, DEFAULT_PAYMENT_TYPE } from "../data/constants";
+import { KS_SIZE, VS_SIZE, SS_SIZE, DEFAULT_PAYMENT_TYPE } from "../data/constants";
 import { getDate } from "../tools";
 
 /**
@@ -42,7 +42,7 @@ export function getItem(row, state, options) {
     if (state.columnOrder[columnIndex].value == "ks")
       tmp = addZeroes(tmp, KS_SIZE);
     if (state.columnOrder[columnIndex].value == "vs")
-      tmp = addZeroes(tmp, VS_MIN_SIZE);
+      tmp = addZeroes(tmp, VS_SIZE);
     if (state.columnOrder[columnIndex].value == "ss")
       tmp = addZeroes(tmp, SS_SIZE);
     item[state.columnOrder[columnIndex].value] = tmp;

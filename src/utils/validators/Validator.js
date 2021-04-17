@@ -1,5 +1,5 @@
 import AccountValidator from "./AccountValidator";
-import { AMOUNT_MAX_SIZE, KS_SIZE, VS_MAX_SIZE, SS_SIZE } from "../data/constants";
+import { AMOUNT_MAX_SIZE, KS_SIZE, VS_SIZE, SS_SIZE } from "../data/constants";
 
 // errors are stored as i18n variable name
 export default class Validator {
@@ -54,7 +54,7 @@ export default class Validator {
     const errorMsgs = {
       amount: this.validateNumber(payment.amount, AMOUNT_MAX_SIZE),
       ks: this.validateNumber(payment.ks, KS_SIZE),
-      vs: this.validateNumber(payment.vs, VS_MAX_SIZE),
+      vs: this.validateNumber(payment.vs, VS_SIZE),
       ss: this.validateNumber(payment.ss, SS_SIZE),
     };
     return errorMsgs;
@@ -72,7 +72,7 @@ export default class Validator {
       account: this.validateAccount(payment.account),
       amount: this.validateAmount(payment.amount),
       ks: this.validateNumber(payment.ks, KS_SIZE),
-      vs: this.validateNumber(payment.vs, VS_MAX_SIZE),
+      vs: this.validateNumber(payment.vs, VS_SIZE),
       ss: this.validateNumber(payment.ss, SS_SIZE),
     };
     for (let value of Object.values(errorMsgs)) {

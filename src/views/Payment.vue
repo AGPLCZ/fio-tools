@@ -149,7 +149,7 @@ import Toolbar from "../components/Toolbar";
 import DatePicker from "../components/DatePicker";
 import Validator from "../utils/validators/Validator";
 import { PAYMENT_PROPS, CURRENCIES } from "../utils/data/collections";
-import { KS_SIZE, VS_MAX_SIZE, SS_SIZE } from "../utils/data/constants";
+import { KS_SIZE, VS_SIZE, SS_SIZE } from "../utils/data/constants";
 import { getDate } from "../utils/tools";
 import { FORM_OPTION } from "../utils/data/enums";
 
@@ -167,7 +167,7 @@ export default Vue.extend({
       payment: {},
       errors: {},
       ksMaxSize: KS_SIZE,
-      vsMaxSize: VS_MAX_SIZE,
+      vsMaxSize: VS_SIZE,
       ssMaxSize: SS_SIZE,
       currencies: CURRENCIES,
       types: [

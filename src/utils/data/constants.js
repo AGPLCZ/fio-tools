@@ -18,6 +18,5 @@ export const DEFAULT_PAYMENT_TYPE = 431001;
 export const ACCOUNT_MAX_SIZE = 16;
 export const AMOUNT_MAX_SIZE = 18;
 export const KS_SIZE = 4;
-export const VS_MIN_SIZE = 9;
-export const VS_MAX_SIZE = 10;
+export const VS_SIZE = 10;
 export const SS_SIZE = 10;

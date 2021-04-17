@@ -84,7 +84,7 @@ import {
   ERROR_DIALOG,
   FIO_API_PREFIX,
   BIG_DIALOG_SIZE,
-  VS_MAX_SIZE,
+  VS_SIZE,
 } from "../../utils/data/constants";
 import { SUCCESS_DIALOG } from "../../utils/data/enums";
 import Validator from "../../utils/validators/Validator";
@@ -116,7 +116,7 @@ export default Vue.extend({
     account: "",
     vs: "",
     errors: {},
-    vsMaxSize: VS_MAX_SIZE,
+    vsMaxSize: VS_SIZE,
     successDialog: false,
     waitingForAPIdialog: false,
     loadingDialog: false,
