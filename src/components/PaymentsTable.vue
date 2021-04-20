@@ -55,7 +55,7 @@
     <template v-slot:[`item.amount`]="{ item }">
       <div class="text-right">
         <div v-if="!isAmountInvalid(item.errors)">
-          {{ formatCurrency(parseInt(item.amount), item) }}
+          {{ formatCurrency(parseFloat(item.amount), item) }}
         </div>
         <div v-else :class="{ 'error--text': isAmountInvalid(item.errors) }">
           {{ item.amount }}
@@ -136,7 +136,7 @@ export default {
     * @param {payment item} payment 
     */
     formatCurrency(amount, payment) {
-      return amount.toLocaleString("en-US", {
+      return amount.toLocaleString(this.$i18n.locale, {
         style: "currency",
         currency: payment.currency,
       });

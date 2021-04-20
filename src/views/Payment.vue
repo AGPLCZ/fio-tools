@@ -25,11 +25,11 @@
         </v-row>
 
         <v-row class="pa-3">
-          <v-text-field
-            v-model="payment.amount"
+          <v-currency-field
             :label="$t('payment.form.amount')"
             :rules="[() => !errors.amount || $t(errors.amount)]"
-          ></v-text-field>
+            v-model="payment.amount"
+          />
         </v-row>
 
         <v-row>

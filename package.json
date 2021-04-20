@@ -20,6 +20,7 @@
     "axios": "^0.21.1",
     "core-js": "^3.6.5",
     "electron-builder": "^22.9.1",
+    "v-currency-field": "^3.1.1",
     "vue": "^2.6.11",
     "vue-enums": "^1.0.0",
     "vue-i18n": "^8.22.3",
