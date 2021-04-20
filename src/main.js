@@ -15,7 +15,7 @@ Vue.component('v-text-field', VTextField)
 Vue.use(VCurrencyField, { 
 	locale: 'cs-CZ',
 	decimalLength: 2,
-	autoDecimalMode: true,
+	autoDecimalMode: false,
 	min: null,
 	max: null,
 	defaultValue: 0,
