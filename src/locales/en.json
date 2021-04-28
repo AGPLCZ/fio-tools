@@ -33,7 +33,7 @@
         }
       },
       "columnBefore": {
-        "title": "Set layout before data load",
+        "title": "Set layout before payments load",
         "subtitle": "Show Column Dialog order dialog every time file is being loaded"
       },
       "saveHeader": {
@@ -69,7 +69,7 @@
     "submitButton": "Save"
   },
   "table": {
-    "noData": "No data available",
+    "noData": "No payments available",
     "header": {
       "account": "Account",
       "amount": "Amount",
@@ -81,8 +81,8 @@
   "home": {
     "filter": {
       "search": "Search",
-      "all": "All Data",
-      "invalid": "Invalid Data"
+      "all": "All payments",
+      "invalid": "Invalid payments"
     },
     "editButton": {
       "toolTip": "Edit selected payments"
@@ -97,7 +97,7 @@
   },
   "navigationDrawer": {
     "loadButton": {
-      "name": "Load data"
+      "name": "Load payments"
     },
     "fileButton": {
       "name": "From file"
@@ -109,12 +109,12 @@
       "name": "From Google sheets"
     },
     "sendButton": {
-      "name": "Send data",
-      "loadingTimerDialog": "Data will send in",
-      "loadingDialog": "Sending data"
+      "name": "Send payments",
+      "loadingTimerDialog": "Payments will send in",
+      "loadingDialog": "Sending payments"
     },
     "saveButton": {
-      "name": "Save data"
+      "name": "Save payments"
     },
     "about": "About app",
     "settings": "Settings"
@@ -146,8 +146,8 @@
     "errorMsg": "Your token is invalid or your internet connection failed"
   },
   "apiDialog": {
-    "loadingTimerDialog": "Data will download in",
-    "loadingDialog": "Downloading data",
+    "loadingTimerDialog": "Payments will download in",
+    "loadingDialog": "Downloading payments",
     "title": "Download data",
     "dateFrom": "Payments from",
     "dateTo": "Payments to",
@@ -157,8 +157,8 @@
     "download": "Download"
   },
   "googleDialog": {
-    "loadingDialog": "Downloading data",
-    "title": "Download data",
+    "loadingDialog": "Downloading payments",
+    "title": "Download payments",
     "url": {
       "name": "Google sheet url",
       "message": "Invalid url",

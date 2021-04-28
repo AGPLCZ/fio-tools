@@ -33,7 +33,7 @@
         }
       },
       "columnBefore": {
-        "title": "Nastavení sloupců před načtení dat",
+        "title": "Nastavení sloupců před načtením plateb",
         "subtitle": "Před každým načtením souboru se program zeptá na pořadí sloupců"
       },
       "saveHeader": {
@@ -69,7 +69,7 @@
     "submitButton": "Uložit"
   },
   "table": {
-    "noData": "Žádná data nejsou k dispozici",
+    "noData": "Žádné platby nejsou k dispozici",
     "header": {
       "account": "Účet",
       "amount": "Částka",
@@ -81,8 +81,8 @@
   "home": {
     "filter": {
       "search": "Vyhledávání",
-      "all": "Všechna data",
-      "invalid": "Neplatná data"
+      "all": "Všechny platby",
+      "invalid": "Neplatné platby"
     },
     "editButton": {
       "toolTip": "Upravit vybrané platby"
@@ -97,7 +97,7 @@
   },
   "navigationDrawer": {
     "loadButton": {
-      "name": "Načíst data"
+      "name": "Načíst platby"
     },
     "fileButton": {
       "name": "Z souboru"
@@ -109,12 +109,12 @@
       "name": "Z Google tabulek"
     },
     "sendButton": {
-      "name": "Odeslat data",
-      "loadingTimerDialog": "Data se odešlou za",
-      "loadingDialog": "Odesílání dat"
+      "name": "Odeslat platby",
+      "loadingTimerDialog": "Platby se odešlou za",
+      "loadingDialog": "Odesílání plateb"
     },
     "saveButton": {
-      "name": "Uložit data"
+      "name": "Uložit platby"
     },
     "about": "O aplikaci",
     "settings": "Nastavení"
@@ -146,9 +146,9 @@
     "errorMsg": "Váš token je neplatný nebo vaše připojení k internetu selhalo"
   },
   "apiDialog": {
-    "loadingTimerDialog": "Data se stáhnou za",
-    "loadingDialog": "Stahování dat",
-    "title": "Stáhnout data",
+    "loadingTimerDialog": "Platby se stáhnou za",
+    "loadingDialog": "Stahování plateb",
+    "title": "Stáhnout platby",
     "dateFrom": "platby od",
     "dateTo": "platby do",
     "account": "Účet",
@@ -157,8 +157,8 @@
     "download": "Stáhnout"
   },
   "googleDialog": {
-    "loadingDialog": "Stahování dat",
-    "title": "Stáhnout data",
+    "loadingDialog": "Stahování plateb",
+    "title": "Stáhnout platby",
     "url": {
       "name": "Tabulky Google url",
       "message": "Neplatná url",
