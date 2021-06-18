@@ -20,3 +20,4 @@ export const AMOUNT_MAX_SIZE = 18;
 export const KS_SIZE = 4;
 export const VS_SIZE = 10;
 export const SS_SIZE = 10;
+export const API_COUNTDOWN = 30;

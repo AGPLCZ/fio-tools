@@ -27,7 +27,7 @@
 <script>
 import Vue from "vue";
 import { ipcRenderer } from "electron";
-import { ERROR_DIALOG } from "../../utils/data/constants";
+import { ERROR_DIALOG, API_COUNTDOWN } from "../../utils/data/constants";
 import { SUCCESS_DIALOG } from "../../utils/data/enums";
 import SuccessDialog from "../dialogs/SuccessDialog";
 import LoadingTimerDialog from "../dialogs/LoadingTimerDialog";
@@ -120,7 +120,7 @@ export default Vue.extend({
           })
           .finally(() => {
             this.loadingDialog = false;
-            this.$store.commit("apiCooldown", 30);
+            this.$store.commit("apiCooldown", API_COUNTDOWN);
           });
       }
     },

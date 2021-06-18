@@ -85,6 +85,7 @@ import {
   FIO_API_PREFIX,
   BIG_DIALOG_SIZE,
   VS_SIZE,
+  API_COUNTDOWN,
 } from "../../utils/data/constants";
 import { SUCCESS_DIALOG } from "../../utils/data/enums";
 import Validator from "../../utils/validators/Validator";
@@ -226,7 +227,7 @@ export default Vue.extend({
             .finally(() => {
               this.loadingDialog = false;
               this.$emit("input");
-              this.$store.commit("apiCooldown", 30);
+              this.$store.commit("apiCooldown", API_COUNTDOWN);
             });
         }
       }

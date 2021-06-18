@@ -1,6 +1,9 @@
 <template>
   <div>
-    <LoadingDialog v-model="loadingDialog" :msg="$t('loginDialog.loadingDialog')" />
+    <LoadingDialog
+      v-model="loadingDialog"
+      :msg="$t('loginDialog.loadingDialog')"
+    />
 
     <v-dialog
       :value="value"
@@ -71,7 +74,7 @@ import {
 } from "../../utils/data/constants";
 import LoadingDialog from "../dialogs/LoadingDialog";
 import { LOGIN_DIALOG } from "../../utils/data/enums";
-import { BIG_DIALOG_SIZE } from "../../utils/data/constants";
+import { BIG_DIALOG_SIZE, API_COUNTDOWN } from "../../utils/data/constants";
 import { getDate } from "../../utils/tools";
 
 export default Vue.extend({
@@ -138,7 +141,7 @@ export default Vue.extend({
 
     /**
      * loading dialog while waiting for responce from API
-     * if token has changed or is not empty calls Get request 
+     * if token has changed or is not empty calls Get request
      * update token, start API timer and close dialog
      * in case of error set error msg
      */
@@ -149,7 +152,7 @@ export default Vue.extend({
           .dispatch("getUser", this.urlAPI)
           .then(() => {
             localStorage.setItem("token", this.token);
-            this.$store.commit("apiCooldownReset", 30);
+            this.$store.commit("apiCooldownReset", API_COUNTDOWN);
             this.closeDialog();
           })
           .catch(() => {
@@ -164,8 +167,8 @@ export default Vue.extend({
     },
 
     /**
-    * Close dialog, erase errorMsg, update token to last valid value
-    */
+     * Close dialog, erase errorMsg, update token to last valid value
+     */
     closeDialog() {
       this.$emit("input");
       this.errorMsg = "";
