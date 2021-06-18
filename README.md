@@ -1,4 +1,4 @@
-# About app
+# FioTool
 Application used for communication with Fio bank's internet banking. 30 seconds must elapse between each request to Fio bank.
 ## Functions:
 * **Load data**
@@ -27,3 +27,41 @@ Saves data to a file. Ability to add file headers (via settings).
 **license:** MIT<br/>
 **repository:** [Github](https://github.com/lopapex/FIO-Tool)<br/>
 **API:** [FIO API](https://www.fio.cz/docs/cz/API_Bankovnictvi.pdf)<br/>
+
+## Project setup
+```
+npm install
+```
+
+### Compiles and hot-reloads for development as web app
+```
+npm run serve
+```
+
+### Compiles and hot-reloads for development as electron app
+```
+npm run electron:serve
+```
+
+### Compiles and minifies for production as web app
+```
+npm run build
+```
+
+### Compiles and minifies for production as electron app for current OS
+```
+npm run electron:build
+```
+
+### Compiles and minifies for production as electron app for given OS (linux, mac ot windows)
+```
+./node_modules/.bin/vue-cli-service electron:build --windows
+```
+
+### Lints and fixes files
+```
+npm run lint
+```
+
+### Customize configuration
+See [Configuration Reference](https://cli.vuejs.org/config/).
